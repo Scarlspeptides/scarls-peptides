@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Scarl’s Peptides — Références pour la recherche</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-in">
+    <a class="brand" href="index.html">
+      <img src="logo.jpg" alt="">
+      <span class="brand-name">Scarl’s Peptides</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html" class="current">Accueil</a>
+      <a href="produits.html">Produits</a>
+      <a href="apropos.html">À propos</a>
+      <a href="livraison.html">Livraison</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="langs">
+      <button class="lang active" data-lang="fr">FR</button>
+      <button class="lang" data-lang="en">EN</button>
+      <button class="lang" data-lang="pt">PT</button>
+      <button class="lang" data-lang="es">ES</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div>
+    <h1 id="heroTitle">Références documentées pour la recherche en peptides</h1>
+    <p class="lede" id="heroLede">Un catalogue organisé par thème — peau, muscle, cognition, métabolisme — pensé pour être consulté rapidement et sans détour marketing.</p>
+    <div class="cta-row">
+      <a class="btn primary" href="produits.html" id="heroCta">Consulter le catalogue</a>
+      <a class="link-quiet" href="apropos.html" id="heroSecondary">À propos de Scarl’s Peptides</a>
+    </div>
+  </div>
+  <div class="specimen">
+    <div class="k" id="specK">Exemple de fiche</div>
+    <dl>
+      <dt id="specRef">Référence</dt><dd>GHK-Cu · 100mg</dd>
+      <dt id="specUse">Usage</dt><dd id="specUseVal">Recherche cutanée &amp; matrice extracellulaire</dd>
+      <dt id="specPrice">Tarif</dt><dd>100 €</dd>
+    </dl>
+  </div>
+</section>
+
+<div class="facts">
+  <div class="fact"><strong id="fact1">Entreprise française</strong><span id="fact1s">Depuis 2025</span></div>
+  <div class="fact"><strong id="fact2">100+ clients</strong><span id="fact2s">livrés et satisfaits</span></div>
+  <div class="fact"><strong id="fact3">7 catégories</strong><span id="fact3s">de recherche</span></div>
+</div>
+
+<div class="toc">
+  <h2 id="tocTitle">Catégories du catalogue</h2>
+  <p class="sub" id="tocSub">Chaque référence est présentée avec son dosage, son domaine de recherche et son tarif.</p>
+  <ol id="tocList"></ol>
+</div>
+
+<footer><div class="footer-in" id="footerText"></div></footer>
+
+<script src="common.js"></script>
+<script>
+const HOME = {
+  fr:{title:'Références documentées pour la recherche en peptides',lede:'Un catalogue organisé par thème — peau, muscle, cognition, métabolisme — pensé pour être consulté rapidement et sans détour marketing.',cta:'Consulter le catalogue',secondary:'À propos de Scarl’s Peptides',specK:'Exemple de fiche',specRef:'Référence',specUse:'Usage',specUseVal:'Recherche cutanée & matrice extracellulaire',specPrice:'Tarif',fact1:'Entreprise française',fact1s:'Depuis 2025',fact2:'100+ clients',fact2s:'livrés et satisfaits',fact3:'7 catégories',fact3s:'de recherche',tocTitle:'Catégories du catalogue',tocSub:'Chaque référence est présentée avec son dosage, son domaine de recherche et son tarif.',
+    cats:[['Peau & régénération',2],['Muscle & récupération',2],['Cognition & système nerveux',2],['Métabolisme & énergie',4],['Longévité & biologie cellulaire',1],['Pigmentation',1],['Autres références',1]]},
+  en:{title:'Documented references for peptide research',lede:'A catalogue organised by theme — skin, muscle, cognition, metabolism — built to be scanned quickly, without marketing detours.',cta:'Browse the catalogue',secondary:'About Scarl’s Peptides',specK:'Sample entry',specRef:'Reference',specUse:'Use',specUseVal:'Skin research & extracellular matrix',specPrice:'Price',fact1:'French company',fact1s:'Since 2025',fact2:'100+ clients',fact2s:'delivered and satisfied',fact3:'7 categories',fact3s:'of research',tocTitle:'Catalogue categories',tocSub:'Each reference lists its dose, research area and price.',
+    cats:[['Skin & regeneration',2],['Muscle & recovery',2],['Cognition & nervous system',2],['Metabolism & energy',4],['Longevity & cell biology',1],['Pigmentation',1],['Other references',1]]},
+  pt:{title:'Referências documentadas para investigação em péptidos',lede:'Um catálogo organizado por tema — pele, músculo, cognição, metabolismo — pensado para ser consultado rapidamente.',cta:'Ver o catálogo',secondary:'Sobre a Scarl’s Peptides',specK:'Exemplo de ficha',specRef:'Referência',specUse:'Uso',specUseVal:'Investigação cutânea e matriz extracelular',specPrice:'Preço',fact1:'Empresa francesa',fact1s:'Desde 2025',fact2:'100+ clientes',fact2s:'atendidos e satisfeitos',fact3:'7 categorias',fact3s:'de investigação',tocTitle:'Categorias do catálogo',tocSub:'Cada referência indica dose, área de investigação e preço.',
+    cats:[['Pele & regeneração',2],['Músculo & recuperação',2],['Cognição & sistema nervoso',2],['Metabolismo & energia',4],['Longevidade & biologia celular',1],['Pigmentação',1],['Outras referências',1]]},
+  es:{title:'Referencias documentadas para la investigación en péptidos',lede:'Un catálogo organizado por tema — piel, músculo, cognición, metabolismo — pensado para consultarse rápido.',cta:'Ver el catálogo',secondary:'Sobre Scarl’s Peptides',specK:'Ejemplo de ficha',specRef:'Referencia',specUse:'Uso',specUseVal:'Investigación cutánea y matriz extracelular',specPrice:'Precio',fact1:'Empresa francesa',fact1s:'Desde 2025',fact2:'100+ clientes',fact2s:'atendidos y satisfechos',fact3:'7 categorías',fact3s:'de investigación',tocTitle:'Categorías del catálogo',tocSub:'Cada referencia indica dosis, área de investigación y precio.',
+    cats:[['Piel & regeneración',2],['Músculo & recuperación',2],['Cognición & sistema nervioso',2],['Metabolismo & energía',4],['Longevidad & biología celular',1],['Pigmentación',1],['Otras referencias',1]]}
+};
+
+function setPageLang(l){
+  const d = HOME[l];
+  document.getElementById('heroTitle').textContent = d.title;
+  document.getElementById('heroLede').textContent = d.lede;
+  document.getElementById('heroCta').textContent = d.cta;
+  document.getElementById('heroSecondary').textContent = d.secondary;
+  document.getElementById('specK').textContent = d.specK;
+  document.getElementById('specRef').textContent = d.specRef;
+  document.getElementById('specUse').textContent = d.specUse;
+  document.getElementById('specUseVal').textContent = d.specUseVal;
+  document.getElementById('specPrice').textContent = d.specPrice;
+  document.getElementById('fact1').textContent = d.fact1;
+  document.getElementById('fact1s').textContent = d.fact1s;
+  document.getElementById('fact2').textContent = d.fact2;
+  document.getElementById('fact2s').textContent = d.fact2s;
+  document.getElementById('fact3').textContent = d.fact3;
+  document.getElementById('fact3s').textContent = d.fact3s;
+  document.getElementById('tocTitle').textContent = d.tocTitle;
+  document.getElementById('tocSub').textContent = d.tocSub;
+  const refWord = {fr:'référence',en:'reference',pt:'referência',es:'referencia'}[l];
+  const refWordP = {fr:'références',en:'references',pt:'referências',es:'referencias'}[l];
+  document.getElementById('tocList').innerHTML = d.cats.map((c,i)=>
+    `<li><a href="produits.html#cat${i}"><span class="num">${String(i+1).padStart(2,'0')}</span><span class="name">${c[0]}</span><span class="count">${c[1]} ${c[1]===1?refWord:refWordP}</span></a></li>`
+  ).join('');
+}
+setPageLang(currentLang());
+</script>
+</body>
+</html>
