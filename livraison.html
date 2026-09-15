@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Livraison — Scarl’s Peptides</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-in">
+    <a class="brand" href="index.html">
+      <img src="logo.png" alt="">
+      <span class="brand-name">Scarl’s Peptides</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Accueil</a>
+      <a href="produits.html">Produits</a>
+      <a href="apropos.html">À propos</a>
+      <a href="livraison.html" class="current">Livraison</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="langs">
+      <button class="lang active" data-lang="fr" aria-label="Français"><span>🇫🇷</span><b>FR</b></button>
+      <button class="lang" data-lang="en" aria-label="English"><span>🇬🇧</span><b>EN</b></button>
+      <button class="lang" data-lang="pt" aria-label="Português"><span>🇵🇹</span><b>PT</b></button>
+      <button class="lang" data-lang="es" aria-label="Español"><span>🇪🇸</span><b>ES</b></button>
+    </div>
+  </div>
+</header>
+
+<div class="page-head">
+  <h1 id="title">Livraison</h1>
+  <p id="intro">Livraison possible en point relais ou à domicile.</p>
+</div>
+
+<main>
+  <div class="plain-list">
+    <div class="row"><h3 id="h0">Point relais</h3><p id="p0">Retrait dans un point relais proche de chez vous.</p></div>
+    <div class="row"><h3 id="h1">Livraison à domicile</h3><p id="p1">Réception directement à votre adresse.</p></div>
+  </div>
+</main>
+
+<footer><div class="footer-in" id="footerText"></div></footer>
+
+<script src="common.js"></script>
+<script>
+const S = {
+  fr:{title:'Livraison',intro:'Livraison possible en point relais ou à domicile.',rows:[['Point relais','Retrait dans un point relais proche de chez vous.'],['Livraison à domicile','Réception directement à votre adresse.']]},
+  en:{title:'Shipping',intro:'Delivery is available to a pickup point or to your home.',rows:[['Pickup point','Collect from a pickup point near you.'],['Home delivery','Received directly at your address.']]},
+  pt:{title:'Entrega',intro:'Entrega possível num ponto de recolha ou ao domicílio.',rows:[['Ponto de recolha','Levantamento num ponto de recolha perto de si.'],['Entrega ao domicílio','Receção diretamente na sua morada.']]},
+  es:{title:'Envío',intro:'Envío disponible a un punto de recogida o a domicilio.',rows:[['Punto de recogida','Recogida en un punto cercano a ti.'],['Entrega a domicilio','Recepción directamente en tu dirección.']]}
+};
+function setPageLang(l){
+  const d = S[l];
+  document.getElementById('title').textContent = d.title;
+  document.getElementById('intro').textContent = d.intro;
+  d.rows.forEach((r,i)=>{
+    document.getElementById('h'+i).textContent = r[0];
+    document.getElementById('p'+i).textContent = r[1];
+  });
+}
+setPageLang(currentLang());
+</script>
+</body>
+</html>

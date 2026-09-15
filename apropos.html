@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>À propos — Scarl’s Peptides</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-in">
+    <a class="brand" href="index.html">
+      <img src="logo.png" alt="">
+      <span class="brand-name">Scarl’s Peptides</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Accueil</a>
+      <a href="produits.html">Produits</a>
+      <a href="apropos.html" class="current">À propos</a>
+      <a href="livraison.html">Livraison</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="langs">
+      <button class="lang active" data-lang="fr" aria-label="Français"><span>🇫🇷</span><b>FR</b></button>
+      <button class="lang" data-lang="en" aria-label="English"><span>🇬🇧</span><b>EN</b></button>
+      <button class="lang" data-lang="pt" aria-label="Português"><span>🇵🇹</span><b>PT</b></button>
+      <button class="lang" data-lang="es" aria-label="Español"><span>🇪🇸</span><b>ES</b></button>
+    </div>
+  </div>
+</header>
+
+<div class="page-head">
+  <h1 id="title">À propos</h1>
+</div>
+
+<main>
+  <div class="plain-list">
+    <div class="row"><h3 id="h0">Entreprise française</h3><p id="p0">Une identité et une présence pensées pour le marché français.</p></div>
+    <div class="row"><h3 id="h1">Depuis 2025</h3><p id="p1">Une présence développée depuis 2025.</p></div>
+    <div class="row"><h3 id="h2">100+ clients</h3><p id="p2">Plus de 100 clients livrés et satisfaits.</p></div>
+  </div>
+</main>
+
+<footer><div class="footer-in" id="footerText"></div></footer>
+
+<script src="common.js"></script>
+<script>
+const A = {
+  fr:{title:'À propos',rows:[['Entreprise française','Une identité et une présence pensées pour le marché français.'],['Depuis 2025','Une présence développée depuis 2025.'],['100+ clients','Plus de 100 clients livrés et satisfaits.']]},
+  en:{title:'About',rows:[['French company','An identity and presence designed for the French market.'],['Since 2025','A presence developed since 2025.'],['100+ clients','More than 100 clients delivered to and satisfied.']]},
+  pt:{title:'Sobre',rows:[['Empresa francesa','Uma identidade e presença pensadas para o mercado francês.'],['Desde 2025','Uma presença desenvolvida desde 2025.'],['100+ clientes','Mais de 100 clientes atendidos e satisfeitos.']]},
+  es:{title:'Sobre nosotros',rows:[['Empresa francesa','Una identidad y presencia pensadas para el mercado francés.'],['Desde 2025','Una presencia desarrollada desde 2025.'],['100+ clientes','Más de 100 clientes atendidos y satisfechos.']]}
+};
+function setPageLang(l){
+  const d = A[l];
+  document.getElementById('title').textContent = d.title;
+  d.rows.forEach((r,i)=>{
+    document.getElementById('h'+i).textContent = r[0];
+    document.getElementById('p'+i).textContent = r[1];
+  });
+}
+setPageLang(currentLang());
+</script>
+</body>
+</html>
