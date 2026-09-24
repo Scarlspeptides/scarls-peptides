@@ -108,15 +108,21 @@ function renderCatalogue(lang) {
 function renderProduct(product, lang) {
   const [name, dose, use, price] = product;
   const selected = selection.some(item => item.name === name);
-  return `<article class="product-card" id="${productId(name)}" data-name="${name}" data-dose="${dose}" data-price="${price}"><div class="product-image" data-badge="${CATALOGUE_COPY[lang].badge}"><img src="${IMAGE_MAP[name]}" alt="${name}" loading="lazy"></div><div class="product-content"><h3 class="product-name"><span>${name}</span><span class="product-dose">${dose}</span></h3><p class="product-use">${use}</p><div class="product-bottom"><span class="price">${price}</span><button class="add ${selected ? 'selected' : ''}" type="button" onclick="addSelection(this)">${selected ? SELECTION_COPY[lang].added : SELECTION_COPY[lang].add}</button></div></div></article>`;
+  return `<article class="product-card" id="${productId(name)}" data-name="${name}" data-dose="${dose}" data-price="${price}"><div class="product-image" data-badge="${CATALOGUE_COPY[lang].badge}"><img src="${IMAGE_MAP[name]}" alt="${name}" loading="lazy"></div><div class="product-content"><h3 class="product-name"><span>${name}</span><span class="product-dose">${dose}</span></h3><p class="product-use">${use}</p><div class="product-bottom"><span class="price">${price}</span><div class="product-action"><div class="card-quantity" role="group" aria-label="${name} — ${lang === 'fr' ? 'quantité' : lang === 'en' ? 'quantity' : lang === 'pt' ? 'quantidade' : 'cantidad'}"><button type="button" aria-label="${SELECTION_COPY[lang].decrease}" onclick="changePendingQty(this, -1)">−</button><output aria-live="polite">1</output><button type="button" aria-label="${SELECTION_COPY[lang].increase}" onclick="changePendingQty(this, 1)">+</button></div><button class="add ${selected ? 'selected' : ''}" type="button" onclick="addSelection(this)">${selected ? SELECTION_COPY[lang].added : SELECTION_COPY[lang].add}</button></div></div></div></article>`;
+}
+
+function changePendingQty(button, change) {
+  const output = button.parentElement.querySelector('output');
+  output.textContent = Math.max(1, Math.min(99, Number(output.textContent) + change));
 }
 
 function addSelection(button) {
   const card = button.closest('.product-card');
   const item = {name: card.dataset.name, dose: card.dataset.dose, price: card.dataset.price};
+  const quantity = Number(card.querySelector('.card-quantity output').textContent);
   const current = selection.find(entry => entry.name === item.name);
-  if (current) current.qty = (current.qty || 1) + 1;
-  else selection.push({...item, qty: 1});
+  if (current) current.qty = (current.qty || 1) + quantity;
+  else selection.push({...item, qty: quantity});
   saveSelection();
   renderCatalogue(pageLanguage());
   renderSelection();
