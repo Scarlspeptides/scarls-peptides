@@ -1,3 +1,12 @@
+// The notice is a separate entry page; a session acknowledgement allows navigation.
+try {
+  if (sessionStorage.getItem('scarlAgeAcknowledgedV1') !== 'yes' && !location.pathname.endsWith('/avertissement.html')) {
+    location.replace('avertissement.html');
+  }
+} catch {
+  if (!location.pathname.endsWith('/avertissement.html')) location.replace('avertissement.html');
+}
+
 const NAV = {
   fr: ['Accueil', 'Catalogue', 'À propos', 'Livraison', 'FAQ', 'Contact'],
   en: ['Home', 'Catalogue', 'About', 'Shipping', 'FAQ', 'Contact'],
@@ -156,5 +165,4 @@ document.addEventListener('DOMContentLoaded', () => {
   installMobileNav();
   document.querySelectorAll('.lang').forEach((button) => button.addEventListener('click', () => applyNav(button.dataset.lang)));
   applyNav(currentLang());
-  installAgeGate();
 });
