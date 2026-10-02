@@ -6,7 +6,7 @@ const CATALOGUE = {
     ['Métabolisme & énergie', [['Retatrutide', '10mg', 'Recherche métabolique', '150 €'], ['MOTS-C', '10mg', 'Recherche métabolisme & énergie cellulaire', '70 €'], ['NAD+', '100mg', 'Recherche en biologie cellulaire', '70 €'], ['L-Carnitine', '1200mg', 'Recherche métabolisme énergétique', '60 €']]],
     ['Longévité & biologie cellulaire', [['Epitalon', '10mg', 'Recherche vieillissement cellulaire', '50 €']]],
     ['Pigmentation', [['Melanotan I', '10mg', 'Recherche sur la pigmentation', '60 €']]],
-    ['Autres références', [['Glutathion', '600mg', 'Recherche sur les systèmes antioxydants', '65 €']]]
+    ['Autres références', [['DSIP', '5mg', 'Recherche en neurobiologie du sommeil', '50 €'], ['Glutathion', '600mg', 'Recherche sur les systèmes antioxydants', '65 €']]]
   ],
   en: [
     ['Skin & regeneration', [['GHK-Cu', '100mg', 'Skin research & extracellular matrix', '€100'], ['KLOW', '80mg', 'Research into regeneration mechanisms', '€150']]],
@@ -15,7 +15,7 @@ const CATALOGUE = {
     ['Metabolism & energy', [['Retatrutide', '10mg', 'Metabolic research', '€150'], ['MOTS-C', '10mg', 'Metabolism & cellular energy research', '€70'], ['NAD+', '100mg', 'Cell biology research', '€70'], ['L-Carnitine', '1200mg', 'Energy metabolism research', '€60']]],
     ['Longevity & cell biology', [['Epitalon', '10mg', 'Cellular ageing research', '€50']]],
     ['Pigmentation', [['Melanotan I', '10mg', 'Pigmentation research', '€60']]],
-    ['Other references', [['Glutathion', '600mg', 'Research on antioxidant systems', '€65']]]
+    ['Other references', [['DSIP', '5mg', 'Sleep neurobiology research', '€50'], ['Glutathion', '600mg', 'Research on antioxidant systems', '€65']]]
   ],
   pt: [
     ['Pele & regeneração', [['GHK-Cu', '100mg', 'Investigação cutânea e matriz extracelular', '€100'], ['KLOW', '80mg', 'Investigação dos mecanismos de regeneração', '€150']]],
@@ -24,7 +24,7 @@ const CATALOGUE = {
     ['Metabolismo & energia', [['Retatrutide', '10mg', 'Investigação metabólica', '€150'], ['MOTS-C', '10mg', 'Investigação do metabolismo e energia celular', '€70'], ['NAD+', '100mg', 'Investigação em biologia celular', '€70'], ['L-Carnitine', '1200mg', 'Investigação do metabolismo energético', '€60']]],
     ['Longevidade & biologia celular', [['Epitalon', '10mg', 'Investigação do envelhecimento celular', '€50']]],
     ['Pigmentação', [['Melanotan I', '10mg', 'Investigação sobre pigmentação', '€60']]],
-    ['Outras referências', [['Glutathion', '600mg', 'Investigação dos sistemas antioxidantes', '€65']]]
+    ['Outras referências', [['DSIP', '5mg', 'Investigação em neurobiologia do sono', '€50'], ['Glutathion', '600mg', 'Investigação dos sistemas antioxidantes', '€65']]]
   ],
   es: [
     ['Piel & regeneración', [['GHK-Cu', '100mg', 'Investigación cutánea y matriz extracelular', '€100'], ['KLOW', '80mg', 'Investigación de los mecanismos de regeneración', '€150']]],
@@ -33,17 +33,17 @@ const CATALOGUE = {
     ['Metabolismo & energía', [['Retatrutide', '10mg', 'Investigación metabólica', '€150'], ['MOTS-C', '10mg', 'Investigación del metabolismo y energía celular', '€70'], ['NAD+', '100mg', 'Investigación en biología celular', '€70'], ['L-Carnitine', '1200mg', 'Investigación del metabolismo energético', '€60']]],
     ['Longevidad & biología celular', [['Epitalon', '10mg', 'Investigación del envejecimiento celular', '€50']]],
     ['Pigmentación', [['Melanotan I', '10mg', 'Investigación sobre pigmentación', '€60']]],
-    ['Otras referencias', [['Glutathion', '600mg', 'Investigación sobre los sistemas antioxidantes', '€65']]]
+    ['Otras referencias', [['DSIP', '5mg', 'Investigación en neurobiología del sueño', '€50'], ['Glutathion', '600mg', 'Investigación sobre los sistemas antioxidantes', '€65']]]
   ]
 };
 
-const IMAGE_MAP = {'GHK-Cu':'ghk-cu-clean.png','KLOW':'klow-clean.png','CJC no DAC + Ipamorelin':'cjc-no-dac-ipamorelin-clean.png','Semax':'semax-clean.png','Selank':'selank-clean.png','Retatrutide':'retatrutide-clean.png','MOTS-C':'mots-c-clean.png','NAD+':'nad-clean-v2.png','L-Carnitine':'l-carnitine-clean.png','Epitalon':'epitalon-clean.png','Melanotan I':'melanotan-i-clean.png','Glutathion':'glutathion-clean.png'};
+const IMAGE_MAP = {'GHK-Cu':'ghk-cu-clean.png','KLOW':'klow-clean.png','CJC no DAC + Ipamorelin':'cjc-no-dac-ipamorelin-clean.png','Semax':'semax-clean.png','Selank':'selank-clean.png','Retatrutide':'retatrutide-clean.png','MOTS-C':'mots-c-clean.png','NAD+':'nad-clean-v2.png','L-Carnitine':'l-carnitine-clean.png','Epitalon':'epitalon-clean.png','Melanotan I':'melanotan-i-clean.png','Glutathion':'glutathion-clean.png','DSIP':'dsip-clean.png'};
 
 const CATALOGUE_COPY = {
-  fr: {head:['Scarl’s Peptides / 12 références','Le catalogue.','Parcourez les références par domaine de recherche. Ajoutez votre sélection pour préparer une demande d’information.'], all:'Tout voir', one:'référence', count:'références', filterLabel:'Filtrer le catalogue', badge:'Recherche', notice:'Important : les références présentées sont destinées à la recherche uniquement. Elles ne sont pas destinées à l’utilisation chez l’être humain ou l’animal.'},
-  en: {head:['Scarl’s Peptides / 12 references','The catalogue.','Browse references by research area. Build your selection to prepare an information request.'], all:'View all', one:'reference', count:'references', filterLabel:'Filter catalogue', badge:'Research', notice:'Important: the listed references are intended for research use only. They are not intended for use in humans or animals.'},
-  pt: {head:['Scarl’s Peptides / 12 referências','O catálogo.','Explore as referências por área de investigação. Prepare a sua seleção para um pedido de informação.'], all:'Ver tudo', one:'referência', count:'referências', filterLabel:'Filtrar catálogo', badge:'Investigação', notice:'Importante: as referências apresentadas destinam-se apenas à investigação. Não se destinam a utilização em seres humanos ou animais.'},
-  es: {head:['Scarl’s Peptides / 12 referencias','El catálogo.','Explora las referencias por área de investigación. Prepara tu selección para solicitar información.'], all:'Ver todo', one:'referencia', count:'referencias', filterLabel:'Filtrar catálogo', badge:'Investigación', notice:'Importante: las referencias presentadas están destinadas únicamente a la investigación. No están destinadas al uso en humanos o animales.'}
+  fr: {head:['Scarl’s Peptides / 13 références','Le catalogue.','Parcourez les références par domaine de recherche. Ajoutez votre sélection pour préparer une demande d’information.'], all:'Tout voir', one:'référence', count:'références', filterLabel:'Filtrer le catalogue', badge:'Recherche', notice:'Important : les références présentées sont destinées à la recherche uniquement. Elles ne sont pas destinées à l’utilisation chez l’être humain ou l’animal.'},
+  en: {head:['Scarl’s Peptides / 13 references','The catalogue.','Browse references by research area. Build your selection to prepare an information request.'], all:'View all', one:'reference', count:'references', filterLabel:'Filter catalogue', badge:'Research', notice:'Important: the listed references are intended for research use only. They are not intended for use in humans or animals.'},
+  pt: {head:['Scarl’s Peptides / 13 referências','O catálogo.','Explore as referências por área de investigação. Prepare a sua seleção para um pedido de informação.'], all:'Ver tudo', one:'referência', count:'referências', filterLabel:'Filtrar catálogo', badge:'Investigação', notice:'Importante: as referências apresentadas destinam-se apenas à investigação. Não se destinam a utilização em seres humanos ou animais.'},
+  es: {head:['Scarl’s Peptides / 13 referencias','El catálogo.','Explora las referencias por área de investigación. Prepara tu selección para solicitar información.'], all:'Ver todo', one:'referencia', count:'referencias', filterLabel:'Filtrar catálogo', badge:'Investigación', notice:'Importante: las referencias presentadas están destinadas únicamente a la investigación. No están destinadas al uso en humanos o animales.'}
 };
 
 const SELECTION_COPY = {
