@@ -1,0 +1,5 @@
+name = "scarls-admin-api"
+main = "worker.mjs"
+compatibility_date = "2026-10-02"
+workers_dev = true
+# GITHUB_TOKEN and ADMIN_API_TOKEN must be stored as encrypted Worker secrets.
