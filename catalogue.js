@@ -53,6 +53,34 @@ const SELECTION_COPY = {
   es: {title:'Mi selección informativa',one:'referencia',many:'referencias',add:'Añadir',added:'Añadido',copy:'Copiar',download:'Descargar',wa:'Solicitar información',clear:'Vaciar',increase:'Añadir una unidad',decrease:'Retirar una unidad',remove:'Retirar esta referencia',note:'Solo selección informativa: no se realiza ningún pedido ni pago desde esta página.',copied:'Referencias copiadas.'}
 };
 
+let STOCK = {};
+const STOCK_COPY = {
+  fr:{in:'En stock',low:'Stock faible',out:'Rupture de stock'},
+  en:{in:'In stock',low:'Low stock',out:'Out of stock'},
+  pt:{in:'Em stock',low:'Stock baixo',out:'Sem stock'},
+  es:{in:'En stock',low:'Stock bajo',out:'Agotado'}
+};
+async function loadStock(){
+  try {
+    const response = await fetch('stock.json?v=' + Date.now(), {cache:'no-store'});
+    if(response.ok) STOCK = await response.json();
+  } catch {}
+  renderCatalogue(pageLanguage());
+}
+function stockMarkup(name, lang){
+  const qty = Number(STOCK[name]);
+  if(!Number.isFinite(qty)) return '';
+  const copy=STOCK_COPY[lang] || STOCK_COPY.fr;
+  const state=qty<=0?'out':qty<=3?'low':'in';
+  const label=state==='out'?copy.out:state==='low'?copy.low:copy.in;
+  return `<span class="stock-badge stock-${state}" title="${qty} disponible(s)">${label} · ${qty}</span>`;
+}
+(function(){
+  const s=document.createElement('style');
+  s.textContent='.stock-badge{display:inline-flex;align-items:center;gap:.35rem;margin:.45rem 0 .15rem;padding:.32rem .58rem;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.02em}.stock-in{background:rgba(38,185,120,.12);color:#65d8a3;border:1px solid rgba(101,216,163,.28)}.stock-low{background:rgba(236,174,55,.12);color:#f0c46b;border:1px solid rgba(240,196,107,.28)}.stock-out{background:rgba(220,80,95,.12);color:#ef8b97;border:1px solid rgba(239,139,151,.28)}';
+  document.head.appendChild(s);
+})();
+
 let selection = [];
 try { const saved = JSON.parse(localStorage.getItem('scarlSelection') || '[]'); if (Array.isArray(saved)) selection = saved.filter(item => item && IMAGE_MAP[item.name] && (item.qty === undefined || (Number.isFinite(item.qty) && item.qty > 0))); } catch {}
 let activeFilter = 0;
@@ -108,7 +136,7 @@ function renderCatalogue(lang) {
 function renderProduct(product, lang) {
   const [name, dose, use, price] = product;
   const selected = selection.some(item => item.name === name);
-  return `<article class="product-card" id="${productId(name)}" data-name="${name}" data-dose="${dose}" data-price="${price}"><div class="product-image" data-badge="${CATALOGUE_COPY[lang].badge}"><img src="${IMAGE_MAP[name]}" alt="${name}" loading="lazy"></div><div class="product-content"><h3 class="product-name"><span>${name}</span><span class="product-dose">${dose}</span></h3><p class="product-use">${use}</p><div class="product-bottom"><span class="price">${price}</span><div class="product-action"><div class="card-quantity" role="group" aria-label="${name} — ${lang === 'fr' ? 'quantité' : lang === 'en' ? 'quantity' : lang === 'pt' ? 'quantidade' : 'cantidad'}"><button type="button" aria-label="${SELECTION_COPY[lang].decrease}" onclick="changePendingQty(this, -1)">−</button><output aria-live="polite">1</output><button type="button" aria-label="${SELECTION_COPY[lang].increase}" onclick="changePendingQty(this, 1)">+</button></div><button class="add ${selected ? 'selected' : ''}" type="button" onclick="addSelection(this)">${selected ? SELECTION_COPY[lang].added : SELECTION_COPY[lang].add}</button></div></div></div></article>`;
+  return `<article class="product-card" id="${productId(name)}" data-name="${name}" data-dose="${dose}" data-price="${price}"><div class="product-image" data-badge="${CATALOGUE_COPY[lang].badge}"><img src="${IMAGE_MAP[name]}" alt="${name}" loading="lazy"></div><div class="product-content"><h3 class="product-name"><span>${name}</span><span class="product-dose">${dose}</span></h3><p class="product-use">${use}</p>${stockMarkup(name, lang)}<div class="product-bottom"><span class="price">${price}</span><div class="product-action"><div class="card-quantity" role="group" aria-label="${name} — ${lang === 'fr' ? 'quantité' : lang === 'en' ? 'quantity' : lang === 'pt' ? 'quantidade' : 'cantidad'}"><button type="button" aria-label="${SELECTION_COPY[lang].decrease}" onclick="changePendingQty(this, -1)">−</button><output aria-live="polite">1</output><button type="button" aria-label="${SELECTION_COPY[lang].increase}" onclick="changePendingQty(this, 1)">+</button></div><button class="add ${selected ? 'selected' : ''}" type="button" onclick="addSelection(this)">${selected ? SELECTION_COPY[lang].added : SELECTION_COPY[lang].add}</button></div></div></div></article>`;
 }
 
 function changePendingQty(button, change) {
@@ -147,3 +175,5 @@ async function copySelection() { if (!selection.length) return; try { await navi
 function downloadSelection() { if (!selection.length) return; const file = new Blob([selectionText()], {type:'text/plain;charset=utf-8'}); const link = document.createElement('a'); link.href = URL.createObjectURL(file); link.download = 'scarls-selection-informative.txt'; link.click(); URL.revokeObjectURL(link.href); }
 function sendInfoWhatsApp() { if (!selection.length) return; const lang = pageLanguage(); const text = `${selectionText()}\n\n${lang === 'fr' ? 'Je souhaite obtenir des informations complémentaires sur ces références.' : lang === 'en' ? 'I would like more information about these references.' : lang === 'pt' ? 'Gostaria de obter mais informações sobre estas referências.' : 'Me gustaría obtener más información sobre estas referencias.'}`; window.open(`https://wa.me/33664694830?text=${encodeURIComponent(text)}`, '_blank', 'noopener'); }
 function showToast(message) { const toast = document.getElementById('toast'); toast.textContent = message; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2200); }
+
+loadStock();
