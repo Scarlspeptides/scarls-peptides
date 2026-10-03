@@ -225,6 +225,10 @@ function addSelection(button) {
 }
 
 function saveSelection() { try { localStorage.setItem('scarlSelection', JSON.stringify(selection)); } catch {} }
+function shippingProductSubtotal() {
+ if (!stockReady || !selectionAllowed()) return null;
+ return selection.reduce((sum,item) => sum + Math.round(Number(item.price.replace(/[^0-9.,]/g, '').replace(',', '.')) * 100) * item.qty, 0);
+}
 function renderSelection() {
   const lang = pageLanguage();
   const copy = SELECTION_COPY[lang];
@@ -235,6 +239,7 @@ function renderSelection() {
   document.getElementById('selItems').innerHTML = selection.map((item, index) => `<span class="chip">${item.name} · ${item.dose} × ${item.qty || 1}<button type="button" aria-label="${copy.increase}" onclick="changeQty(${index}, 1)" ${remainingQuantity(item.name) < 1 ? 'disabled' : ''}>＋</button><button type="button" aria-label="${copy.decrease}" onclick="changeQty(${index}, -1)">−</button><button type="button" aria-label="${copy.remove}" onclick="removeSelection(${index})">×</button></span>`).join('');
   ['copyBtn','downloadBtn','waBtn'].forEach(id => document.getElementById(id).disabled = !selectionAllowed());
   [['copyBtn','copy'],['downloadBtn','download'],['waBtn','wa'],['clearBtn','clear'],['selNote','note']].forEach(([id, key]) => document.getElementById(id).textContent = copy[key]);
+  window.ScarlsShipping?.refresh();
 }
 function changeQty(index, change) {
  const item = selection[index];
@@ -246,7 +251,7 @@ function changeQty(index, change) {
 }
 function removeSelection(index) { selection.splice(index, 1); saveSelection(); renderCatalogue(pageLanguage()); renderSelection(); }
 function clearSelection() { selection = []; saveSelection(); renderCatalogue(pageLanguage()); renderSelection(); }
-function selectionText() { const lang = pageLanguage(); return `${SELECTION_COPY[lang].title}\n\n${selection.map(item => `• ${item.name} — ${item.dose} — ${item.price} × ${item.qty || 1}`).join('\n')}`; }
+function selectionText() { const lang = pageLanguage(); return `${SELECTION_COPY[lang].title}\n\n${selection.map(item => `• ${item.name} — ${item.dose} — ${item.price} × ${item.qty || 1}`).join('\n')}${window.ScarlsShipping?.summary() || ''}`; }
 async function copySelection() { if (!selection.length || !await prepareSelection()) return; try { await navigator.clipboard.writeText(selectionText()); showToast(SELECTION_COPY[pageLanguage()].copied); } catch (error) { showToast(selectionText()); } }
 async function downloadSelection() { if (!selection.length || !await prepareSelection()) return; const file = new Blob([selectionText()], {type:'text/plain;charset=utf-8'}); const link = document.createElement('a'); link.href = URL.createObjectURL(file); link.download = 'scarls-selection-informative.txt'; link.click(); URL.revokeObjectURL(link.href); }
 async function sendInfoWhatsApp() { if (!selection.length || !await prepareSelection()) return; const lang = pageLanguage(); const text = `${selectionText()}\n\n${lang === 'fr' ? 'Je souhaite obtenir des informations complémentaires sur ces références.' : lang === 'en' ? 'I would like more information about these references.' : lang === 'pt' ? 'Gostaria de obter mais informações sobre estas referências.' : 'Me gustaría obtener más información sobre estas referencias.'}`; window.location.href = `https://wa.me/33664694830?text=${encodeURIComponent(text)}`; }
@@ -255,4 +260,5 @@ function showToast(message) { const toast = document.getElementById('toast'); to
 loadStock();
 setInterval(() => { if (!document.hidden) loadStock(); }, 60000);
 window.addEventListener('focus', () => loadStock());
+
 
