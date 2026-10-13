@@ -224,3 +224,73 @@ body.age-gate-open { overflow: hidden; }
 .product-image::before { background: linear-gradient(#080f1622, #080f1600); }
 .product-image img { padding-bottom: 30px; }
 .page-hero { border-bottom: 1px solid var(--line); margin-bottom: 24px; }
+
+
+/* Mobile navigation, reading and selection. */
+html { -webkit-text-size-adjust:100%; }
+button, a, input, select, summary { touch-action:manipulation; }
+input, select, textarea { font:inherit; }
+.main-nav { max-height:calc(100dvh - 74px); overflow-y:auto; }
+.group-heading h2, .detail-row h3, .display-title { overflow-wrap:break-word; }
+.group-heading { flex-wrap:wrap; }
+.contact-method > div { min-width:0; }
+.contact-method a { overflow-wrap:anywhere; }
+.selection { bottom:max(10px,env(safe-area-inset-bottom)); }
+#selectionDetails { max-height:65vh; max-height:65dvh; overflow-y:auto; overscroll-behavior:contain; scrollbar-gutter:stable; padding-right:4px; }
+.shipping-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+#shipping-estimator { padding:18px 0; border-top:1px solid var(--line-strong); text-align:left; }
+#shipping-estimator h3 { margin:0 0 8px; font-size:17px; }
+#shipping-estimator p { margin:10px 0; font-size:13px; }
+#shipping-estimator label>span { display:block; font-size:13px; margin-bottom:6px; }
+#shipping-estimator input:not([type=checkbox]), #shipping-estimator select { width:100%; min-width:0; min-height:46px; padding:10px; border:1px solid var(--line-strong); border-radius:3px; background:var(--bg); color:var(--ink); font-size:16px; color-scheme:dark; }
+#shipping-estimator .shipping-check { display:flex; align-items:flex-start; gap:10px; margin:16px 0; cursor:pointer; }
+#shipping-estimator .shipping-check input { width:20px; height:20px; flex-shrink:0; margin:1px 0 0; accent-color:var(--mint); }
+#shipping-estimator .shipping-check span { margin:0; }
+#shipping-estimator summary { min-height:44px; padding-block:10px; cursor:pointer; font-size:13px; }
+#shipping-estimator .shipping-note { font-size:12px; color:var(--muted); line-height:1.65; }
+#shipping-estimator a { display:inline-block; padding-block:10px; color:var(--blue); font-size:13px; }
+#shipping-result, #shipping-total { font-weight:600; overflow-wrap:anywhere; }
+@media(max-width:760px) {
+ .header-in { gap:8px; padding:10px 16px; }
+ .brand-logo { width:58px; height:46px; }
+ .langs { gap:1px; } .lang { width:32px; height:44px; font-size:10px; }
+ .menu-toggle { flex-shrink:0; width:44px; height:44px; }
+ .filter { min-height:44px; font-size:12px; }
+ .lead, .detail-row p, .faq-answer p, .contact-card p { font-size:15px; line-height:1.75; }
+ .detail-row { grid-template-columns:32px minmax(0,1fr); gap:12px; }
+ .product-use { font-size:13px; }
+ .product-dose { font-size:12px; }
+ .price { font-size:17px; }
+ .price-reduced del { font-size:13px; }
+ .product-action { flex-wrap:wrap; }
+ .card-quantity { height:46px; }
+ .card-quantity button { width:44px; height:44px; }
+ .card-quantity output { min-width:24px; font-size:14px; }
+ .add { min-height:46px; font-size:13px; }
+ .sel-top { min-height:44px; gap:8px; }
+ .sel-title { font-size:13px; } .sel-count { font-size:11px; }
+ .sel-btn { min-height:46px; font-size:12px; }
+ .chip { font-size:12px; } .chip button { min-width:36px; min-height:40px; }
+ .sel-note { font-size:12px; }
+ .toast { top:84px; right:16px; max-width:calc(100% - 32px); }
+ .footer-in { padding-bottom:calc(24px + env(safe-area-inset-bottom)); font-size:12px; }
+}
+@media(max-width:480px) {
+ .product-grid { grid-template-columns:minmax(0,1fr); }
+ .product-image { height:290px; }
+ .product-name { display:flex; font-size:23px; }
+ .product-dose { margin-top:0; }
+ .product-bottom { flex-direction:row; align-items:center; }
+ .product-action { flex:1 1 180px; justify-content:flex-end; width:auto; }
+ .shipping-grid { grid-template-columns:minmax(0,1fr); }
+ .selection { width:calc(100% - 20px); }
+ .contact-method { gap:12px; }
+ .contact-method a { font-size:24px; }
+}
+
+.product-image-pending { position:relative; display:flex; height:100%; align-items:center; justify-content:center; flex-direction:column; gap:8px; background:#080f1680; }
+.product-image-pending strong { font-size:38px; font-weight:500; color:var(--ink); }
+.product-image-pending span { font:14px 'DM Mono',monospace; color:var(--blue); }
+.product-image-pending small { margin-top:18px; font-size:12px; color:var(--muted); }
+
+.faq-answer[hidden] { display:none; }

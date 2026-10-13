@@ -162,3 +162,17 @@
  .hero-baseline a { gap:10px; }
 }
 @media (max-width:380px) { .vial-scene { height:345px; } .home-page .catalogue-announcement a { width:100%; } }
+
+
+@media(max-width:760px) {
+ .hero-description { font-size:15px; line-height:1.7; }
+ .hero-footnote, .scene-hint { font-size:11px; }
+ .scene-product > span { font-size:12px; }
+ .scene-controls { grid-template-columns:44px minmax(0,1fr) 44px; }
+ .scene-arrow { width:44px; height:44px; }
+ .vial-choice, .motion-toggle { min-height:44px; font-size:12px; }
+ .hero-baseline { flex-wrap:wrap; font-size:11px; }
+ .reference p, .research-note p { font-size:13px; }
+ .reference-name > span { font-size:12px; }
+ .correspondence p:not(.eyebrow) { font-size:15px; }
+}

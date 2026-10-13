@@ -37,7 +37,7 @@ const CATALOGUE = {
   ]
 };
 
-const IMAGE_MAP = {'GHK-Cu':'ghk-cu-clean.png','KLOW':'klow-clean.png','CJC no DAC + Ipamorelin':'cjc-no-dac-ipamorelin-clean.png','Semax':'semax-clean.png','Selank':'selank-clean.png','Retatrutide':'retatrutide-clean.png','MOTS-C':'mots-c-clean.png','NAD+':'nad-clean-v2.png','L-Carnitine':'l-carnitine-clean.png','Epitalon':'epitalon-clean.png','Melanotan I':'melanotan-i-clean.png','Glutathion':'glutathion-clean.png','DSIP':'dsip-clean.png'};
+const IMAGE_MAP = {'GHK-Cu':'ghk-cu-clean.png','KLOW':'klow-clean.png','CJC no DAC + Ipamorelin':'cjc-no-dac-ipamorelin-clean.png','Semax':'semax-clean.png','Selank':'selank-clean.png','Retatrutide':'retatrutide-clean.png','MOTS-C':'mots-c-clean.png','NAD+':'nad-clean-v2.png','L-Carnitine':'l-carnitine-clean.png','Epitalon':'epitalon-clean.png','Melanotan I':'melanotan-i-clean.png','Glutathion':'glutathion-clean.png'};
 
 const CATALOGUE_COPY = {
   fr: {head:['Scarl’s Peptides / 13 références','Le catalogue.','Parcourez les références par domaine de recherche. Ajoutez votre sélection pour préparer une demande d’information.'], all:'Tout voir', one:'référence', count:'références', filterLabel:'Filtrer le catalogue', badge:'Recherche', notice:'Important : les références présentées sont destinées à la recherche uniquement. Elles ne sont pas destinées à l’utilisation chez l’être humain ou l’animal.'},
@@ -191,11 +191,14 @@ function renderProduct(product, lang) {
   const [name, dose, use, price, previousPrice] = product;
   const priceLabels = {fr:['Ancien prix','Nouveau prix'],en:['Previous price','New price'],pt:['Preço anterior','Novo preço'],es:['Precio anterior','Nuevo precio']}[lang];
   const priceMarkup = previousPrice ? `<span class="price price-reduced"><del aria-label="${priceLabels[0]}">${previousPrice}</del><span aria-label="${priceLabels[1]}">${price}</span></span>` : `<span class="price">${price}</span>`;
+  const imageMarkup = IMAGE_MAP[name]
+    ? `<img src="${IMAGE_MAP[name]}" alt="${name}" loading="lazy" decoding="async">`
+    : `<div class="product-image-pending"><strong>${name}</strong><span>${dose}</span><small>${{fr:'Visuel à venir',en:'Image coming soon',pt:'Imagem em breve',es:'Imagen próximamente'}[lang]}</small></div>`;
   const selected = selection.some(item => item.name === name);
   const remaining = remainingQuantity(name);
   const disabled = remaining < 1;
   const addLabel = disabled ? stockQuantity(name) === 0 ? STOCK_COPY[lang].out : stockQuantity(name) === null ? LIMIT_COPY[lang].unknown : LIMIT_COPY[lang].limit : selected ? SELECTION_COPY[lang].added : SELECTION_COPY[lang].add;
-  return `<article class="product-card" id="${productId(name)}" data-name="${name}" data-dose="${dose}" data-price="${price}"><div class="product-image" data-badge="${CATALOGUE_COPY[lang].badge}"><img src="${IMAGE_MAP[name]}" alt="${name}" loading="lazy" decoding="async"></div><div class="product-content"><h3 class="product-name"><span>${name}</span><span class="product-dose">${dose}</span></h3><p class="product-use">${use}</p>${stockMarkup(name, lang)}<div class="product-bottom">${priceMarkup}<div class="product-action"><div class="card-quantity" role="group" aria-label="${name} — ${lang === 'fr' ? 'quantité' : lang === 'en' ? 'quantity' : lang === 'pt' ? 'quantidade' : 'cantidad'}"><button type="button" aria-label="${SELECTION_COPY[lang].decrease}" onclick="changePendingQty(this, -1)" disabled>−</button><output aria-live="polite">${disabled ? 0 : 1}</output><button type="button" aria-label="${SELECTION_COPY[lang].increase}" onclick="changePendingQty(this, 1)" ${remaining <= 1 ? 'disabled' : ''}>+</button></div><button class="add ${selected ? 'selected' : ''}" type="button" aria-label="${addLabel} — ${name} · ${dose}" onclick="addSelection(this)" ${disabled ? 'disabled' : ''}>${addLabel}</button></div></div></div></article>`;
+  return `<article class="product-card" id="${productId(name)}" data-name="${name}" data-dose="${dose}" data-price="${price}"><div class="product-image" data-badge="${CATALOGUE_COPY[lang].badge}">${imageMarkup}</div><div class="product-content"><h3 class="product-name"><span>${name}</span><span class="product-dose">${dose}</span></h3><p class="product-use">${use}</p>${stockMarkup(name, lang)}<div class="product-bottom">${priceMarkup}<div class="product-action"><div class="card-quantity" role="group" aria-label="${name} — ${lang === 'fr' ? 'quantité' : lang === 'en' ? 'quantity' : lang === 'pt' ? 'quantidade' : 'cantidad'}"><button type="button" aria-label="${SELECTION_COPY[lang].decrease}" onclick="changePendingQty(this, -1)" disabled>−</button><output aria-live="polite">${disabled ? 0 : 1}</output><button type="button" aria-label="${SELECTION_COPY[lang].increase}" onclick="changePendingQty(this, 1)" ${remaining <= 1 ? 'disabled' : ''}>+</button></div><button class="add ${selected ? 'selected' : ''}" type="button" aria-label="${addLabel} — ${name} · ${dose}" onclick="addSelection(this)" ${disabled ? 'disabled' : ''}>${addLabel}</button></div></div></div></article>`;
 }
 
 function changePendingQty(button, change) {
@@ -258,6 +261,7 @@ function showToast(message) { const toast = document.getElementById('toast'); to
 loadStock();
 setInterval(() => { if (!document.hidden) loadStock(); }, 60000);
 window.addEventListener('focus', () => loadStock());
+
 
 
 
