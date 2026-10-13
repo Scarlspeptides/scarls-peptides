@@ -104,3 +104,53 @@
   .vial-choice, .motion-toggle { min-height: 44px; }
   .scene-link { width: 44px; height: 44px; }
 }
+
+/* Homepage accents and prominent price announcement. */
+.home-page { --blue: #79ccff; }
+.home-page .catalogue-announcement {
+  padding: clamp(24px, 4vw, 48px);
+  gap: 28px;
+  border: 1px solid #56c7b980;
+  border-left: 5px solid #7aefd0;
+  background: #102d30;
+}
+.home-page .catalogue-announcement > div { min-width: 0; }
+.home-page .catalogue-announcement strong {
+  max-width: 850px;
+  color: #a0ffdf;
+  font-size: clamp(36px, 5.5vw, 72px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -.045em;
+}
+.home-page .catalogue-announcement p {
+  max-width: 640px;
+  margin-top: 18px;
+  color: #d0e9e5;
+  font-size: clamp(14px, 1.5vw, 17px);
+}
+.home-page .catalogue-announcement a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 13px 20px;
+  border-radius: 3px;
+  background: #a0ffdf;
+  color: #102726;
+  font-size: 13px;
+  text-decoration: none;
+}
+.home-page .catalogue-announcement a:hover { background: #c4ffec; }
+.home-page .collection-hero { background: radial-gradient(ellipse at 77% 42%, #246fa53b, transparent 60%); }
+.home-page .hero-copy h1 em { color: #79ccff; }
+.home-page .hero-copy .button { background: #79ccff; border-color: #79ccff; color: #091a27; }
+.home-page .hero-copy .button:hover { background: #a5dfff; }
+.home-page .scene-orbit { border-color: #67cfff65; }
+.home-page .reference-photo { background: #102a31; }
+.home-page .reference:nth-child(2) .reference-photo { background: #152942; }
+.home-page .reference:nth-child(3) .reference-photo { background: #26233c; }
+.home-page .reference:hover .reference-photo { background: #203b49; }
+@media (max-width: 900px) {
+  .home-page .catalogue-announcement { align-items: flex-start; flex-direction: column; }
+}
