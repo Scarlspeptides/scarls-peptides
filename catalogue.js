@@ -1,39 +1,39 @@
 const CATALOGUE = {
   fr: [
-    ['Peau & régénération', [['GHK-Cu', '100mg', 'Recherche cutanée & matrice extracellulaire', '100 €'], ['KLOW', '80mg', 'Recherche sur les mécanismes de régénération', '150 €']]],
-    ['Muscle & récupération', [['CJC no DAC + Ipamorelin', '10mg', 'Recherche sur les mécanismes de croissance', '100 €']]],
-    ['Cognition & système nerveux', [['Semax', '5mg', 'Recherche en neurobiologie & cognition', '50 €'], ['Selank', '5mg', 'Recherche en neurobiologie & stress', '50 €']]],
-    ['Métabolisme & énergie', [['Retatrutide', '10mg', 'Recherche métabolique', '150 €'], ['MOTS-C', '10mg', 'Recherche métabolisme & énergie cellulaire', '70 €'], ['NAD+', '100mg', 'Recherche en biologie cellulaire', '70 €'], ['L-Carnitine', '1200mg', 'Recherche métabolisme énergétique', '60 €']]],
-    ['Longévité & biologie cellulaire', [['Epitalon', '10mg', 'Recherche vieillissement cellulaire', '50 €']]],
-    ['Pigmentation', [['Melanotan I', '10mg', 'Recherche sur la pigmentation', '60 €']]],
-    ['Autres références', [['DSIP', '5mg', 'Recherche en neurobiologie du sommeil', '50 €'], ['Glutathion', '600mg', 'Recherche sur les systèmes antioxydants', '65 €']]]
+    ['Peau & régénération', [['GHK-Cu', '100mg', 'Recherche cutanée & matrice extracellulaire', '70 €', '100 €'], ['KLOW', '80mg', 'Recherche sur les mécanismes de régénération', '150 €']]],
+    ['Muscle & récupération', [['CJC no DAC + Ipamorelin', '10mg', 'Recherche sur les mécanismes de croissance', '70 €', '100 €']]],
+    ['Cognition & système nerveux', [['Semax', '5mg', 'Recherche en neurobiologie & cognition', '40 €', '50 €'], ['Selank', '5mg', 'Recherche en neurobiologie & stress', '40 €', '50 €']]],
+    ['Métabolisme & énergie', [['Retatrutide', '10mg', 'Recherche métabolique', '150 €'], ['MOTS-C', '10mg', 'Recherche métabolisme & énergie cellulaire', '50 €', '70 €'], ['NAD+', '100mg', 'Recherche en biologie cellulaire', '40 €', '70 €'], ['L-Carnitine', '1200mg', 'Recherche métabolisme énergétique', '40 €', '60 €']]],
+    ['Longévité & biologie cellulaire', [['Epitalon', '10mg', 'Recherche vieillissement cellulaire', '40 €', '50 €']]],
+    ['Pigmentation', [['Melanotan I', '10mg', 'Recherche sur la pigmentation', '50 €', '60 €']]],
+    ['Autres références', [['DSIP', '5mg', 'Recherche en neurobiologie du sommeil', '40 €', '50 €'], ['Glutathion', '600mg', 'Recherche sur les systèmes antioxydants', '50 €', '65 €']]]
   ],
   en: [
-    ['Skin & regeneration', [['GHK-Cu', '100mg', 'Skin research & extracellular matrix', '€100'], ['KLOW', '80mg', 'Research into regeneration mechanisms', '€150']]],
-    ['Muscle & recovery', [['CJC no DAC + Ipamorelin', '10mg', 'Research into growth mechanisms', '€100']]],
-    ['Cognition & nervous system', [['Semax', '5mg', 'Neurobiology & cognition research', '€50'], ['Selank', '5mg', 'Neurobiology & stress research', '€50']]],
-    ['Metabolism & energy', [['Retatrutide', '10mg', 'Metabolic research', '€150'], ['MOTS-C', '10mg', 'Metabolism & cellular energy research', '€70'], ['NAD+', '100mg', 'Cell biology research', '€70'], ['L-Carnitine', '1200mg', 'Energy metabolism research', '€60']]],
-    ['Longevity & cell biology', [['Epitalon', '10mg', 'Cellular ageing research', '€50']]],
-    ['Pigmentation', [['Melanotan I', '10mg', 'Pigmentation research', '€60']]],
-    ['Other references', [['DSIP', '5mg', 'Sleep neurobiology research', '€50'], ['Glutathion', '600mg', 'Research on antioxidant systems', '€65']]]
+    ['Skin & regeneration', [['GHK-Cu', '100mg', 'Skin research & extracellular matrix', '€70', '€100'], ['KLOW', '80mg', 'Research into regeneration mechanisms', '€150']]],
+    ['Muscle & recovery', [['CJC no DAC + Ipamorelin', '10mg', 'Research into growth mechanisms', '€70', '€100']]],
+    ['Cognition & nervous system', [['Semax', '5mg', 'Neurobiology & cognition research', '€40', '€50'], ['Selank', '5mg', 'Neurobiology & stress research', '€40', '€50']]],
+    ['Metabolism & energy', [['Retatrutide', '10mg', 'Metabolic research', '€150'], ['MOTS-C', '10mg', 'Metabolism & cellular energy research', '€50', '€70'], ['NAD+', '100mg', 'Cell biology research', '€40', '€70'], ['L-Carnitine', '1200mg', 'Energy metabolism research', '€40', '€60']]],
+    ['Longevity & cell biology', [['Epitalon', '10mg', 'Cellular ageing research', '€40', '€50']]],
+    ['Pigmentation', [['Melanotan I', '10mg', 'Pigmentation research', '€50', '€60']]],
+    ['Other references', [['DSIP', '5mg', 'Sleep neurobiology research', '€40', '€50'], ['Glutathion', '600mg', 'Research on antioxidant systems', '€50', '€65']]]
   ],
   pt: [
-    ['Pele & regeneração', [['GHK-Cu', '100mg', 'Investigação cutânea e matriz extracelular', '€100'], ['KLOW', '80mg', 'Investigação dos mecanismos de regeneração', '€150']]],
-    ['Músculo & recuperação', [['CJC no DAC + Ipamorelin', '10mg', 'Investigação dos mecanismos de crescimento', '€100']]],
-    ['Cognição & sistema nervoso', [['Semax', '5mg', 'Investigação em neurobiologia e cognição', '€50'], ['Selank', '5mg', 'Investigação em neurobiologia e stress', '€50']]],
-    ['Metabolismo & energia', [['Retatrutide', '10mg', 'Investigação metabólica', '€150'], ['MOTS-C', '10mg', 'Investigação do metabolismo e energia celular', '€70'], ['NAD+', '100mg', 'Investigação em biologia celular', '€70'], ['L-Carnitine', '1200mg', 'Investigação do metabolismo energético', '€60']]],
-    ['Longevidade & biologia celular', [['Epitalon', '10mg', 'Investigação do envelhecimento celular', '€50']]],
-    ['Pigmentação', [['Melanotan I', '10mg', 'Investigação sobre pigmentação', '€60']]],
-    ['Outras referências', [['DSIP', '5mg', 'Investigação em neurobiologia do sono', '€50'], ['Glutathion', '600mg', 'Investigação dos sistemas antioxidantes', '€65']]]
+    ['Pele & regeneração', [['GHK-Cu', '100mg', 'Investigação cutânea e matriz extracelular', '€70', '€100'], ['KLOW', '80mg', 'Investigação dos mecanismos de regeneração', '€150']]],
+    ['Músculo & recuperação', [['CJC no DAC + Ipamorelin', '10mg', 'Investigação dos mecanismos de crescimento', '€70', '€100']]],
+    ['Cognição & sistema nervoso', [['Semax', '5mg', 'Investigação em neurobiologia e cognição', '€40', '€50'], ['Selank', '5mg', 'Investigação em neurobiologia e stress', '€40', '€50']]],
+    ['Metabolismo & energia', [['Retatrutide', '10mg', 'Investigação metabólica', '€150'], ['MOTS-C', '10mg', 'Investigação do metabolismo e energia celular', '€50', '€70'], ['NAD+', '100mg', 'Investigação em biologia celular', '€40', '€70'], ['L-Carnitine', '1200mg', 'Investigação do metabolismo energético', '€40', '€60']]],
+    ['Longevidade & biologia celular', [['Epitalon', '10mg', 'Investigação do envelhecimento celular', '€40', '€50']]],
+    ['Pigmentação', [['Melanotan I', '10mg', 'Investigação sobre pigmentação', '€50', '€60']]],
+    ['Outras referências', [['DSIP', '5mg', 'Investigação em neurobiologia do sono', '€40', '€50'], ['Glutathion', '600mg', 'Investigação dos sistemas antioxidantes', '€50', '€65']]]
   ],
   es: [
-    ['Piel & regeneración', [['GHK-Cu', '100mg', 'Investigación cutánea y matriz extracelular', '€100'], ['KLOW', '80mg', 'Investigación de los mecanismos de regeneración', '€150']]],
-    ['Músculo & recuperación', [['CJC no DAC + Ipamorelin', '10mg', 'Investigación de los mecanismos de crecimiento', '€100']]],
-    ['Cognición & sistema nervioso', [['Semax', '5mg', 'Investigación en neurobiología y cognición', '€50'], ['Selank', '5mg', 'Investigación en neurobiología y estrés', '€50']]],
-    ['Metabolismo & energía', [['Retatrutide', '10mg', 'Investigación metabólica', '€150'], ['MOTS-C', '10mg', 'Investigación del metabolismo y energía celular', '€70'], ['NAD+', '100mg', 'Investigación en biología celular', '€70'], ['L-Carnitine', '1200mg', 'Investigación del metabolismo energético', '€60']]],
-    ['Longevidad & biología celular', [['Epitalon', '10mg', 'Investigación del envejecimiento celular', '€50']]],
-    ['Pigmentación', [['Melanotan I', '10mg', 'Investigación sobre pigmentación', '€60']]],
-    ['Otras referencias', [['DSIP', '5mg', 'Investigación en neurobiología del sueño', '€50'], ['Glutathion', '600mg', 'Investigación sobre los sistemas antioxidantes', '€65']]]
+    ['Piel & regeneración', [['GHK-Cu', '100mg', 'Investigación cutánea y matriz extracelular', '€70', '€100'], ['KLOW', '80mg', 'Investigación de los mecanismos de regeneración', '€150']]],
+    ['Músculo & recuperación', [['CJC no DAC + Ipamorelin', '10mg', 'Investigación de los mecanismos de crecimiento', '€70', '€100']]],
+    ['Cognición & sistema nervioso', [['Semax', '5mg', 'Investigación en neurobiología y cognición', '€40', '€50'], ['Selank', '5mg', 'Investigación en neurobiología y estrés', '€40', '€50']]],
+    ['Metabolismo & energía', [['Retatrutide', '10mg', 'Investigación metabólica', '€150'], ['MOTS-C', '10mg', 'Investigación del metabolismo y energía celular', '€50', '€70'], ['NAD+', '100mg', 'Investigación en biología celular', '€40', '€70'], ['L-Carnitine', '1200mg', 'Investigación del metabolismo energético', '€40', '€60']]],
+    ['Longevidad & biología celular', [['Epitalon', '10mg', 'Investigación del envejecimiento celular', '€40', '€50']]],
+    ['Pigmentación', [['Melanotan I', '10mg', 'Investigación sobre pigmentación', '€50', '€60']]],
+    ['Otras referencias', [['DSIP', '5mg', 'Investigación en neurobiología del sueño', '€40', '€50'], ['Glutathion', '600mg', 'Investigación sobre los sistemas antioxidantes', '€50', '€65']]]
   ]
 };
 
@@ -192,12 +192,14 @@ function renderCatalogue(lang) {
 }
 
 function renderProduct(product, lang) {
-  const [name, dose, use, price] = product;
+  const [name, dose, use, price, previousPrice] = product;
+  const priceLabels = {fr:['Ancien prix','Nouveau prix'],en:['Previous price','New price'],pt:['Preço anterior','Novo preço'],es:['Precio anterior','Nuevo precio']}[lang];
+  const priceMarkup = previousPrice ? `<span class="price price-reduced"><del aria-label="${priceLabels[0]}">${previousPrice}</del><span aria-label="${priceLabels[1]}">${price}</span></span>` : `<span class="price">${price}</span>`;
   const selected = selection.some(item => item.name === name);
   const remaining = remainingQuantity(name);
   const disabled = remaining < 1;
   const addLabel = disabled ? stockQuantity(name) === 0 ? STOCK_COPY[lang].out : stockQuantity(name) === null ? LIMIT_COPY[lang].unknown : LIMIT_COPY[lang].limit : selected ? SELECTION_COPY[lang].added : SELECTION_COPY[lang].add;
-  return `<article class="product-card" id="${productId(name)}" data-name="${name}" data-dose="${dose}" data-price="${price}"><div class="product-image" data-badge="${CATALOGUE_COPY[lang].badge}"><img src="${IMAGE_MAP[name]}" alt="${name}" loading="lazy"></div><div class="product-content"><h3 class="product-name"><span>${name}</span><span class="product-dose">${dose}</span></h3><p class="product-use">${use}</p>${stockMarkup(name, lang)}<div class="product-bottom"><span class="price">${price}</span><div class="product-action"><div class="card-quantity" role="group" aria-label="${name} — ${lang === 'fr' ? 'quantité' : lang === 'en' ? 'quantity' : lang === 'pt' ? 'quantidade' : 'cantidad'}"><button type="button" aria-label="${SELECTION_COPY[lang].decrease}" onclick="changePendingQty(this, -1)" disabled>−</button><output aria-live="polite">${disabled ? 0 : 1}</output><button type="button" aria-label="${SELECTION_COPY[lang].increase}" onclick="changePendingQty(this, 1)" ${remaining <= 1 ? 'disabled' : ''}>+</button></div><button class="add ${selected ? 'selected' : ''}" type="button" onclick="addSelection(this)" ${disabled ? 'disabled' : ''}>${addLabel}</button></div></div></div></article>`;
+  return `<article class="product-card" id="${productId(name)}" data-name="${name}" data-dose="${dose}" data-price="${price}"><div class="product-image" data-badge="${CATALOGUE_COPY[lang].badge}"><img src="${IMAGE_MAP[name]}" alt="${name}" loading="lazy"></div><div class="product-content"><h3 class="product-name"><span>${name}</span><span class="product-dose">${dose}</span></h3><p class="product-use">${use}</p>${stockMarkup(name, lang)}<div class="product-bottom">${priceMarkup}<div class="product-action"><div class="card-quantity" role="group" aria-label="${name} — ${lang === 'fr' ? 'quantité' : lang === 'en' ? 'quantity' : lang === 'pt' ? 'quantidade' : 'cantidad'}"><button type="button" aria-label="${SELECTION_COPY[lang].decrease}" onclick="changePendingQty(this, -1)" disabled>−</button><output aria-live="polite">${disabled ? 0 : 1}</output><button type="button" aria-label="${SELECTION_COPY[lang].increase}" onclick="changePendingQty(this, 1)" ${remaining <= 1 ? 'disabled' : ''}>+</button></div><button class="add ${selected ? 'selected' : ''}" type="button" onclick="addSelection(this)" ${disabled ? 'disabled' : ''}>${addLabel}</button></div></div></div></article>`;
 }
 
 function changePendingQty(button, change) {
