@@ -120,11 +120,7 @@ function stockMarkup(name, lang){
   const label=state==='out'?copy.out:state==='low'?copy.low:copy.in;
   return `<span class="stock-badge stock-${state}" title="${qty} disponible(s)">${label} · ${qty}</span>`;
 }
-(function(){
-  const s=document.createElement('style');
-  s.textContent='.product-card button:disabled,.selection button:disabled{opacity:.45;cursor:not-allowed}.stock-badge{display:inline-flex;align-items:center;gap:.35rem;margin:.45rem 0 .15rem;padding:.32rem .58rem;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.02em}.stock-in{background:rgba(38,185,120,.12);color:#65d8a3;border:1px solid rgba(101,216,163,.28)}.stock-low{background:rgba(236,174,55,.12);color:#f0c46b;border:1px solid rgba(240,196,107,.28)}.stock-out{background:rgba(220,80,95,.12);color:#ef8b97;border:1px solid rgba(239,139,151,.28)}';
-  document.head.appendChild(s);
-})();
+
 
 let selection = [];
 try { const saved = JSON.parse(localStorage.getItem('scarlSelection') || '[]'); if (Array.isArray(saved)) {
@@ -199,7 +195,7 @@ function renderProduct(product, lang) {
   const remaining = remainingQuantity(name);
   const disabled = remaining < 1;
   const addLabel = disabled ? stockQuantity(name) === 0 ? STOCK_COPY[lang].out : stockQuantity(name) === null ? LIMIT_COPY[lang].unknown : LIMIT_COPY[lang].limit : selected ? SELECTION_COPY[lang].added : SELECTION_COPY[lang].add;
-  return `<article class="product-card" id="${productId(name)}" data-name="${name}" data-dose="${dose}" data-price="${price}"><div class="product-image" data-badge="${CATALOGUE_COPY[lang].badge}"><img src="${IMAGE_MAP[name]}" alt="${name}" loading="lazy"></div><div class="product-content"><h3 class="product-name"><span>${name}</span><span class="product-dose">${dose}</span></h3><p class="product-use">${use}</p>${stockMarkup(name, lang)}<div class="product-bottom">${priceMarkup}<div class="product-action"><div class="card-quantity" role="group" aria-label="${name} — ${lang === 'fr' ? 'quantité' : lang === 'en' ? 'quantity' : lang === 'pt' ? 'quantidade' : 'cantidad'}"><button type="button" aria-label="${SELECTION_COPY[lang].decrease}" onclick="changePendingQty(this, -1)" disabled>−</button><output aria-live="polite">${disabled ? 0 : 1}</output><button type="button" aria-label="${SELECTION_COPY[lang].increase}" onclick="changePendingQty(this, 1)" ${remaining <= 1 ? 'disabled' : ''}>+</button></div><button class="add ${selected ? 'selected' : ''}" type="button" onclick="addSelection(this)" ${disabled ? 'disabled' : ''}>${addLabel}</button></div></div></div></article>`;
+  return `<article class="product-card" id="${productId(name)}" data-name="${name}" data-dose="${dose}" data-price="${price}"><div class="product-image" data-badge="${CATALOGUE_COPY[lang].badge}"><img src="${IMAGE_MAP[name]}" alt="${name}" loading="lazy" decoding="async"></div><div class="product-content"><h3 class="product-name"><span>${name}</span><span class="product-dose">${dose}</span></h3><p class="product-use">${use}</p>${stockMarkup(name, lang)}<div class="product-bottom">${priceMarkup}<div class="product-action"><div class="card-quantity" role="group" aria-label="${name} — ${lang === 'fr' ? 'quantité' : lang === 'en' ? 'quantity' : lang === 'pt' ? 'quantidade' : 'cantidad'}"><button type="button" aria-label="${SELECTION_COPY[lang].decrease}" onclick="changePendingQty(this, -1)" disabled>−</button><output aria-live="polite">${disabled ? 0 : 1}</output><button type="button" aria-label="${SELECTION_COPY[lang].increase}" onclick="changePendingQty(this, 1)" ${remaining <= 1 ? 'disabled' : ''}>+</button></div><button class="add ${selected ? 'selected' : ''}" type="button" aria-label="${addLabel} — ${name} · ${dose}" onclick="addSelection(this)" ${disabled ? 'disabled' : ''}>${addLabel}</button></div></div></div></article>`;
 }
 
 function changePendingQty(button, change) {
@@ -262,5 +258,6 @@ function showToast(message) { const toast = document.getElementById('toast'); to
 loadStock();
 setInterval(() => { if (!document.hidden) loadStock(); }, 60000);
 window.addEventListener('focus', () => loadStock());
+
 
 

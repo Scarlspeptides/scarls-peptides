@@ -89,26 +89,26 @@ a { color: inherit; }
 .product-name { display: flex; align-items: start; justify-content: space-between; gap: 15px; margin: 0; font-size: 22px; font-weight: 500; letter-spacing: -.035em; line-height: 1.3; }
 .product-dose { flex: 0 0 auto; padding-top: 5px; color: var(--muted); font: 10px "DM Mono", monospace; letter-spacing: 0; }
 .product-use { flex: 1; margin: 10px 0 20px; color: var(--muted-2); font-size: 12px; line-height: 1.65; }
-.product-bottom { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-top: 1px solid var(--line); padding-top: 13px; }
-.product-action { display: inline-flex; align-items: center; gap: 8px; }
-.card-quantity { display: inline-flex; align-items: center; height: 39px; border: 1px solid var(--line-strong); }
+.product-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; border-top: 1px solid var(--line); padding-top: 13px; }
+.product-action { display: inline-flex; flex-wrap: wrap; min-width: 0; align-items: center; gap: 8px; }
+.card-quantity { flex-shrink: 0; display: inline-flex; align-items: center; height: 39px; border: 1px solid var(--line-strong); }
 .card-quantity button { width: 27px; height: 37px; padding: 0; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
 .card-quantity button:hover { background: var(--surface-strong); }
 .card-quantity output { min-width: 18px; color: var(--ink); font: 11px 'DM Mono', monospace; text-align: center; }
-.price { font: 14px "DM Mono", monospace; }
+.price { font-variant-numeric: tabular-nums; font: 14px "DM Mono", monospace; }
 .add { min-height: 39px; padding: 8px 14px; border: 1px solid var(--line-strong); border-radius: 2px; background: transparent; color: var(--ink); font-size: 10px; cursor: pointer; }
 .add:hover, .add.selected { border-color: var(--ink); background: var(--ink); color: var(--bg); }
 .notice { margin-top: 40px; }
 .selection { position: sticky; z-index: 40; bottom: 16px; display: none; width: min(830px, calc(100% - 40px)); margin: 0 auto 28px; padding: 18px; border: 1px solid var(--line-strong); border-radius: 3px; background: #1c2023fa; box-shadow: 0 15px 55px #0008; }
 .selection.show { display: block; }
-.sel-top { display: flex; align-items: center; justify-content: space-between; gap: 14px; width: 100%; min-height: 30px; padding: 0; border: 0; background: none; color: var(--ink); text-align: left; cursor: pointer; }
+.sel-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; width: 100%; min-height: 30px; padding: 0; border: 0; background: none; color: var(--ink); text-align: left; cursor: pointer; }
 .sel-count { margin-left: auto; }
 .sel-chevron { transition: transform .2s ease; }
 .sel-top[aria-expanded="true"] .sel-chevron { transform: rotate(180deg); }
 .sel-title { font-size: 12px; font-weight: 600; }
 .sel-count { color: var(--muted); font: 10px "DM Mono", monospace; }
 .sel-items { display: flex; flex-wrap: wrap; gap: 7px; margin: 13px 0; max-height: 120px; overflow-y: auto; }
-.chip { display: inline-flex; align-items: center; gap: 7px; padding: 6px 9px; border: 1px solid var(--line); color: var(--ink); font-size: 10px; }
+.chip { max-width: 100%; overflow-wrap: anywhere; display: inline-flex; align-items: center; gap: 7px; padding: 6px 9px; border: 1px solid var(--line); color: var(--ink); font-size: 10px; }
 .chip button { min-width: 24px; min-height: 28px; padding: 0; border: 0; background: none; color: var(--muted); cursor: pointer; }
 .sel-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .sel-btn { min-height: 38px; padding: 8px 12px; border: 1px solid var(--ink); border-radius: 2px; background: var(--ink); color: var(--bg); font-size: 10px; font-weight: 600; cursor: pointer; }
@@ -173,7 +173,7 @@ body.age-gate-open { overflow: hidden; }
   .product-grid { gap: 30px 16px; } .product-image { height: 230px; }
   .product-image img { padding: 17px 5px; } .product-image::after { right: 10px; bottom: 10px; font-size: 7px; }
   .product-name { display: block; font-size: 20px; } .product-dose { display: block; margin-top: 4px; }
-  .product-use { font-size: 11px; } .product-bottom { align-items: flex-start; flex-direction: column; gap: 10px; } .product-action { width: 100%; } .product-action .add { flex: 1; } .price { font-size: 12px; } .add { padding: 8px 10px; }
+  .product-use { font-size: 11px; } .product-bottom { align-items: flex-start; flex-direction: column; gap: 10px; } .product-action { width: 100%; } .product-action .add { flex: 1 1 76px; min-width: 0; } .price { font-size: 12px; } .add { padding: 8px 10px; }
   .selection { width: calc(100% - 24px); bottom: 10px; padding: 14px; } .sel-btn { flex: 1 1 40%; }
   .sel-items { max-height: 96px; } .chip { flex-wrap: wrap; }
   .faq-trigger span:first-child { font-size: 17px; } .faq-answer p { font-size: 13px; }
@@ -189,9 +189,24 @@ body.age-gate-open { overflow: hidden; }
 /* Catalogue price update and restock announcement. */
 .price-reduced{display:flex;flex-direction:column;align-items:flex-start;gap:4px;white-space:nowrap}
 .price-reduced del{font-size:.72em;font-weight:400;color:var(--muted);text-decoration-thickness:1px}
-.price-reduced>span{color:#65d8a3}
-.catalogue-announcement{margin-top:24px;padding:22px 26px;border:1px solid rgba(101,216,163,.32);border-radius:var(--radius);background:linear-gradient(115deg,rgba(101,216,163,.1),rgba(167,191,221,.06));display:flex;align-items:center;justify-content:space-between;gap:20px}
+.price-reduced>span{color:var(--ink)}
+.catalogue-announcement{margin-top:24px;padding:22px 26px;border:1px solid var(--line-strong);border-radius:var(--radius);background:var(--bg-soft);display:flex;align-items:center;justify-content:space-between;gap:20px}
 .catalogue-announcement strong{display:block;color:var(--ink);font-size:clamp(1.1rem,2.2vw,1.5rem)}
 .catalogue-announcement p{margin:8px 0 0;color:var(--muted);line-height:1.6}
-.catalogue-announcement a{flex-shrink:0;color:#65d8a3;font-weight:600;text-underline-offset:4px}
+.catalogue-announcement a{flex-shrink:0;color:var(--blue);font-weight:600;text-underline-offset:4px}
 @media(max-width:600px){.catalogue-announcement{align-items:flex-start;flex-direction:column;padding:20px;gap:14px}}
+
+
+/* Stock state belongs to the catalogue stylesheet, not a generated style tag. */
+.product-card button:disabled,.selection button:disabled{opacity:.45;cursor:not-allowed}
+.stock-badge{display:inline-flex;align-items:center;gap:.35rem;margin:.45rem 0 .15rem;padding:.32rem .58rem;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.02em}
+.stock-in{background:rgba(38,185,120,.12);color:#65d8a3;border:1px solid rgba(101,216,163,.28)}
+.stock-low{background:rgba(236,174,55,.12);color:#f0c46b;border:1px solid rgba(240,196,107,.28)}
+.stock-out{background:rgba(220,80,95,.12);color:#ef8b97;border:1px solid rgba(239,139,151,.28)}
+
+@media (pointer: coarse) {
+  .card-quantity { height: 44px; }
+  .card-quantity button { width: 36px; height: 42px; }
+  .add, .filter, .sel-btn, .sel-top { min-height: 44px; }
+  .chip button { min-width: 36px; min-height: 36px; }
+}
