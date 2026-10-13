@@ -105,52 +105,60 @@
   .scene-link { width: 44px; height: 44px; }
 }
 
-/* Homepage accents and prominent price announcement. */
-.home-page { --blue: #79ccff; }
-.home-page .catalogue-announcement {
-  padding: clamp(24px, 4vw, 48px);
-  gap: 28px;
-  border: 1px solid #56c7b980;
-  border-left: 5px solid #7aefd0;
-  background: #102d30;
+/* Approved stone-and-mint art direction. */
+.home-page .catalogue-announcement { display:block; width:100%; margin:0; padding:0; border:0; border-radius:0; background:var(--mint); color:#07151b; }
+.announcement-inner { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,.8fr) auto; align-items:center; gap:32px; padding-block:30px; }
+.home-page .catalogue-announcement strong { color:inherit; font-size:clamp(32px,4.2vw,62px); font-weight:700; letter-spacing:-.05em; line-height:1.08; }
+.home-page .catalogue-announcement p { margin:0; padding-left:30px; border-left:1px solid #153d3c66; color:inherit; font-size:clamp(15px,1.5vw,21px); line-height:1.4; }
+.home-page .catalogue-announcement a { display:flex; gap:20px; align-items:center; justify-content:space-between; min-height:44px; padding:8px 0; border-bottom:1px solid #123b3b; color:inherit; font-size:12px; font-weight:500; text-decoration:none; }
+.collection-hero { background:#080f16; }
+.collection-layout { position:relative; grid-template-columns:1.03fr 1fr; gap:0; min-height:660px; padding-top:36px; padding-bottom:20px; }
+.hero-copy { position:relative; z-index:2; padding-bottom:0; }
+.hero-copy h1 { font-size:clamp(48px,5.4vw,78px); font-weight:700; letter-spacing:-.055em; line-height:1.02; }
+.hero-copy h1 em { max-width:530px; color:var(--blue); font-weight:650; letter-spacing:-.05em; }
+.hero-description { max-width:440px; margin:28px 0; font-size:15px; }
+.hero-copy .eyebrow { margin-bottom:24px; }
+.hero-copy .button { border-radius:0; padding:16px 24px; }
+.hero-footnote { margin-top:20px; }
+.vial-experience { align-self:stretch; padding-top:8px; }
+.vial-scene { isolation:isolate; height:480px; }
+.vial-scene::before { content:""; position:absolute; z-index:-2; inset:-20px -100px -50px -150px; background:url("scarls-stone.jpg") center / cover; mask-image:linear-gradient(to right,transparent,#000 25%,#000 85%,transparent); pointer-events:none; }
+.scene-word,.scene-light,.scene-orbit,.scene-shadow,.scene-reflection,.scene-side { display:none; }
+.scene-heading { position:relative; z-index:2; }
+.scene-scroll { z-index:2; inset:-66px 1% -45px -32%; }
+.scene-image { filter:drop-shadow(8px 12px 12px #0008); }
+.scene-float { animation:none; }
+.companion-vial { position:absolute; z-index:1; right:-15%; top:-3%; width:90%; height:96%; object-fit:contain; filter:brightness(.88) drop-shadow(8px 10px 9px #0008); pointer-events:none; }
+.scene-caption { gap:16px; padding-top:10px; }
+.scene-product { gap:6px 16px; }
+.scene-product strong { font-size:20px; }
+.scene-controls { padding-top:10px; }
+.hero-baseline { padding-block:18px; border-color:#83cff255; }
+.reference-section { padding-block:50px 70px; }
+.reference-photo,.reference:nth-child(2) .reference-photo,.reference:nth-child(3) .reference-photo { background:#10202c url("scarls-stone.jpg") center 65% / cover; border:1px solid #83cff230; }
+.reference:hover .reference-photo,.reference:focus-visible .reference-photo { background-color:#163341; }
+.reference-photo img { padding-bottom:35px; }
+.correspondence { background:#0c1c26; }
+@media (max-width:1100px) { .announcement-inner { gap:22px; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); } .home-page .catalogue-announcement a { grid-column:2; justify-self:start; } .home-page .catalogue-announcement strong { grid-row:1 / 3; } .home-page .catalogue-announcement p { padding:0; border:0; } .hero-copy h1 { font-size:54px; } }
+@media (max-width:760px) {
+ .announcement-inner { display:flex; flex-wrap:wrap; gap:14px 24px; padding-block:24px; }
+ .home-page .catalogue-announcement strong { flex-basis:100%; font-size:clamp(34px,8.5vw,56px); }
+ .home-page .catalogue-announcement p { flex:1 1 170px; font-size:15px; }
+ .home-page .catalogue-announcement a { font-size:12px; }
+ .collection-layout { display:flex; min-height:0; padding-top:34px; }
+ .hero-copy { display:contents; }
+ .hero-copy h1 { font-size:clamp(43px,9.6vw,64px); }
+ .hero-description { margin:20px 0; font-size:14px; }
+ .hero-copy .button { padding:13px 20px; }
+ .vial-experience { margin-top:30px; }
+ .vial-scene { height:400px; max-width:500px; }
+ .vial-scene::before { inset:-20px -20px -25px; mask-image:linear-gradient(to bottom,transparent,#000 15%,#000); }
+ .scene-scroll { inset:-45px 4% -30px -26%; }
+ .companion-vial { right:-12%; height:90%; top:1%; }
+ .scene-caption { padding-top:8px; }
+ .scene-product { display:block; }
+ .scene-product strong { font-size:19px; }
+ .hero-baseline { align-items:flex-start; gap:18px; }
+ .hero-baseline a { gap:10px; }
 }
-.home-page .catalogue-announcement > div { min-width: 0; }
-.home-page .catalogue-announcement strong {
-  max-width: 850px;
-  color: #a0ffdf;
-  font-size: clamp(36px, 5.5vw, 72px);
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -.045em;
-}
-.home-page .catalogue-announcement p {
-  max-width: 640px;
-  margin-top: 18px;
-  color: #d0e9e5;
-  font-size: clamp(14px, 1.5vw, 17px);
-}
-.home-page .catalogue-announcement a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  padding: 13px 20px;
-  border-radius: 3px;
-  background: #a0ffdf;
-  color: #102726;
-  font-size: 13px;
-  text-decoration: none;
-}
-.home-page .catalogue-announcement a:hover { background: #c4ffec; }
-.home-page .collection-hero { background: radial-gradient(ellipse at 77% 42%, #246fa53b, transparent 60%); }
-.home-page .hero-copy h1 em { color: #79ccff; }
-.home-page .hero-copy .button { background: #79ccff; border-color: #79ccff; color: #091a27; }
-.home-page .hero-copy .button:hover { background: #a5dfff; }
-.home-page .scene-orbit { border-color: #67cfff65; }
-.home-page .reference-photo { background: #102a31; }
-.home-page .reference:nth-child(2) .reference-photo { background: #152942; }
-.home-page .reference:nth-child(3) .reference-photo { background: #26233c; }
-.home-page .reference:hover .reference-photo { background: #203b49; }
-@media (max-width: 900px) {
-  .home-page .catalogue-announcement { align-items: flex-start; flex-direction: column; }
-}
+@media (max-width:380px) { .vial-scene { height:345px; } .home-page .catalogue-announcement a { width:100%; } }
