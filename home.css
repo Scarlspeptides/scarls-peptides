@@ -176,3 +176,30 @@
  .reference-name > span { font-size:12px; }
  .correspondence p:not(.eyebrow) { font-size:15px; }
 }
+
+/* Primary homepage announcement. */
+.home-page .catalogue-announcement { background:#9ff4da; border-bottom:4px solid #48bca2; }
+.announcement-inner { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:24px 40px; padding-block:38px; }
+.home-page .catalogue-announcement strong {
+ grid-column:1 / -1; grid-row:auto;
+ max-width:none; font-size:clamp(54px,7.6vw,110px);
+ font-weight:700; line-height:.98; letter-spacing:-.055em;
+ text-transform:uppercase; text-wrap:balance; color:#061c24;
+}
+.home-page .catalogue-announcement p {
+ grid-column:1; padding:0; border:0; margin:0;
+ font-size:clamp(20px,2.2vw,30px); font-weight:600; color:#103e40;
+}
+.home-page .catalogue-announcement a {
+ grid-column:2; justify-self:end; min-height:54px; gap:28px;
+ padding:15px 24px; border:1px solid #071e26; border-radius:2px;
+ background:#071e26; color:#c4ffec; font-size:15px; font-weight:600;
+}
+.home-page .catalogue-announcement a:hover { background:#163b42; }
+.home-page .catalogue-announcement a:focus-visible { outline-color:#071e26; }
+@media(max-width:760px) {
+ .announcement-inner { grid-template-columns:minmax(0,1fr); gap:20px; padding-block:30px; }
+ .home-page .catalogue-announcement strong { grid-column:1; font-size:clamp(44px,12.5vw,76px); }
+ .home-page .catalogue-announcement p { grid-column:1; font-size:21px; line-height:1.35; }
+ .home-page .catalogue-announcement a { grid-column:1; justify-self:stretch; width:100%; min-height:54px; font-size:15px; }
+}
