@@ -37,7 +37,7 @@ const CATALOGUE = {
   ]
 };
 
-const IMAGE_MAP = {'GHK-Cu':'ghk-cu-clean.png','KLOW':'klow-clean.png','CJC no DAC + Ipamorelin':'cjc-no-dac-ipamorelin-clean.png','Semax':'semax-clean.png','Selank':'selank-clean.png','Retatrutide':'retatrutide-clean.png','MOTS-C':'mots-c-clean.png','NAD+':'nad-clean-v2.png','L-Carnitine':'l-carnitine-clean.png','Epitalon':'epitalon-clean.png','Melanotan I':'melanotan-i-clean.png','Glutathion':'glutathion-clean.png'};
+const IMAGE_MAP = {'GHK-Cu':'ghk-cu-clean.webp','KLOW':'klow-clean.webp','CJC no DAC + Ipamorelin':'cjc-no-dac-ipamorelin-clean.webp','Semax':'semax-clean.webp','Selank':'selank-clean.webp','Retatrutide':'retatrutide-clean.webp','MOTS-C':'mots-c-clean.webp','NAD+':'nad-clean-v2.webp','L-Carnitine':'l-carnitine-clean.webp','Epitalon':'epitalon-clean.webp','Melanotan I':'melanotan-i-clean.webp','Glutathion':'glutathion-clean.webp'};
 
 const CATALOGUE_COPY = {
   fr: {head:['Scarl’s Peptides / 13 références','Le catalogue.','Parcourez les références par domaine de recherche. Ajoutez votre sélection pour préparer une demande d’information.'], all:'Tout voir', one:'référence', count:'références', filterLabel:'Filtrer le catalogue', badge:'Recherche', notice:'Important : les références présentées sont destinées à la recherche uniquement. Elles ne sont pas destinées à l’utilisation chez l’être humain ou l’animal.'},
@@ -89,8 +89,8 @@ const STOCK_COPY = {
 async function loadStock(){
  if (stockRequest) return stockRequest;
  stockRequest = (async () => {
-  stockReady = false;
-  renderCatalogue(pageLanguage()); renderSelection();
+  const wasReady = stockReady;
+  if (!wasReady) { updateCatalogueStock(); renderSelection(); }
   let ok = false;
   try {
    const response = await fetch('stock.json?v=' + Date.now(), {cache:'no-store', signal:AbortSignal.timeout(10000)});
@@ -100,7 +100,8 @@ async function loadStock(){
    STOCK = data; stockReady = true; ok = true;
   } catch { STOCK = {}; stockReady = false; }
   const changed = ok && reconcileSelection();
-  renderCatalogue(pageLanguage()); renderSelection();
+  updateCatalogueStock();
+  if (changed || wasReady !== stockReady) renderSelection();
   if (changed) showToast(LIMIT_COPY[pageLanguage()].changed);
   return {ok,changed};
  })();
@@ -151,11 +152,28 @@ function revealLinkedProduct() {
 window.addEventListener('hashchange', revealLinkedProduct);
 document.addEventListener('DOMContentLoaded', () => {
   requestAnimationFrame(revealLinkedProduct);
-  document.getElementById('selectionToggle').addEventListener('click', () => {
-    const details = document.getElementById('selectionDetails');
-    details.hidden = !details.hidden;
-    document.getElementById('selectionToggle').setAttribute('aria-expanded', String(!details.hidden));
-  });
+  document.getElementById('selectionToggle').addEventListener('click', () => setSelectionOpen(document.getElementById('selectionDetails').hidden));
+  document.getElementById('selectionClose').addEventListener('click', () => setSelectionOpen(false,true));
+  document.getElementById('catalogueSearch').addEventListener('input', applySearch);
+  const panel=document.getElementById('selection');let swipe=null;
+  panel.addEventListener('touchstart',event=>{
+    const details=document.getElementById('selectionDetails');
+    if(details.hidden || event.touches.length!==1 || details.scrollTop>0 || event.target.closest('input,textarea,select,a,summary,.chip button,#waBtn,#copyBtn,#downloadBtn,#clearBtn,#selectionClose')) { swipe=null;return; }
+    swipe={x:event.touches[0].clientX,y:event.touches[0].clientY};
+  },{passive:true});
+  panel.addEventListener('touchmove',event=>{
+    if(!swipe)return;
+    const dx=event.touches[0].clientX-swipe.x,dy=event.touches[0].clientY-swipe.y;
+    if(Math.abs(dx)>Math.abs(dy)){swipe=null;return;}
+    if(dy>12 && event.cancelable)event.preventDefault();
+    if(dy>65){setSelectionOpen(false);swipe=null;}
+  },{passive:false});
+  panel.addEventListener('touchend',()=>swipe=null,{passive:true});
+  panel.addEventListener('touchcancel',()=>swipe=null,{passive:true});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!document.getElementById('productPreview').open&&!document.getElementById('selectionDetails').hidden)setSelectionOpen(false,true);});
+  document.getElementById('previewClose').addEventListener('click',()=>document.getElementById('productPreview').close());
+  document.getElementById('productPreview').addEventListener('click',event=>{if(event.target===event.currentTarget){const box=event.currentTarget.getBoundingClientRect();if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)event.currentTarget.close();}});
+
 });
 
 function setPageLang(lang) {
@@ -165,6 +183,10 @@ function setPageLang(lang) {
   document.getElementById('catalogueTitle').textContent = copy.head[1];
   document.getElementById('catalogueLead').textContent = copy.head[2];
   document.getElementById('catalogueTools').setAttribute('aria-label', copy.filterLabel);
+  const ui = catalogueUI(l);
+  document.getElementById("searchLabel").textContent=ui.search;
+  document.getElementById("catalogueSearch").placeholder=ui.search;
+  document.getElementById("selectionClose").setAttribute("aria-label",ui.close);
   renderTools(l);
   renderCatalogue(l);
   renderSelection();
@@ -179,12 +201,13 @@ function setFilter(index) {
   activeFilter = index;
   const lang = pageLanguage();
   renderTools(lang);
-  document.querySelectorAll('.product-group').forEach((group, groupIndex) => group.classList.toggle('is-hidden', index !== 0 && groupIndex !== index - 1));
+  applySearch();
 }
 
 function renderCatalogue(lang) {
   const groups = CATALOGUE[lang];
   document.getElementById('catalogue').innerHTML = groups.map((group, groupIndex) => `<section class="product-group ${activeFilter !== 0 && activeFilter !== groupIndex + 1 ? 'is-hidden' : ''}"><div class="group-heading"><h2>${group[0]}</h2><span>${group[1].length} ${group[1].length === 1 ? CATALOGUE_COPY[lang].one : CATALOGUE_COPY[lang].count}</span></div><div class="product-grid">${group[1].map(product => renderProduct(product, lang)).join('')}</div></section>`).join('') + `<div class="notice"><strong>i</strong><span>${CATALOGUE_COPY[lang].notice}</span></div>`;
+  applySearch();
 }
 
 function renderProduct(product, lang) {
@@ -198,7 +221,7 @@ function renderProduct(product, lang) {
   const remaining = remainingQuantity(name);
   const disabled = remaining < 1;
   const addLabel = disabled ? stockQuantity(name) === 0 ? STOCK_COPY[lang].out : stockQuantity(name) === null ? LIMIT_COPY[lang].unknown : LIMIT_COPY[lang].limit : selected ? SELECTION_COPY[lang].added : SELECTION_COPY[lang].add;
-  return `<article class="product-card" id="${productId(name)}" data-name="${name}" data-dose="${dose}" data-price="${price}"><div class="product-image" data-badge="${CATALOGUE_COPY[lang].badge}">${imageMarkup}</div><div class="product-content"><h3 class="product-name"><span>${name}</span><span class="product-dose">${dose}</span></h3><p class="product-use">${use}</p>${stockMarkup(name, lang)}<div class="product-bottom">${priceMarkup}<div class="product-action"><div class="card-quantity" role="group" aria-label="${name} — ${lang === 'fr' ? 'quantité' : lang === 'en' ? 'quantity' : lang === 'pt' ? 'quantidade' : 'cantidad'}"><button type="button" aria-label="${SELECTION_COPY[lang].decrease}" onclick="changePendingQty(this, -1)" disabled>−</button><output aria-live="polite">${disabled ? 0 : 1}</output><button type="button" aria-label="${SELECTION_COPY[lang].increase}" onclick="changePendingQty(this, 1)" ${remaining <= 1 ? 'disabled' : ''}>+</button></div><button class="add ${selected ? 'selected' : ''}" type="button" aria-label="${addLabel} — ${name} · ${dose}" onclick="addSelection(this)" ${disabled ? 'disabled' : ''}>${addLabel}</button></div></div></div></article>`;
+  return `<article class="product-card" id="${productId(name)}" data-name="${name}" data-dose="${dose}" data-price="${price}"><div class="product-image" data-badge="${CATALOGUE_COPY[lang].badge}"><button class="product-preview-trigger" type="button" onclick="openProductPreview(this)" aria-label="${catalogueUI(lang).view} — ${name}">${imageMarkup}</button></div><div class="product-content"><h3 class="product-name"><span>${name}</span><span class="product-dose">${dose}</span></h3><p class="product-use">${use}</p>${stockMarkup(name, lang)}<div class="product-bottom">${priceMarkup}<div class="product-action"><div class="card-quantity" role="group" aria-label="${name} — ${lang === 'fr' ? 'quantité' : lang === 'en' ? 'quantity' : lang === 'pt' ? 'quantidade' : 'cantidad'}"><button type="button" aria-label="${SELECTION_COPY[lang].decrease}" onclick="changePendingQty(this, -1)" disabled>−</button><output aria-live="polite">${disabled ? 0 : 1}</output><button type="button" aria-label="${SELECTION_COPY[lang].increase}" onclick="changePendingQty(this, 1)" ${remaining <= 1 ? 'disabled' : ''}>+</button></div><button class="add ${selected ? 'selected' : ''}" type="button" aria-label="${addLabel} — ${name} · ${dose}" onclick="addSelection(this)" ${disabled ? 'disabled' : ''}>${addLabel}</button></div></div></div></article>`;
 }
 
 function changePendingQty(button, change) {
@@ -222,7 +245,10 @@ function addSelection(button) {
  const current = selection.find(entry => entry.name === item.name);
  if (current) current.qty += quantity;
  else selection.push({...item, qty: quantity});
- saveSelection(); renderCatalogue(pageLanguage()); renderSelection();
+ saveSelection(); updateCatalogueStock(); renderSelection();
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(!reduced && button.animate)button.animate([{transform:'scale(1)'},{transform:'scale(.94)'},{transform:'scale(1)'}],{duration:220});
+ const counter=document.getElementById('selCount');if(!reduced && counter.animate)counter.animate([{opacity:.4},{opacity:1}],{duration:300});
 }
 
 function saveSelection() { try { localStorage.setItem('scarlSelection', JSON.stringify(selection)); } catch {} }
@@ -252,10 +278,10 @@ function changeQty(index, change) {
  if (change > 0 && change > remainingQuantity(item.name)) { showToast(LIMIT_COPY[pageLanguage()].blocked); return; }
  item.qty += change;
  if (item.qty <= 0) selection.splice(index,1);
- saveSelection(); renderCatalogue(pageLanguage()); renderSelection();
+ saveSelection(); updateCatalogueStock(); renderSelection();
 }
-function removeSelection(index) { selection.splice(index, 1); saveSelection(); renderCatalogue(pageLanguage()); renderSelection(); }
-function clearSelection() { window.ScarlsShipping?.reset(); selection = []; saveSelection(); renderCatalogue(pageLanguage()); renderSelection(); }
+function removeSelection(index) { selection.splice(index, 1); saveSelection(); updateCatalogueStock(); renderSelection(); }
+function clearSelection() { window.ScarlsShipping?.reset(); selection = []; saveSelection(); updateCatalogueStock(); renderSelection(); }
 function selectionText() { const lang = pageLanguage(); return `${SELECTION_COPY[lang].title}\n\n${selection.map(item => `• ${item.name} — ${item.dose} — ${item.price} × ${item.qty || 1}`).join('\n')}\n\n${document.getElementById('selTotal').textContent}${window.ScarlsShipping?.summary() || ''}`; }
 async function copySelection() { if (!selection.length || !await prepareSelection()) return; try { await navigator.clipboard.writeText(selectionText()); showToast(SELECTION_COPY[pageLanguage()].copied); } catch (error) { showToast(selectionText()); } }
 async function downloadSelection() { if (!selection.length || !await prepareSelection()) return; const file = new Blob([selectionText()], {type:'text/plain;charset=utf-8'}); const link = document.createElement('a'); link.href = URL.createObjectURL(file); link.download = 'scarls-selection-informative.txt'; link.click(); URL.revokeObjectURL(link.href); }
@@ -269,3 +295,51 @@ window.addEventListener('focus', () => loadStock());
 
 
 
+
+function catalogueUI(lang=pageLanguage()) {
+ return ({fr:{search:'Rechercher une référence',close:'Fermer la sélection',view:'Voir la fiche',empty:'Aucune référence trouvée.',docs:'Demander la documentation',note:'Recherche uniquement. Utilisation humaine ou animale exclue.'},en:{search:'Search references',close:'Close selection',view:'View reference',empty:'No references found.',docs:'Request documentation',note:'Research only. Not for human or animal use.'},pt:{search:'Pesquisar referências',close:'Fechar seleção',view:'Ver referência',empty:'Nenhuma referência encontrada.',docs:'Pedir documentação',note:'Apenas investigação. Não destinado a uso humano ou animal.'},es:{search:'Buscar referencias',close:'Cerrar selección',view:'Ver referencia',empty:'No se encontraron referencias.',docs:'Solicitar documentación',note:'Solo investigación. No destinado al uso humano ni animal.'}})[lang];
+}
+function setSelectionOpen(open,focus=false) {
+ document.getElementById('selectionDetails').hidden=!open;
+ document.getElementById('selectionToggle').setAttribute('aria-expanded',String(open));
+ document.getElementById('selectionClose').hidden=!open;
+ document.getElementById('selection').classList.toggle('is-open',open);
+ if(focus)document.getElementById('selectionToggle').focus();
+}
+function applySearch() {
+ const input=document.getElementById('catalogueSearch');if(!input)return;
+ const normalize=value=>value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+ const query=normalize(input.value.trim());let count=0;
+ document.querySelectorAll('.product-group').forEach((group,index)=>{
+  let visible=0;
+  group.querySelectorAll('.product-card').forEach(card=>{const match=normalize(card.dataset.name+' '+card.dataset.dose).includes(query);card.hidden=!match;if(match)visible++;});
+  const show=visible>0 && (!activeFilter || activeFilter===index+1);
+  group.classList.toggle('is-hidden',!show);if(show)count+=visible;
+ });
+ document.getElementById('searchStatus').textContent=!count?catalogueUI().empty:query?String(count)+' '+CATALOGUE_COPY[pageLanguage()].count:'';
+}
+function updateCatalogueStock() {
+ const lang=pageLanguage();
+ document.querySelectorAll('.product-card').forEach(card=>{
+  const name=card.dataset.name, remaining=remainingQuantity(name);
+  const badge=card.querySelector('.stock-badge');if(badge)badge.outerHTML=stockMarkup(name,lang);
+  const add=card.querySelector('.add');if(!add)return;
+  const selected=selection.some(item=>item.name===name);
+  const label=remaining<1?stockQuantity(name)===0?STOCK_COPY[lang].out:stockQuantity(name)===null?LIMIT_COPY[lang].unknown:LIMIT_COPY[lang].limit:selected?SELECTION_COPY[lang].added:SELECTION_COPY[lang].add;
+  add.textContent=label;add.disabled=remaining<1;add.classList.toggle('selected',selected);add.setAttribute('aria-label',label+' — '+name+' · '+card.dataset.dose);
+  const output=card.querySelector('.card-quantity output');
+  const qty=remaining<1?0:Math.max(1,Math.min(Number(output.textContent)||1,99,remaining));output.textContent=qty;
+  const buttons=card.querySelectorAll('.card-quantity button');buttons[0].disabled=qty<=1;buttons[1].disabled=remaining<1 || qty>=Math.min(99,remaining);
+ });
+}
+function openProductPreview(button) {
+ const card=button.closest('.product-card');const name=card.dataset.name;
+ const reference=CATALOGUE[pageLanguage()].flatMap(group=>group[1]).find(product=>product[0]===name);if(!reference)return;
+ const body=document.getElementById('previewBody');body.replaceChildren();
+ if(IMAGE_MAP[name]){const image=document.createElement('img');image.src=IMAGE_MAP[name];image.alt=name;body.append(image);}
+ const title=document.createElement('h2');title.id='previewTitle';title.textContent=reference[0];body.append(title);
+ for(const value of [reference[1]+' · '+reference[3],reference[2],catalogueUI().note]){const text=document.createElement('p');text.textContent=value;body.append(text);}
+ const contact=document.createElement('a');contact.className='text-link';contact.href='contact.html';contact.textContent=catalogueUI().docs;body.append(contact);
+ document.getElementById('previewClose').setAttribute('aria-label',catalogueUI().close);
+ const dialog=document.getElementById('productPreview');dialog.setAttribute('aria-labelledby','previewTitle');dialog.showModal();
+}
