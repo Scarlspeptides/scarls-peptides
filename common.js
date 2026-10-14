@@ -1,12 +1,12 @@
 // The notice is a separate entry page; a session acknowledgement allows navigation.
 try {
-  if (sessionStorage.getItem('scarlAgeAcknowledgedV1') !== 'yes' && !location.pathname.endsWith('/avertissement.html')) {
+  if (sessionStorage.getItem('scarlAgeAcknowledgedV1') !== 'yes' && !location.pathname.endsWith('/avertissement.html') && !location.pathname.endsWith('/informations-legales.html')) {
     const page = location.pathname.split('/').pop() || 'index.html';
     const next = /^(index|produits|apropos|livraison|faq|contact)\.html$/.test(page) ? page + location.hash : 'index.html';
     location.replace('avertissement.html?next=' + encodeURIComponent(next));
   }
 } catch {
-  if (!location.pathname.endsWith('/avertissement.html')) location.replace('avertissement.html');
+  if (!location.pathname.endsWith('/avertissement.html') && !location.pathname.endsWith('/informations-legales.html')) location.replace('avertissement.html');
 }
 
 const NAV = {
