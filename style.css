@@ -314,3 +314,21 @@ input, select, textarea { font:inherit; }
 
 .footer-in { flex-wrap:wrap; }
 @media(max-width:480px) { .legal-content table { font-size:12px; overflow-wrap:anywhere; } .legal-content td,.legal-content th { padding:7px; } .legal-content input,.legal-content textarea { font-size:16px; } }
+
+/* Compact selection: products first, optional delivery. */
+.selection { border-radius:20px; padding:16px; }
+.sel-items { display:flex; flex-direction:column; flex-wrap:nowrap; max-height:160px; }
+.chip { display:flex; align-items:center; width:100%; padding:12px; border-radius:10px; gap:8px; }
+.chip button { min-width:32px; min-height:32px; }
+.sel-total { margin:12px 0; font-size:18px; font-weight:600; }
+.sel-actions { display:grid; grid-template-columns:repeat(3,1fr); }
+.sel-actions #waBtn { grid-row:1; grid-column:1 / -1; min-height:52px; border-radius:12px; background:var(--mint); border-color:var(--mint); color:var(--bg); font-size:15px; }
+.sel-actions #copyBtn,.sel-actions #downloadBtn,.sel-actions #clearBtn { background:transparent; color:var(--muted); border:0; min-height:36px; font-size:11px; }
+#shipping-estimator { padding:8px 0; }
+#shipping-estimator .shipping-check { margin:5px 0; align-items:center; }
+#shipping-estimator .shipping-check span { font-size:14px; }
+#shipping-estimator details[hidden] { display:none; }
+#shipping-estimator summary { color:var(--muted); font-size:13px; }
+#shipping-estimator textarea { width:100%; padding:10px; border:1px solid var(--line-strong); border-radius:8px; background:var(--bg); color:var(--ink); font-size:16px; resize:vertical; }
+.optional-address label { display:block; margin:10px 0; }
+.sel-note { line-height:1.5; font-size:11px; }

@@ -47,10 +47,10 @@ const CATALOGUE_COPY = {
 };
 
 const SELECTION_COPY = {
-  fr: {title:'Ma sélection informative',one:'référence',many:'références',add:'Ajouter',added:'Ajouté',copy:'Copier',download:'Télécharger',wa:'Demander des informations',clear:'Vider',increase:'Ajouter une unité',decrease:'Retirer une unité',remove:'Retirer cette référence',note:'Sélection informative uniquement : aucune commande ni paiement n’est effectué depuis cette page.',copied:'Références copiées.'},
-  en: {title:'My information selection',one:'reference',many:'references',add:'Add',added:'Added',copy:'Copy',download:'Download',wa:'Request information',clear:'Clear',increase:'Add one unit',decrease:'Remove one unit',remove:'Remove this reference',note:'Information selection only: no order or payment is made from this page.',copied:'References copied.'},
-  pt: {title:'A minha seleção informativa',one:'referência',many:'referências',add:'Adicionar',added:'Adicionado',copy:'Copiar',download:'Descarregar',wa:'Pedir informações',clear:'Limpar',increase:'Adicionar uma unidade',decrease:'Retirar uma unidade',remove:'Retirar esta referência',note:'Apenas seleção informativa: não é efetuada qualquer encomenda ou pagamento nesta página.',copied:'Referências copiadas.'},
-  es: {title:'Mi selección informativa',one:'referencia',many:'referencias',add:'Añadir',added:'Añadido',copy:'Copiar',download:'Descargar',wa:'Solicitar información',clear:'Vaciar',increase:'Añadir una unidad',decrease:'Retirar una unidad',remove:'Retirar esta referencia',note:'Solo selección informativa: no se realiza ningún pedido ni pago desde esta página.',copied:'Referencias copiadas.'}
+  fr: {title:'Ma sélection',one:'référence',many:'références',add:'Ajouter',added:'Ajouté',copy:'Copier',download:'Télécharger',wa:'Envoyer sur WhatsApp',clear:'Vider',increase:'Ajouter une unité',decrease:'Retirer une unité',remove:'Retirer cette référence',note:'Sélection informative uniquement : aucune commande ni paiement n’est effectué depuis cette page.',copied:'Références copiées.'},
+  en: {title:'My selection',one:'reference',many:'references',add:'Add',added:'Added',copy:'Copy',download:'Download',wa:'Send on WhatsApp',clear:'Clear',increase:'Add one unit',decrease:'Remove one unit',remove:'Remove this reference',note:'Information selection only: no order or payment is made from this page.',copied:'References copied.'},
+  pt: {title:'A minha seleção',one:'referência',many:'referências',add:'Adicionar',added:'Adicionado',copy:'Copiar',download:'Descarregar',wa:'Enviar no WhatsApp',clear:'Limpar',increase:'Adicionar uma unidade',decrease:'Retirar uma unidade',remove:'Retirar esta referência',note:'Apenas seleção informativa: não é efetuada qualquer encomenda ou pagamento nesta página.',copied:'Referências copiadas.'},
+  es: {title:'Mi selección',one:'referencia',many:'referencias',add:'Añadir',added:'Añadido',copy:'Copiar',download:'Descargar',wa:'Enviar por WhatsApp',clear:'Vaciar',increase:'Añadir una unidad',decrease:'Retirar una unidad',remove:'Retirar esta referencia',note:'Solo selección informativa: no se realiza ningún pedido ni pago desde esta página.',copied:'Referencias copiadas.'}
 };
 
 let STOCK = {};
@@ -236,7 +236,11 @@ function renderSelection() {
   const total = selection.reduce((sum, item) => sum + (item.qty || 1), 0);
   document.getElementById('selection').classList.toggle('show', total > 0);
   document.getElementById('selTitle').textContent = copy.title;
-  document.getElementById('selCount').textContent = `${total} ${total === 1 ? copy.one : copy.many}`;
+  const amount = shippingProductSubtotal();
+  const formatted = amount === null ? '—' : new Intl.NumberFormat(lang,{style:'currency',currency:'EUR'}).format(amount/100);
+  document.getElementById('selCount').textContent = `${total} · ${formatted}`;
+  document.getElementById('selTotal').textContent = ({fr:'Total produits',en:'Products total',pt:'Total dos produtos',es:'Total de productos'}[lang]) + ' : ' + formatted;
+  if (!total) window.ScarlsShipping?.reset();
   document.getElementById('selItems').innerHTML = selection.map((item, index) => `<span class="chip">${item.name} · ${item.dose} × ${item.qty || 1}<button type="button" aria-label="${copy.increase}" onclick="changeQty(${index}, 1)" ${remainingQuantity(item.name) < 1 ? 'disabled' : ''}>＋</button><button type="button" aria-label="${copy.decrease}" onclick="changeQty(${index}, -1)">−</button><button type="button" aria-label="${copy.remove}" onclick="removeSelection(${index})">×</button></span>`).join('');
   ['copyBtn','downloadBtn','waBtn'].forEach(id => document.getElementById(id).disabled = !selectionAllowed());
   [['copyBtn','copy'],['downloadBtn','download'],['waBtn','wa'],['clearBtn','clear'],['selNote','note']].forEach(([id, key]) => document.getElementById(id).textContent = copy[key]);
@@ -251,8 +255,8 @@ function changeQty(index, change) {
  saveSelection(); renderCatalogue(pageLanguage()); renderSelection();
 }
 function removeSelection(index) { selection.splice(index, 1); saveSelection(); renderCatalogue(pageLanguage()); renderSelection(); }
-function clearSelection() { selection = []; saveSelection(); renderCatalogue(pageLanguage()); renderSelection(); }
-function selectionText() { const lang = pageLanguage(); return `${SELECTION_COPY[lang].title}\n\n${selection.map(item => `• ${item.name} — ${item.dose} — ${item.price} × ${item.qty || 1}`).join('\n')}${window.ScarlsShipping?.summary() || ''}`; }
+function clearSelection() { window.ScarlsShipping?.reset(); selection = []; saveSelection(); renderCatalogue(pageLanguage()); renderSelection(); }
+function selectionText() { const lang = pageLanguage(); return `${SELECTION_COPY[lang].title}\n\n${selection.map(item => `• ${item.name} — ${item.dose} — ${item.price} × ${item.qty || 1}`).join('\n')}\n\n${document.getElementById('selTotal').textContent}${window.ScarlsShipping?.summary() || ''}`; }
 async function copySelection() { if (!selection.length || !await prepareSelection()) return; try { await navigator.clipboard.writeText(selectionText()); showToast(SELECTION_COPY[pageLanguage()].copied); } catch (error) { showToast(selectionText()); } }
 async function downloadSelection() { if (!selection.length || !await prepareSelection()) return; const file = new Blob([selectionText()], {type:'text/plain;charset=utf-8'}); const link = document.createElement('a'); link.href = URL.createObjectURL(file); link.download = 'scarls-selection-informative.txt'; link.click(); URL.revokeObjectURL(link.href); }
 async function sendInfoWhatsApp() { if (!selection.length || !await prepareSelection()) return; const lang = pageLanguage(); const text = `${selectionText()}\n\n${lang === 'fr' ? 'Je souhaite obtenir des informations complémentaires sur ces références.' : lang === 'en' ? 'I would like more information about these references.' : lang === 'pt' ? 'Gostaria de obter mais informações sobre estas referências.' : 'Me gustaría obtener más información sobre estas referencias.'}`; window.location.href = `https://wa.me/33664694830?text=${encodeURIComponent(text)}`; }
