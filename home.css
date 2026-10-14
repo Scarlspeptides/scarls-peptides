@@ -1,19 +1,23 @@
 /* Homepage: one visual, one clear route to the catalogue. */
-.catalogue-announcement { border-bottom:1px solid var(--line); }
-.announcement-inner { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px 24px; padding-block:12px; }
-.catalogue-announcement strong { font-size:14px; font-weight:400; color:var(--muted); }
-.catalogue-announcement a { display:inline-flex; align-items:center; min-height:44px; font-size:14px; }
-.collection-layout { display:grid; grid-template-columns:7fr 5fr; align-items:center; gap:64px; padding-block:64px; }
-.hero-copy h1 { margin:0; font-size:clamp(40px,5vw,64px); font-weight:600; line-height:1.08; letter-spacing:-.035em; }
+.catalogue-announcement { border-bottom:1px solid #6da1b6; background:var(--ice); color:var(--ice-ink); }
+.announcement-inner { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px 32px; padding-block:24px; }
+.announcement-copy { display:flex; align-items:baseline; flex-wrap:wrap; gap:8px 24px; }
+.announcement-copy p { margin:0; max-width:28ch; font-size:18px; font-weight:500; }
+.catalogue-announcement strong { font-size:clamp(28px,3vw,38px); line-height:1.1; letter-spacing:-.025em; font-weight:650; color:inherit; }
+.catalogue-announcement a { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:12px 20px; border:1px solid var(--ice-ink); border-radius:4px; background:var(--ice-ink); color:var(--ice); font-size:14px; font-weight:600; text-decoration:none; }
+.catalogue-announcement a:focus-visible { outline-color:var(--ice-ink); }
+.collection-layout { display:grid; grid-template-columns:1fr 1.05fr; align-items:center; gap:48px; padding-block:64px; }
+.hero-copy h1 { margin:0; font-size:clamp(56px,6.7vw,88px); font-weight:650; line-height:.99; letter-spacing:-.045em; }
 .hero-copy h1 span,.hero-copy h1 em { display:block; }
-.hero-copy h1 em { font-style:normal; }
+.hero-copy h1 em { font-style:normal; color:var(--ice); }
+.hero-copy .button { background:var(--ice); border-color:var(--ice); color:var(--ice-ink); padding-inline:24px; }
 .hero-description { max-width:46ch; margin:24px 0 32px; color:var(--muted); font-size:16px; line-height:1.6; }
 .hero-footnote { margin-top:24px; color:var(--muted); font-size:13px; }
 .vial-experience { min-width:0; }
 .scene-heading { display:flex; justify-content:space-between; gap:16px; margin-bottom:16px; color:var(--muted); font-size:13px; }
-.vial-scene { height:380px; background:var(--surface); touch-action:pan-y; user-select:none; cursor:grab; }
+.vial-scene { position:relative; height:460px; background:#08121b url("scarls-stone.jpg") center 72% / cover; touch-action:pan-y; user-select:none; cursor:grab; border-bottom:1px solid var(--line-strong); }
 .vial-scene:active { cursor:grabbing; }
-.scene-image-wrap { width:100%; height:100%; padding:24px; }
+.scene-image-wrap { position:relative; width:100%; height:100%; padding:0 24px 16px; }
 .scene-image { width:100%; height:100%; object-fit:contain; pointer-events:none; }
 .scene-caption { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px 16px; padding-block:16px; border-bottom:1px solid var(--line); }
 .scene-product { display:flex; align-items:baseline; flex-wrap:wrap; gap:8px 16px; }
@@ -34,8 +38,8 @@
 .editorial-heading h2 { margin:0; font-size:32px; font-weight:600; letter-spacing:-.025em; }
 .reference-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
 .reference { min-width:0; text-decoration:none; }
-.reference-photo { height:300px; padding:24px; background:var(--surface); }
-.reference:hover .reference-photo,.reference:focus-visible .reference-photo { background:var(--surface-strong); }
+.reference-photo { height:300px; padding:24px; background:#d8e8f0; border-bottom:3px solid #8ab8cc; }
+.reference:hover .reference-photo,.reference:focus-visible .reference-photo { background:#e5f2f8; }
 .reference-photo img { width:100%; height:100%; object-fit:contain; }
 .reference-name { display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px; margin-top:16px; }
 .reference-name h3 { margin:0; font-size:22px; font-weight:600; letter-spacing:-.02em; }
@@ -50,7 +54,11 @@
 @media(max-width:900px) { .collection-layout { gap:32px; } }
 @media(max-width:760px) {
  .collection-layout { grid-template-columns:1fr; padding-block:40px; gap:40px; }
- .vial-scene { height:340px; }
+ .vial-scene { height:380px; }
+ .hero-copy h1 { font-size:clamp(54px,13vw,76px); }
+ .announcement-inner { padding-block:20px; gap:16px; }
+ .announcement-copy { gap:8px; }
+ .announcement-copy p { flex-basis:100%; font-size:17px; }
  .reference-section,.correspondence { padding-block:40px; }
  .reference-grid { grid-template-columns:1fr; gap:32px; }
  .reference-photo { height:300px; }

@@ -9,10 +9,10 @@ const CATALOGUE_COPY = {
 };
 
 const SELECTION_COPY = {
-  fr: {title:'Ma sélection',one:'référence',many:'références',add:'Ajouter',added:'Ajouté',copy:'Copier',download:'Télécharger',wa:'Envoyer sur WhatsApp',clear:'Vider',increase:'Ajouter une unité',decrease:'Retirer une unité',remove:'Retirer cette référence',note:'Sélection informative uniquement : aucune commande ni paiement n’est effectué depuis cette page.',copied:'Références copiées.'},
-  en: {title:'My selection',one:'reference',many:'references',add:'Add',added:'Added',copy:'Copy',download:'Download',wa:'Send on WhatsApp',clear:'Clear',increase:'Add one unit',decrease:'Remove one unit',remove:'Remove this reference',note:'Information selection only: no order or payment is made from this page.',copied:'References copied.'},
-  pt: {title:'A minha seleção',one:'referência',many:'referências',add:'Adicionar',added:'Adicionado',copy:'Copiar',download:'Descarregar',wa:'Enviar no WhatsApp',clear:'Limpar',increase:'Adicionar uma unidade',decrease:'Retirar uma unidade',remove:'Retirar esta referência',note:'Apenas seleção informativa: não é efetuada qualquer encomenda ou pagamento nesta página.',copied:'Referências copiadas.'},
-  es: {title:'Mi selección',one:'referencia',many:'referencias',add:'Añadir',added:'Añadido',copy:'Copiar',download:'Descargar',wa:'Enviar por WhatsApp',clear:'Vaciar',increase:'Añadir una unidad',decrease:'Retirar una unidad',remove:'Retirar esta referencia',note:'Solo selección informativa: no se realiza ningún pedido ni pago desde esta página.',copied:'Referencias copiadas.'}
+  fr: {title:'Ma sélection',one:'référence',many:'références',add:'Ajouter',added:'Ajouté',copy:'Copier',download:'Télécharger',wa:"Continuer sur WhatsApp",waHint:"Message prérempli. Vous vérifiez avant d’envoyer.",clear:'Vider',increase:'Ajouter une unité',decrease:'Retirer une unité',remove:'Retirer cette référence',note:'Sélection informative uniquement : aucune commande ni paiement n’est effectué depuis cette page.',copied:'Références copiées.'},
+  en: {title:'My selection',one:'reference',many:'references',add:'Add',added:'Added',copy:'Copy',download:'Download',wa:"Continue on WhatsApp",waHint:"Your message is ready. Review it before sending.",clear:'Clear',increase:'Add one unit',decrease:'Remove one unit',remove:'Remove this reference',note:'Information selection only: no order or payment is made from this page.',copied:'References copied.'},
+  pt: {title:'A minha seleção',one:'referência',many:'referências',add:'Adicionar',added:'Adicionado',copy:'Copiar',download:'Descarregar',wa:"Continuar no WhatsApp",waHint:"Mensagem preenchida. Verifique antes de enviar.",clear:'Limpar',increase:'Adicionar uma unidade',decrease:'Retirar uma unidade',remove:'Retirar esta referência',note:'Apenas seleção informativa: não é efetuada qualquer encomenda ou pagamento nesta página.',copied:'Referências copiadas.'},
+  es: {title:'Mi selección',one:'referencia',many:'referencias',add:'Añadir',added:'Añadido',copy:'Copiar',download:'Descargar',wa:"Continuar por WhatsApp",waHint:"Mensaje preparado. Revísalo antes de enviarlo.",clear:'Vaciar',increase:'Añadir una unidad',decrease:'Retirar una unidad',remove:'Retirar esta referencia',note:'Solo selección informativa: no se realiza ningún pedido ni pago desde esta página.',copied:'Referencias copiadas.'}
 };
 
 let STOCK = {};
@@ -166,6 +166,7 @@ function setPageLang(lang) {
   document.getElementById('catalogueTitle').textContent = copy.head[1];
   document.getElementById('catalogueLead').textContent = copy.head[2];
   document.getElementById('catalogueTools').setAttribute('aria-label', copy.filterLabel);
+  document.getElementById("catalogueUpdate").textContent = {"fr": "Nouveaux prix en ligne. Un énorme réassort arrive.", "en": "New prices are live. A huge restock is coming.", "pt": "Os novos preços estão disponíveis. Uma grande reposição está a chegar.", "es": "Los nuevos precios ya están disponibles. Se acerca una gran reposición."}[l];
   const ui = catalogueUI(l);
   document.getElementById("searchLabel").textContent=ui.search;
   document.getElementById("catalogueSearch").placeholder=ui.search;
@@ -252,7 +253,7 @@ function renderSelection() {
   if (!total) { window.ScarlsShipping?.reset(); setSelectionOpen(false); }
   syncSelectionItems(copy);
   ['copyBtn','downloadBtn','waBtn'].forEach(id => document.getElementById(id).disabled = !selectionAllowed());
-  [['copyBtn','copy'],['downloadBtn','download'],['waBtn','wa'],['clearBtn','clear'],['selNote','note']].forEach(([id, key]) => document.getElementById(id).textContent = copy[key]);
+  [['copyBtn','copy'],['downloadBtn','download'],['waBtn','wa'],['waHint','waHint'],['clearBtn','clear'],['selNote','note']].forEach(([id, key]) => document.getElementById(id).textContent = copy[key]);
   document.getElementById('selectionExtrasLabel').textContent = {fr:'Autres options',en:'Other options',pt:'Outras opções',es:'Otras opciones'}[lang];
   window.ScarlsShipping?.refresh();
 }
