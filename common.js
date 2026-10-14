@@ -38,7 +38,12 @@ function updateMenu(open) {
 function applyNav(lang) {
   const language = NAV[lang] ? lang : 'fr';
   document.documentElement.lang = language;
+  const brand=document.querySelector('.site-header .brand');if(brand)brand.setAttribute('aria-label','Scarl’s Peptides — '+NAV[language][0]);
+  const nav=document.querySelector('.main-nav');if(nav)nav.setAttribute('aria-label',{fr:'Navigation principale',en:'Main navigation',pt:'Navegação principal',es:'Navegación principal'}[language]);
+  const langs=document.querySelector('.langs');if(langs)langs.setAttribute('aria-label',{fr:'Choisir la langue',en:'Choose language',pt:'Escolher idioma',es:'Elegir idioma'}[language]);
   document.querySelectorAll('.main-nav a').forEach((link, index) => { link.textContent = NAV[language][index]; if (link.classList.contains('current')) link.setAttribute('aria-current', 'page'); });
+  document.querySelectorAll('.footer-in .legal-links a').forEach((link,index)=>{link.textContent=FOOTER_LINKS[language][index];link.lang=language;});
+  document.querySelectorAll('.footer-contact').forEach(link=>link.textContent={fr:'Contact',en:'Contact',pt:'Contacto',es:'Contacto'}[language]);
   const footer = document.getElementById('footerText');
   if (footer) footer.textContent = FOOT[language];
   document.querySelectorAll('.lang').forEach((button) => {
@@ -46,6 +51,7 @@ function applyNav(lang) {
     button.classList.toggle('active', active);
     button.setAttribute('aria-pressed', String(active));
     button.textContent = button.dataset.lang.toUpperCase();
+    button.lang = button.dataset.lang;
     button.setAttribute('aria-label', {fr:'Français',en:'English',pt:'Português',es:'Español'}[button.dataset.lang]);
   });
   try { localStorage.setItem('scarlLang', language); } catch {}
@@ -84,3 +90,5 @@ document.addEventListener('DOMContentLoaded', () => {
   applyNav(currentLang());
 });
 
+
+const FOOTER_LINKS={fr:['Confidentialité & cookies','Conditions d’utilisation','Rétractation & réclamations','Mentions légales'],en:['Privacy & cookies (FR)','Terms of use (FR)','Withdrawal & complaints (FR)','Legal information (FR)'],pt:['Privacidade e cookies (FR)','Condições de utilização (FR)','Retratação e reclamações (FR)','Informações legais (FR)'],es:['Privacidad y cookies (FR)','Condiciones de uso (FR)','Desistimiento y reclamaciones (FR)','Información legal (FR)']};

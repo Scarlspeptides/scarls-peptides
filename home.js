@@ -1,166 +1,59 @@
-const HOME_COPY = {
-  fr: {announcementTitle:"Les prix baissent.",announcementText:"Un grand réassort arrive.",announcementLink:"Voir les nouveaux prix",eyebrow:'Scarl’s Peptides / Catalogue de recherche',title:'La recherche.',titleAccent:'Sous un autre angle.',lead:'Des références à explorer. Des formats à comparer.',catalogue:'Découvrir le catalogue',research:'Destiné exclusivement à la recherche.',inFocus:'Sous la lumière',signature:'Scarl’s Peptides — Recherche uniquement.',scroll:'Parcourir les références',selectionEye:'Dans le catalogue',selectionTitle:'Les références.',all:'Tout le catalogue',ghk:'Peau & matrice extracellulaire',reta:'Recherche métabolique',nad:'Biologie cellulaire',semax:'Neurobiologie & cognition',contactEye:'Le contact, simplement.',contactTitle:'Une référence en tête ?',contactAccent:'Parlons-en.',contactText:'Une question sur un format ou la documentation ? Envoyez-nous les références qui vous intéressent sur WhatsApp.',contact:'Contacter Scarl’s',noteLabel:'Cadre de recherche',note:'Les références présentées ne sont pas destinées à l’utilisation humaine ou animale. Le catalogue permet de préparer une demande d’information ; aucune commande ni aucun paiement n’est traité sur ce site.',pause:'Pause',play:'Animer',hint:'Déplacez le pointeur pour explorer la fiole.',touchHint:'Glissez sur la fiole pour l’incliner.',staticHint:'Animation désactivée selon vos préférences.',sceneLabel:'Fiole interactive. Utilisez les flèches pour l’incliner, Échap pour recentrer.',view:'Voir dans le catalogue',vial:'Fiole'},
-  en: {announcementTitle:"Prices are down.",announcementText:"A major restock is on the way.",announcementLink:"See the new prices",eyebrow:'Scarl’s Peptides / Research catalogue',title:'Research.',titleAccent:'From another angle.',lead:'References to explore. Formats to compare. A direct conversation for all your questions.',catalogue:'Discover the catalogue',research:'For research use only.',inFocus:'In the light',signature:'A closer look at the material.',scroll:'Browse the references',selectionEye:'In the catalogue',selectionTitle:'The references.',all:'Full catalogue',ghk:'Skin & extracellular matrix',reta:'Metabolic research',nad:'Cell biology',semax:'Neurobiology & cognition',contactEye:'Let’s talk.',contactTitle:'Have a reference in mind?',contactAccent:'Get in touch.',contactText:'A question about a format or documentation? Send us the references you are interested in on WhatsApp.',contact:'Contact Scarl’s',noteLabel:'Research context',note:'These references are not intended for human or animal use. The catalogue helps you prepare an information request; no orders or payments are processed on this website.',pause:'Pause',play:'Animate',hint:'Move your pointer to explore the vial.',touchHint:'Swipe across the vial to tilt it.',staticHint:'Animation disabled according to your preferences.',sceneLabel:'Interactive vial. Use arrow keys to tilt it, Escape to reset.',view:'View in the catalogue',vial:'Vial'},
-  pt: {announcementTitle:"Preços mais baixos.",announcementText:"Uma grande reposição está a chegar.",announcementLink:"Ver os novos preços",eyebrow:'Scarl’s Peptides / Catálogo de investigação',title:'A investigação.',titleAccent:'Sob outro ângulo.',lead:'Referências para explorar. Formatos para comparar. E contacto direto para as suas questões.',catalogue:'Descobrir o catálogo',research:'Exclusivamente para investigação.',inFocus:'Sob a luz',signature:'Um olhar sobre a matéria.',scroll:'Explorar as referências',selectionEye:'No catálogo',selectionTitle:'As referências.',all:'Todo o catálogo',ghk:'Pele e matriz extracelular',reta:'Investigação metabólica',nad:'Biologia celular',semax:'Neurobiologia e cognição',contactEye:'Vamos conversar.',contactTitle:'Tem uma referência em mente?',contactAccent:'Fale connosco.',contactText:'Uma questão sobre um formato ou a documentação? Envie-nos as referências que lhe interessam pelo WhatsApp.',contact:'Contactar a Scarl’s',noteLabel:'Contexto de investigação',note:'Estas referências não se destinam a utilização humana ou animal. O catálogo permite preparar um pedido de informação; não são processadas encomendas nem pagamentos neste site.',pause:'Pausa',play:'Animar',hint:'Mova o cursor para explorar o frasco.',touchHint:'Deslize sobre o frasco para o inclinar.',staticHint:'Animação desativada de acordo com as suas preferências.',sceneLabel:'Frasco interativo. Use as setas para inclinar e Escape para recentrar.',view:'Ver no catálogo',vial:'Frasco'},
-  es: {announcementTitle:"Bajan los precios.",announcementText:"Se acerca una gran reposición.",announcementLink:"Ver los nuevos precios",eyebrow:'Scarl’s Peptides / Catálogo de investigación',title:'La investigación.',titleAccent:'Desde otro ángulo.',lead:'Referencias para explorar. Formatos para comparar. Y contacto directo para todas tus preguntas.',catalogue:'Descubrir el catálogo',research:'Exclusivamente para investigación.',inFocus:'Bajo la luz',signature:'Una mirada a la materia.',scroll:'Explorar las referencias',selectionEye:'En el catálogo',selectionTitle:'Las referencias.',all:'Todo el catálogo',ghk:'Piel y matriz extracelular',reta:'Investigación metabólica',nad:'Biología celular',semax:'Neurobiología y cognición',contactEye:'Hablemos.',contactTitle:'¿Tienes una referencia en mente?',contactAccent:'Escríbenos.',contactText:'¿Una pregunta sobre un formato o la documentación? Envíanos las referencias que te interesan por WhatsApp.',contact:'Contactar con Scarl’s',noteLabel:'Contexto de investigación',note:'Estas referencias no están destinadas al uso humano o animal. El catálogo permite preparar una solicitud de información; no se procesan pedidos ni pagos en este sitio.',pause:'Pausa',play:'Animar',hint:'Mueve el cursor para explorar el vial.',touchHint:'Desliza sobre el vial para inclinarlo.',staticHint:'Animación desactivada según tus preferencias.',sceneLabel:'Vial interactivo. Usa las flechas para inclinarlo y Escape para centrarlo.',view:'Ver en el catálogo',vial:'Vial'}
-};
-const VIALS = {
-  reta: {name:'Retatrutide',src:'retatrutide-clean.webp',hash:'retatrutide',dose:'10 mg',description:{fr:'Recherche métabolique',en:'Metabolic research',pt:'Investigação metabólica',es:'Investigación metabólica'}},
-  ghk: {name:'GHK-Cu',src:'ghk-cu-clean.webp',hash:'ghk-cu',dose:'100 mg',description:{fr:'Peau & matrice extracellulaire',en:'Skin & extracellular matrix',pt:'Pele e matriz extracelular',es:'Piel y matriz extracelular'}},
-  semax: {name:'Semax',src:'semax-clean.webp',hash:'semax',dose:'5 mg',description:{fr:'Neurobiologie & cognition',en:'Neurobiology & cognition',pt:'Neurobiologia e cognição',es:'Neurobiología y cognición'}},
-  selank: {name:'Selank',src:'selank-clean.webp',hash:'selank',dose:'5 mg',description:{fr:'Neurobiologie & stress',en:'Neurobiology & stress',pt:'Neurobiologia e stress',es:'Neurobiología y estrés'}},
-  mots: {name:'MOTS-C',src:'mots-c-clean.webp',hash:'mots-c',dose:'10 mg',description:{fr:'Métabolisme & énergie cellulaire',en:'Metabolism & cellular energy',pt:'Metabolismo e energia celular',es:'Metabolismo y energía celular'}},
-  nad: {name:'NAD+',src:'nad-clean-v2.webp',hash:'nad',dose:'100 mg',description:{fr:'Biologie cellulaire',en:'Cell biology',pt:'Biologia celular',es:'Biología celular'}},
-  cjc: {name:'CJC no DAC + Ipamorelin',src:'cjc-no-dac-ipamorelin-clean.webp',hash:'cjc-no-dac-ipamorelin',dose:'10 mg',description:{fr:'Mécanismes de croissance',en:'Growth mechanisms',pt:'Mecanismos de crescimento',es:'Mecanismos de crecimiento'}},
-  klow: {name:'KLOW',src:'klow-clean.webp',hash:'klow',dose:'80 mg',description:{fr:'Mécanismes de régénération',en:'Regeneration mechanisms',pt:'Mecanismos de regeneração',es:'Mecanismos de regeneración'}},
-  epitalon: {name:'Epitalon',src:'epitalon-clean.webp',hash:'epitalon',dose:'10 mg',description:{fr:'Vieillissement cellulaire',en:'Cellular ageing',pt:'Envelhecimento celular',es:'Envejecimiento celular'}},
-  melanotan: {name:'Melanotan I',src:'melanotan-i-clean.webp',hash:'melanotan-i',dose:'10 mg',description:{fr:'Recherche sur la pigmentation',en:'Pigmentation research',pt:'Investigação sobre pigmentação',es:'Investigación sobre pigmentación'}},
-  glutathion: {name:'Glutathion',src:'glutathion-clean.webp',hash:'glutathion',dose:'600 mg',description:{fr:'Systèmes antioxydants',en:'Antioxidant systems',pt:'Sistemas antioxidantes',es:'Sistemas antioxidantes'}},
-  carnitine: {name:'L-Carnitine',src:'l-carnitine-clean.webp',hash:'l-carnitine',dose:'1200 mg',description:{fr:'Métabolisme énergétique',en:'Energy metabolism',pt:'Metabolismo energético',es:'Metabolismo energético'}}
-};
+/* HOME_COPY_START */
+const HOME_COPY = {"fr":{"announcementTitle":"Les tarifs du catalogue.","announcementLink":"Voir les prix","eyebrow":"Scarl’s Peptides / Catalogue de recherche","title":"Le catalogue","titleAccent":"Scarl’s.","lead":"Consultez les formats et les disponibilités. Préparez votre sélection, puis envoyez-la sur WhatsApp.","catalogue":"Voir le catalogue","research":"Destiné exclusivement à la recherche.","signature":"Scarl’s Peptides — Recherche uniquement.","scroll":"Parcourir les références","selectionEye":"Dans le catalogue","selectionTitle":"Les références.","all":"Tout le catalogue","ghk":"Peau & matrice extracellulaire","reta":"Recherche métabolique","nad":"Biologie cellulaire","semax":"Neurobiologie & cognition","contactEye":"Contact","contactTitle":"Une question sur une référence ?","contactText":"Envoyez-nous son nom sur WhatsApp. Précisez le format ou la documentation que vous recherchez.","contact":"Écrire sur WhatsApp","noteLabel":"Cadre de recherche","note":"Les références présentées ne sont pas destinées à l’utilisation humaine ou animale. Le catalogue permet de préparer une demande d’information ; aucune commande ni aucun paiement n’est traité sur ce site.","view":"Voir dans le catalogue","vial":"Fiole"},"en":{"announcementTitle":"Catalogue prices.","announcementLink":"View prices","eyebrow":"Scarl’s Peptides / Research catalogue","title":"The Scarl’s","titleAccent":"catalogue.","lead":"Check formats and availability. Build your selection, then send it on WhatsApp.","catalogue":"View catalogue","research":"For research use only.","signature":"A closer look at the material.","scroll":"Browse the references","selectionEye":"In the catalogue","selectionTitle":"The references.","all":"Full catalogue","ghk":"Skin & extracellular matrix","reta":"Metabolic research","nad":"Cell biology","semax":"Neurobiology & cognition","contactEye":"Contact","contactTitle":"A question about a reference?","contactText":"Send us its name on WhatsApp. Tell us which format or documentation you need.","contact":"Write on WhatsApp","noteLabel":"Research context","note":"These references are not intended for human or animal use. The catalogue helps you prepare an information request; no orders or payments are processed on this website.","view":"View in the catalogue","vial":"Vial"},"pt":{"announcementTitle":"Preços do catálogo.","announcementLink":"Ver preços","eyebrow":"Scarl’s Peptides / Catálogo de investigação","title":"O catálogo","titleAccent":"Scarl’s.","lead":"Consulte os formatos e a disponibilidade. Prepare a sua seleção e envie-a no WhatsApp.","catalogue":"Ver catálogo","research":"Exclusivamente para investigação.","signature":"Um olhar sobre a matéria.","scroll":"Explorar as referências","selectionEye":"No catálogo","selectionTitle":"As referências.","all":"Todo o catálogo","ghk":"Pele e matriz extracelular","reta":"Investigação metabólica","nad":"Biologia celular","semax":"Neurobiologia e cognição","contactEye":"Contacto","contactTitle":"Uma questão sobre uma referência?","contactText":"Envie-nos o nome no WhatsApp. Indique o formato ou a documentação que procura.","contact":"Escrever no WhatsApp","noteLabel":"Contexto de investigação","note":"Estas referências não se destinam a utilização humana ou animal. O catálogo permite preparar um pedido de informação; não são processadas encomendas nem pagamentos neste site.","view":"Ver no catálogo","vial":"Frasco"},"es":{"announcementTitle":"Precios del catálogo.","announcementLink":"Ver precios","eyebrow":"Scarl’s Peptides / Catálogo de investigación","title":"El catálogo","titleAccent":"Scarl’s.","lead":"Consulta los formatos y la disponibilidad. Prepara tu selección y envíala por WhatsApp.","catalogue":"Ver catálogo","research":"Exclusivamente para investigación.","signature":"Una mirada a la materia.","scroll":"Explorar las referencias","selectionEye":"En el catálogo","selectionTitle":"Las referencias.","all":"Todo el catálogo","ghk":"Piel y matriz extracelular","reta":"Investigación metabólica","nad":"Biología celular","semax":"Neurobiología y cognición","contactEye":"Contacto","contactTitle":"¿Una pregunta sobre una referencia?","contactText":"Envíanos su nombre por WhatsApp. Indica el formato o la documentación que buscas.","contact":"Escribir por WhatsApp","noteLabel":"Contexto de investigación","note":"Estas referencias no están destinadas al uso humano o animal. El catálogo permite preparar una solicitud de información; no se procesan pedidos ni pagos en este sitio.","view":"Ver en el catálogo","vial":"Vial"}};
+/* HOME_COPY_END */
+const VIALS = Object.fromEntries(window.ScarlsProducts.items.filter(item => item.image).map(item => [item.id,item]));
 const VIAL_ORDER = Object.keys(VIALS);
-const CAROUSEL_COPY = {
-  fr:{previous:'Référence précédente',next:'Référence suivante',choose:'Choisir une référence',hint:'Glissez sur la fiole pour changer de référence.',touchHint:'Balayez la fiole pour changer de référence.'},
-  en:{previous:'Previous reference',next:'Next reference',choose:'Choose a reference',hint:'Drag the vial to change reference.',touchHint:'Swipe the vial to change reference.'},
-  pt:{previous:'Referência anterior',next:'Referência seguinte',choose:'Escolher uma referência',hint:'Arraste o frasco para mudar de referência.',touchHint:'Deslize o frasco para mudar de referência.'},
-  es:{previous:'Referencia anterior',next:'Referencia siguiente',choose:'Elegir una referencia',hint:'Arrastra el vial para cambiar de referencia.',touchHint:'Desliza el vial para cambiar de referencia.'}
-};
-const experience = document.getElementById('vialExperience');
 const scene = document.getElementById('vialScene');
-const tilt = document.getElementById('sceneTilt');
-const scrollLayer = document.getElementById('sceneScroll');
+const choices = document.getElementById('vialChoices');
+const image = document.getElementById('sceneImage');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-let homeLanguage = 'fr', activeVial = 'reta', paused = reducedMotion.matches, sceneVisible = true, tiltX = 0, tiltY = 0, scrollFrame = 0, transitioning = false, swipeStart = null;
+let homeLanguage = 'fr', activeVial = 'retatrutide', transitioning = false, swipeStart = null;
+const carouselCopy = {
+ fr:{previous:'Référence précédente',next:'Référence suivante',choose:'Choisir une référence',hint:'Glissez pour changer de référence.',label:'Références. Flèche gauche ou droite pour changer de fiole.'},
+ en:{previous:'Previous reference',next:'Next reference',choose:'Choose a reference',hint:'Swipe to change reference.',label:'References. Use the left or right arrow to change vial.'},
+ pt:{previous:'Referência anterior',next:'Referência seguinte',choose:'Escolher uma referência',hint:'Deslize para mudar de referência.',label:'Referências. Use a seta esquerda ou direita para mudar de frasco.'},
+ es:{previous:'Referencia anterior',next:'Referencia siguiente',choose:'Elegir una referencia',hint:'Desliza para cambiar de referencia.',label:'Referencias. Usa la flecha izquierda o derecha para cambiar de vial.'}
+};
 function updateSceneCopy() {
-  const copy = HOME_COPY[homeLanguage], vial = VIALS[activeVial];
-  document.getElementById('sceneDescription').textContent = `${vial.description[homeLanguage]} · ${vial.dose}`;
-  document.getElementById('sceneImage').alt = `${copy.vial} ${vial.name} ${vial.dose}`;
-  document.getElementById('sceneLink').setAttribute('aria-label', `${vial.name} — ${copy.view}`);
-  scene.setAttribute('aria-label', copy.sceneLabel);
-  document.getElementById('motionText').textContent = paused ? copy.play : copy.pause;
-  document.getElementById('motionIcon').textContent = paused ? '▷' : 'Ⅱ';
-  const carousel = CAROUSEL_COPY[homeLanguage];
-  document.getElementById('sceneHint').textContent = matchMedia('(pointer: coarse)').matches ? carousel.touchHint : carousel.hint;
-  document.getElementById('vialPrevious').setAttribute('aria-label', carousel.previous);
-  document.getElementById('vialNext').setAttribute('aria-label', carousel.next);
-  document.getElementById('vialChoices').setAttribute('aria-label', carousel.choose);
+ const copy=HOME_COPY[homeLanguage], vial=VIALS[activeVial], labels=carouselCopy[homeLanguage];
+ image.alt=`${copy.vial} ${vial.name} ${vial.dose}`;
+ document.getElementById('sceneDescription').textContent=vial.dose;
+ document.getElementById('sceneName').textContent=vial.name;
+ document.getElementById('sceneLink').textContent=copy.view;
+ document.getElementById('sceneLink').setAttribute('aria-label',`${copy.view} — ${vial.name}`);
+ scene.setAttribute('aria-label',labels.label);
+ document.getElementById('sceneHint').textContent=labels.hint;
+ document.getElementById('vialPrevious').setAttribute('aria-label',labels.previous);
+ document.getElementById('vialNext').setAttribute('aria-label',labels.next);
+ choices.setAttribute('aria-label',labels.choose);
 }
 function setPageLang(language) {
-  homeLanguage = HOME_COPY[language] ? language : 'fr';
-  document.querySelectorAll('[data-copy]').forEach(node => { node.textContent = HOME_COPY[homeLanguage][node.dataset.copy]; });
-  updateSceneCopy();
+ homeLanguage=HOME_COPY[language]?language:'fr';
+ document.querySelectorAll('[data-copy]').forEach(node=>{const value=HOME_COPY[homeLanguage][node.dataset.copy];if(value!==undefined)node.textContent=value;});
+ updateSceneCopy();
 }
-function resetScene() {
-  tiltX = 0; tiltY = 0; tilt.style.transform = '';
-  experience.style.setProperty('--scene-x', '50%'); experience.style.setProperty('--scene-y', '45%');
+choices.innerHTML=VIAL_ORDER.map(key=>`<button class="vial-choice${key===activeVial?' active':''}" type="button" data-vial="${key}" aria-pressed="${key===activeVial}">${VIALS[key].name}</button>`).join('');
+choices.addEventListener('click',event=>{const button=event.target.closest('[data-vial]');if(button)showVial(button.dataset.vial);});
+document.getElementById('vialPrevious').addEventListener('click',()=>stepVial(-1));
+document.getElementById('vialNext').addEventListener('click',()=>stepVial(1));
+function stepVial(direction) {const index=VIAL_ORDER.indexOf(activeVial);showVial(VIAL_ORDER[(index+direction+VIAL_ORDER.length)%VIAL_ORDER.length],direction);}
+scene.addEventListener('keydown',event=>{if(event.target!==scene)return;if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();stepVial(event.key==='ArrowLeft'?-1:1);}});
+scene.addEventListener('pointerdown',event=>{swipeStart={x:event.clientX,y:event.clientY,id:event.pointerId};try{scene.setPointerCapture(event.pointerId);}catch{}});
+scene.addEventListener('pointerup',event=>{if(!swipeStart||swipeStart.id!==event.pointerId)return;const dx=event.clientX-swipeStart.x,dy=event.clientY-swipeStart.y;swipeStart=null;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.25)stepVial(dx<0?1:-1);});
+scene.addEventListener('pointercancel',()=>swipeStart=null);
+async function showVial(next,direction=0) {
+ if(!VIALS[next]||next===activeVial||transitioning)return;
+ transitioning=true;
+ try {
+  const asset=new Image();asset.src=VIALS[next].image;await asset.decode();
+  const animate=!reducedMotion.matches&&typeof image.animate==='function';
+  if(animate){const exit=image.animate([{opacity:1},{opacity:0}],{duration:90,fill:'forwards'});await exit.finished.catch(()=>{});exit.cancel();}
+  activeVial=next;image.src=asset.src;
+  document.getElementById('sceneNumber').textContent=`${String(VIAL_ORDER.indexOf(next)+1).padStart(2,'0')} / ${VIAL_ORDER.length}`;
+  document.getElementById('sceneLink').href=`produits.html#${next}`;
+  choices.querySelectorAll('[data-vial]').forEach(button=>{const active=button.dataset.vial===next;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));if(active)choices.scrollTo({left:button.offsetLeft-choices.offsetLeft-(choices.clientWidth-button.clientWidth)/2,behavior:'auto'});});
+  updateSceneCopy();if(animate)image.animate([{opacity:0},{opacity:1}],{duration:120});
+ } catch { /* Keep the current reference if the next image cannot load. */ }
+ finally {transitioning=false;}
 }
-function renderTilt() { tilt.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`; }
-scene.addEventListener('pointermove', event => {
-  if (paused || reducedMotion.matches) return;
-  const rect = scene.getBoundingClientRect();
-  const x = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
-  const y = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
-  tiltX = (y - .5) * -12; tiltY = (x - .5) * 26; renderTilt();
-  experience.style.setProperty('--scene-x', `${x * 100}%`); experience.style.setProperty('--scene-y', `${y * 100}%`);
-});
-['pointerleave', 'pointercancel', 'blur'].forEach(name => scene.addEventListener(name, resetScene));
-scene.addEventListener('keydown', event => {
-  if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Escape'].includes(event.key)) return;
-  if (event.key === 'Escape') { resetScene(); return; }
-  if (paused || reducedMotion.matches) return;
-  event.preventDefault();
-  tiltY = Math.max(-13, Math.min(13, tiltY + (event.key === 'ArrowLeft' ? -3 : event.key === 'ArrowRight' ? 3 : 0)));
-  tiltX = Math.max(-6, Math.min(6, tiltX + (event.key === 'ArrowUp' ? 2 : event.key === 'ArrowDown' ? -2 : 0))); renderTilt();
-});
-function syncMotion() {
-  experience.classList.toggle('is-paused', paused || reducedMotion.matches);
-  document.getElementById('motionToggle').setAttribute('aria-pressed', String(paused));
-  document.getElementById('motionToggle').hidden = reducedMotion.matches;
-  if (paused || reducedMotion.matches) { resetScene(); scrollLayer.style.transform = ''; }
-  updateSceneCopy();
-}
-document.getElementById('motionToggle').addEventListener('click', () => { paused = !paused; syncMotion(); });
-reducedMotion.addEventListener('change', () => { paused = reducedMotion.matches; syncMotion(); });
-const choices = document.getElementById('vialChoices');
-choices.innerHTML = VIAL_ORDER.map((key, index) => `<button class="vial-choice${index === 0 ? ' active' : ''}" type="button" data-vial="${key}" aria-pressed="${index === 0}">${VIALS[key].name}</button>`).join('');
-choices.addEventListener('click', event => {
-  const button = event.target.closest('[data-vial]');
-  if (button) showVial(button.dataset.vial);
-});
-document.getElementById('vialPrevious').addEventListener('click', () => stepVial(-1));
-document.getElementById('vialNext').addEventListener('click', () => stepVial(1));
-function stepVial(direction) {
-  const index = VIAL_ORDER.indexOf(activeVial);
-  showVial(VIAL_ORDER[(index + direction + VIAL_ORDER.length) % VIAL_ORDER.length], direction);
-}
-scene.addEventListener('pointerdown', event => { swipeStart = {x:event.clientX,y:event.clientY,id:event.pointerId}; try { scene.setPointerCapture(event.pointerId); } catch {} });
-scene.addEventListener('pointerup', event => {
-  if (!swipeStart || swipeStart.id !== event.pointerId) return;
-  const dx = event.clientX - swipeStart.x, dy = event.clientY - swipeStart.y;
-  swipeStart = null;
-  if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.25) {
-    resetScene();
-    stepVial(dx < 0 ? 1 : -1);
-  }
-});
-scene.addEventListener('pointercancel', () => { swipeStart = null; resetScene(); });
-async function showVial(next, direction = 0) {
-  if (!VIALS[next] || next === activeVial || transitioning) return;
-  transitioning = true;
-  const asset = new Image();
-  asset.src = VIALS[next].src;
-  try { await asset.decode(); } catch {
-    transitioning = false;
-    return;
-  }
-  const index = VIAL_ORDER.indexOf(next);
-  const fromIndex = VIAL_ORDER.indexOf(activeVial);
-  const move = direction || (index > fromIndex ? 1 : -1);
-  const animate = !paused && !reducedMotion.matches;
-  const image = document.getElementById('sceneImage');
-  const reflection = document.getElementById('sceneReflection');
-  const word = document.getElementById('sceneWord');
-  if (animate) {
-    const exit = image.animate([{opacity:1,transform:'translateX(0) scale(1)'},{opacity:0,transform:`translateX(${-move * 32}px) scale(.96)`}],{duration:230,easing:'ease-in',fill:'forwards'});
-    const reflectionExit = reflection.animate([{opacity:.12},{opacity:0}],{duration:230,fill:'forwards'});
-    const wordExit = word.animate([{opacity:1},{opacity:0}],{duration:230,fill:'forwards'});
-    await Promise.all([exit.finished,reflectionExit.finished,wordExit.finished]);
-    exit.cancel(); reflectionExit.cancel(); wordExit.cancel();
-  }
-  activeVial = next;
-  const companion = VIALS[next === 'ghk' ? 'reta' : 'ghk'];
-  document.getElementById('companionVial').src = companion.src;
-  document.getElementById('companionVial').alt = `${companion.name} ${companion.dose}`;
-  const vial = VIALS[next];
-  image.src = vial.src; reflection.src = vial.src;
-  word.textContent = vial.name.toUpperCase();
-  word.classList.toggle('long-name', vial.name.length > 9);
-  word.classList.toggle('very-long-name', vial.name.length > 16);
-  document.getElementById('sceneName').textContent = vial.name;
-  document.getElementById('sceneNumber').textContent = `${String(index + 1).padStart(2,'0')} / ${VIAL_ORDER.length}`;
-  document.getElementById('sceneLink').href = `produits.html#${vial.hash}`;
-  document.querySelector('.scene-side').textContent = `SCARL’S / ${vial.dose.toUpperCase()}`;
-  choices.querySelectorAll('[data-vial]').forEach(button => {
-    const active = button.dataset.vial === next;
-    button.classList.toggle('active', active);
-    button.setAttribute('aria-pressed', String(active));
-    if (active) choices.scrollTo({left:button.offsetLeft - choices.offsetLeft - (choices.clientWidth - button.clientWidth) / 2,behavior:animate ? 'smooth' : 'instant'});
-  });
-  resetScene(); updateSceneCopy();
-  if (animate) {
-    image.animate([{opacity:0,transform:`translateX(${move * 32}px) scale(.96)`},{opacity:1,transform:'translateX(0) scale(1)'}],{duration:380,easing:'cubic-bezier(.2,.7,.2,1)'});
-    reflection.animate([{opacity:0},{opacity:.12}],{duration:380,easing:'ease-out'});
-    word.animate([{opacity:0},{opacity:1}],{duration:420,easing:'ease-out'});
-  }
-  transitioning = false;
-}
-function syncVisibility() { experience.classList.toggle('is-away', !sceneVisible || document.hidden); }
-if ('IntersectionObserver' in window) new IntersectionObserver(entries => { sceneVisible = entries[0].isIntersecting; syncVisibility(); }, {threshold:0}).observe(experience);
-document.addEventListener('visibilitychange', syncVisibility);
-window.addEventListener('scroll', () => {
-  if (paused || reducedMotion.matches || !sceneVisible || document.hidden || scrollFrame) return;
-  scrollFrame = requestAnimationFrame(() => { scrollFrame = 0; scrollLayer.style.transform = `translateY(${Math.min(window.scrollY * .045, 18)}px)`; });
-}, {passive:true});
-syncMotion();
-
-
+updateSceneCopy();

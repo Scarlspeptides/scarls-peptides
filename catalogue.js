@@ -1,43 +1,5 @@
-const CATALOGUE = {
-  fr: [
-    ['Peau & régénération', [['GHK-Cu', '100mg', 'Recherche cutanée & matrice extracellulaire', '70 €', '100 €'], ['KLOW', '80mg', 'Recherche sur les mécanismes de régénération', '150 €']]],
-    ['Muscle & récupération', [['CJC no DAC + Ipamorelin', '10mg', 'Recherche sur les mécanismes de croissance', '70 €', '100 €']]],
-    ['Cognition & système nerveux', [['Semax', '5mg', 'Recherche en neurobiologie & cognition', '40 €', '50 €'], ['Selank', '5mg', 'Recherche en neurobiologie & stress', '40 €', '50 €']]],
-    ['Métabolisme & énergie', [['Retatrutide', '10mg', 'Recherche métabolique', '150 €'], ['MOTS-C', '10mg', 'Recherche métabolisme & énergie cellulaire', '50 €', '70 €'], ['NAD+', '100mg', 'Recherche en biologie cellulaire', '40 €', '70 €'], ['L-Carnitine', '1200mg', 'Recherche métabolisme énergétique', '40 €', '60 €']]],
-    ['Longévité & biologie cellulaire', [['Epitalon', '10mg', 'Recherche vieillissement cellulaire', '40 €', '50 €']]],
-    ['Pigmentation', [['Melanotan I', '10mg', 'Recherche sur la pigmentation', '50 €', '60 €']]],
-    ['Autres références', [['DSIP', '5mg', 'Recherche en neurobiologie du sommeil', '40 €', '50 €'], ['Glutathion', '600mg', 'Recherche sur les systèmes antioxydants', '50 €', '65 €']]]
-  ],
-  en: [
-    ['Skin & regeneration', [['GHK-Cu', '100mg', 'Skin research & extracellular matrix', '€70', '€100'], ['KLOW', '80mg', 'Research into regeneration mechanisms', '€150']]],
-    ['Muscle & recovery', [['CJC no DAC + Ipamorelin', '10mg', 'Research into growth mechanisms', '€70', '€100']]],
-    ['Cognition & nervous system', [['Semax', '5mg', 'Neurobiology & cognition research', '€40', '€50'], ['Selank', '5mg', 'Neurobiology & stress research', '€40', '€50']]],
-    ['Metabolism & energy', [['Retatrutide', '10mg', 'Metabolic research', '€150'], ['MOTS-C', '10mg', 'Metabolism & cellular energy research', '€50', '€70'], ['NAD+', '100mg', 'Cell biology research', '€40', '€70'], ['L-Carnitine', '1200mg', 'Energy metabolism research', '€40', '€60']]],
-    ['Longevity & cell biology', [['Epitalon', '10mg', 'Cellular ageing research', '€40', '€50']]],
-    ['Pigmentation', [['Melanotan I', '10mg', 'Pigmentation research', '€50', '€60']]],
-    ['Other references', [['DSIP', '5mg', 'Sleep neurobiology research', '€40', '€50'], ['Glutathion', '600mg', 'Research on antioxidant systems', '€50', '€65']]]
-  ],
-  pt: [
-    ['Pele & regeneração', [['GHK-Cu', '100mg', 'Investigação cutânea e matriz extracelular', '€70', '€100'], ['KLOW', '80mg', 'Investigação dos mecanismos de regeneração', '€150']]],
-    ['Músculo & recuperação', [['CJC no DAC + Ipamorelin', '10mg', 'Investigação dos mecanismos de crescimento', '€70', '€100']]],
-    ['Cognição & sistema nervoso', [['Semax', '5mg', 'Investigação em neurobiologia e cognição', '€40', '€50'], ['Selank', '5mg', 'Investigação em neurobiologia e stress', '€40', '€50']]],
-    ['Metabolismo & energia', [['Retatrutide', '10mg', 'Investigação metabólica', '€150'], ['MOTS-C', '10mg', 'Investigação do metabolismo e energia celular', '€50', '€70'], ['NAD+', '100mg', 'Investigação em biologia celular', '€40', '€70'], ['L-Carnitine', '1200mg', 'Investigação do metabolismo energético', '€40', '€60']]],
-    ['Longevidade & biologia celular', [['Epitalon', '10mg', 'Investigação do envelhecimento celular', '€40', '€50']]],
-    ['Pigmentação', [['Melanotan I', '10mg', 'Investigação sobre pigmentação', '€50', '€60']]],
-    ['Outras referências', [['DSIP', '5mg', 'Investigação em neurobiologia do sono', '€40', '€50'], ['Glutathion', '600mg', 'Investigação dos sistemas antioxidantes', '€50', '€65']]]
-  ],
-  es: [
-    ['Piel & regeneración', [['GHK-Cu', '100mg', 'Investigación cutánea y matriz extracelular', '€70', '€100'], ['KLOW', '80mg', 'Investigación de los mecanismos de regeneración', '€150']]],
-    ['Músculo & recuperación', [['CJC no DAC + Ipamorelin', '10mg', 'Investigación de los mecanismos de crecimiento', '€70', '€100']]],
-    ['Cognición & sistema nervioso', [['Semax', '5mg', 'Investigación en neurobiología y cognición', '€40', '€50'], ['Selank', '5mg', 'Investigación en neurobiología y estrés', '€40', '€50']]],
-    ['Metabolismo & energía', [['Retatrutide', '10mg', 'Investigación metabólica', '€150'], ['MOTS-C', '10mg', 'Investigación del metabolismo y energía celular', '€50', '€70'], ['NAD+', '100mg', 'Investigación en biología celular', '€40', '€70'], ['L-Carnitine', '1200mg', 'Investigación del metabolismo energético', '€40', '€60']]],
-    ['Longevidad & biología celular', [['Epitalon', '10mg', 'Investigación del envejecimiento celular', '€40', '€50']]],
-    ['Pigmentación', [['Melanotan I', '10mg', 'Investigación sobre pigmentación', '€50', '€60']]],
-    ['Otras referencias', [['DSIP', '5mg', 'Investigación en neurobiología del sueño', '€40', '€50'], ['Glutathion', '600mg', 'Investigación sobre los sistemas antioxidantes', '€50', '€65']]]
-  ]
-};
-
-const IMAGE_MAP = {'GHK-Cu':'ghk-cu-clean.webp','KLOW':'klow-clean.webp','CJC no DAC + Ipamorelin':'cjc-no-dac-ipamorelin-clean.webp','Semax':'semax-clean.webp','Selank':'selank-clean.webp','Retatrutide':'retatrutide-clean.webp','MOTS-C':'mots-c-clean.webp','NAD+':'nad-clean-v2.webp','L-Carnitine':'l-carnitine-clean.webp','Epitalon':'epitalon-clean.webp','Melanotan I':'melanotan-i-clean.webp','Glutathion':'glutathion-clean.webp'};
+const CATALOGUE = Object.fromEntries(["fr","en","pt","es"].map(lang => [lang, window.ScarlsProducts.catalogue(lang)]));
+const IMAGE_MAP = Object.fromEntries(window.ScarlsProducts.items.filter(item => item.image).map(item => [item.name,item.image]));
 
 const CATALOGUE_COPY = {
   fr: {head:['Scarl’s Peptides / 13 références','Le catalogue.','Parcourez les références par domaine de recherche. Ajoutez votre sélection pour préparer une demande d’information.'], all:'Tout voir', one:'référence', count:'références', filterLabel:'Filtrer le catalogue', badge:'Recherche', notice:'Important : les références présentées sont destinées à la recherche uniquement. Elles ne sont pas destinées à l’utilisation chez l’être humain ou l’animal.'},
@@ -139,6 +101,7 @@ try { const saved = JSON.parse(localStorage.getItem('scarlSelection') || '[]'); 
  selection = [...merged.values()];
 } } catch {}
 let activeFilter = 0;
+let previewOpener=null;
 function pageLanguage() { return typeof currentLang === "function" ? currentLang() : "fr"; }
 function productId(name) { return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/g, ''); }
 
@@ -146,7 +109,8 @@ function revealLinkedProduct() {
   const id = location.hash.slice(1);
   const target = document.getElementById(id);
   if (!target || !target.classList.contains('product-card')) return;
-  if (activeFilter) setFilter(0);
+  document.getElementById('catalogueSearch').value='';
+  if (activeFilter) setFilter(0); else applySearch();
   requestAnimationFrame(() => target.scrollIntoView({block:'start', behavior:'instant'}));
 }
 window.addEventListener('hashchange', revealLinkedProduct);
@@ -155,6 +119,24 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('selectionToggle').addEventListener('click', () => setSelectionOpen(document.getElementById('selectionDetails').hidden));
   document.getElementById('selectionClose').addEventListener('click', () => setSelectionOpen(false,true));
   document.getElementById('catalogueSearch').addEventListener('input', applySearch);
+  document.getElementById('catalogueTools').addEventListener('click',event=>{const button=event.target.closest('[data-filter]');if(button)setFilter(Number(button.dataset.filter));});
+  document.getElementById('catalogue').addEventListener('click',event=>{
+    const button=event.target.closest('button');if(!button||button.disabled)return;
+    if(button.dataset.action==='preview')openProductPreview(button);
+    else if(button.dataset.action==='add')addSelection(button);
+    else if(button.dataset.step)changePendingQty(button,Number(button.dataset.step));
+  });
+  document.getElementById('selItems').addEventListener('click',event=>{
+    const button=event.target.closest('[data-action]');if(!button||button.disabled)return;
+    const row=button.closest('[data-reference]'),index=selection.findIndex(item=>item.name===row.dataset.reference);if(index<0)return;
+    if(button.dataset.action==='remove')removeSelection(index);
+    else changeQty(index,button.dataset.action==='increase'?1:-1);
+  });
+  document.getElementById('copyBtn').addEventListener('click',copySelection);
+  document.getElementById('downloadBtn').addEventListener('click',downloadSelection);
+  document.getElementById('waBtn').addEventListener('click',sendInfoWhatsApp);
+  document.getElementById('clearBtn').addEventListener('click',clearSelection);
+
   const panel=document.getElementById('selection');let swipe=null;
   panel.addEventListener('touchstart',event=>{
     const details=document.getElementById('selectionDetails');
@@ -171,6 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
   panel.addEventListener('touchend',()=>swipe=null,{passive:true});
   panel.addEventListener('touchcancel',()=>swipe=null,{passive:true});
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!document.getElementById('productPreview').open&&!document.getElementById('selectionDetails').hidden)setSelectionOpen(false,true);});
+  document.getElementById('productPreview').addEventListener('close',()=>{if(previewOpener?.isConnected)previewOpener.focus();previewOpener=null;});
   document.getElementById('previewClose').addEventListener('click',()=>document.getElementById('productPreview').close());
   document.getElementById('productPreview').addEventListener('click',event=>{if(event.target===event.currentTarget){const box=event.currentTarget.getBoundingClientRect();if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)event.currentTarget.close();}});
 
@@ -194,7 +177,7 @@ function setPageLang(lang) {
 
 function renderTools(lang) {
   const groups = CATALOGUE[lang];
-  document.getElementById('catalogueTools').innerHTML = `<button class="filter ${activeFilter === 0 ? 'active' : ''}" type="button" aria-pressed="${activeFilter === 0}" onclick="setFilter(0)">${CATALOGUE_COPY[lang].all}</button>` + groups.map((group, index) => `<button class="filter ${activeFilter === index + 1 ? 'active' : ''}" type="button" aria-pressed="${activeFilter === index + 1}" onclick="setFilter(${index + 1})">${group[0]}</button>`).join('');
+  document.getElementById('catalogueTools').innerHTML = `<button class="filter ${activeFilter === 0 ? 'active' : ''}" type="button" aria-pressed="${activeFilter === 0}" data-filter="0">${CATALOGUE_COPY[lang].all}</button>` + groups.map((group, index) => `<button class="filter ${activeFilter === index + 1 ? 'active' : ''}" type="button" aria-pressed="${activeFilter === index + 1}" data-filter="${index + 1}">${group[0]}</button>`).join('');
 }
 
 function setFilter(index) {
@@ -215,13 +198,13 @@ function renderProduct(product, lang) {
   const priceLabels = {fr:['Ancien prix','Nouveau prix'],en:['Previous price','New price'],pt:['Preço anterior','Novo preço'],es:['Precio anterior','Nuevo precio']}[lang];
   const priceMarkup = previousPrice ? `<span class="price price-reduced"><del aria-label="${priceLabels[0]}">${previousPrice}</del><span aria-label="${priceLabels[1]}">${price}</span></span>` : `<span class="price">${price}</span>`;
   const imageMarkup = IMAGE_MAP[name]
-    ? `<img src="${IMAGE_MAP[name]}" alt="${name}" loading="lazy" decoding="async">`
+    ? `<img src="${IMAGE_MAP[name]}" alt="${name} — ${dose}" width="800" height="915" loading="lazy" decoding="async">`
     : `<div class="product-image-pending"><strong>${name}</strong><span>${dose}</span><small>${{fr:'Visuel à venir',en:'Image coming soon',pt:'Imagem em breve',es:'Imagen próximamente'}[lang]}</small></div>`;
   const selected = selection.some(item => item.name === name);
   const remaining = remainingQuantity(name);
   const disabled = remaining < 1;
   const addLabel = disabled ? stockQuantity(name) === 0 ? STOCK_COPY[lang].out : stockQuantity(name) === null ? LIMIT_COPY[lang].unknown : LIMIT_COPY[lang].limit : selected ? SELECTION_COPY[lang].added : SELECTION_COPY[lang].add;
-  return `<article class="product-card" id="${productId(name)}" data-name="${name}" data-dose="${dose}" data-price="${price}"><div class="product-image" data-badge="${CATALOGUE_COPY[lang].badge}"><button class="product-preview-trigger" type="button" onclick="openProductPreview(this)" aria-label="${catalogueUI(lang).view} — ${name}">${imageMarkup}</button></div><div class="product-content"><h3 class="product-name"><span>${name}</span><span class="product-dose">${dose}</span></h3><p class="product-use">${use}</p>${stockMarkup(name, lang)}<div class="product-bottom">${priceMarkup}<div class="product-action"><div class="card-quantity" role="group" aria-label="${name} — ${lang === 'fr' ? 'quantité' : lang === 'en' ? 'quantity' : lang === 'pt' ? 'quantidade' : 'cantidad'}"><button type="button" aria-label="${SELECTION_COPY[lang].decrease}" onclick="changePendingQty(this, -1)" disabled>−</button><output aria-live="polite">${disabled ? 0 : 1}</output><button type="button" aria-label="${SELECTION_COPY[lang].increase}" onclick="changePendingQty(this, 1)" ${remaining <= 1 ? 'disabled' : ''}>+</button></div><button class="add ${selected ? 'selected' : ''}" type="button" aria-label="${addLabel} — ${name} · ${dose}" onclick="addSelection(this)" ${disabled ? 'disabled' : ''}>${addLabel}</button></div></div></div></article>`;
+  return `<article class="product-card" id="${productId(name)}" data-name="${name}" data-dose="${dose}" data-price="${price}"><div class="product-image" data-badge="${CATALOGUE_COPY[lang].badge}"><button class="product-preview-trigger" type="button" data-action="preview" aria-label="${catalogueUI(lang).view} — ${name}">${imageMarkup}</button></div><div class="product-content"><h3 class="product-name"><span>${name}</span><span class="product-dose">${dose}</span></h3><p class="product-use">${use}</p>${stockMarkup(name, lang)}<div class="product-bottom">${priceMarkup}<div class="product-action"><div class="card-quantity" role="group" aria-label="${name} — ${lang === 'fr' ? 'quantité' : lang === 'en' ? 'quantity' : lang === 'pt' ? 'quantidade' : 'cantidad'}"><button type="button" aria-label="${SELECTION_COPY[lang].decrease}" data-step="-1" disabled>−</button><output aria-live="polite">${disabled ? 0 : 1}</output><button type="button" aria-label="${SELECTION_COPY[lang].increase}" data-step="1" ${remaining <= 1 ? 'disabled' : ''}>+</button></div><button class="add ${selected ? 'selected' : ''}" type="button" aria-label="${addLabel} — ${name} · ${dose}" data-action="add" ${disabled ? 'disabled' : ''}>${addLabel}</button></div></div></div></article>`;
 }
 
 function changePendingQty(button, change) {
@@ -254,7 +237,7 @@ function addSelection(button) {
 function saveSelection() { try { localStorage.setItem('scarlSelection', JSON.stringify(selection)); } catch {} }
 function shippingProductSubtotal() {
  if (!stockReady || !selectionAllowed()) return null;
- return selection.reduce((sum,item) => sum + Math.round(Number(item.price.replace(/[^0-9.,]/g, '').replace(',', '.')) * 100) * item.qty, 0);
+ return selection.reduce((sum,item) => sum + window.ScarlsProducts.byName(item.name).priceCents * item.qty, 0);
 }
 function renderSelection() {
   const lang = pageLanguage();
@@ -266,10 +249,11 @@ function renderSelection() {
   const formatted = amount === null ? '—' : new Intl.NumberFormat(lang,{style:'currency',currency:'EUR'}).format(amount/100);
   document.getElementById('selCount').textContent = `${total} · ${formatted}`;
   document.getElementById('selTotal').textContent = ({fr:'Total produits',en:'Products total',pt:'Total dos produtos',es:'Total de productos'}[lang]) + ' : ' + formatted;
-  if (!total) window.ScarlsShipping?.reset();
-  document.getElementById('selItems').innerHTML = selection.map((item, index) => `<span class="chip">${item.name} · ${item.dose} × ${item.qty || 1}<button type="button" aria-label="${copy.increase}" onclick="changeQty(${index}, 1)" ${remainingQuantity(item.name) < 1 ? 'disabled' : ''}>＋</button><button type="button" aria-label="${copy.decrease}" onclick="changeQty(${index}, -1)">−</button><button type="button" aria-label="${copy.remove}" onclick="removeSelection(${index})">×</button></span>`).join('');
+  if (!total) { window.ScarlsShipping?.reset(); setSelectionOpen(false); }
+  syncSelectionItems(copy);
   ['copyBtn','downloadBtn','waBtn'].forEach(id => document.getElementById(id).disabled = !selectionAllowed());
   [['copyBtn','copy'],['downloadBtn','download'],['waBtn','wa'],['clearBtn','clear'],['selNote','note']].forEach(([id, key]) => document.getElementById(id).textContent = copy[key]);
+  document.getElementById('selectionExtrasLabel').textContent = {fr:'Autres options',en:'Other options',pt:'Outras opções',es:'Otras opciones'}[lang];
   window.ScarlsShipping?.refresh();
 }
 function changeQty(index, change) {
@@ -308,7 +292,7 @@ function setSelectionOpen(open,focus=false) {
 }
 function applySearch() {
  const input=document.getElementById('catalogueSearch');if(!input)return;
- const normalize=value=>value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+ const normalize=value=>String(value).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[\s\p{P}\p{S}]+/gu,'');
  const query=normalize(input.value.trim());let count=0;
  document.querySelectorAll('.product-group').forEach((group,index)=>{
   let visible=0;
@@ -316,7 +300,7 @@ function applySearch() {
   const show=visible>0 && (!activeFilter || activeFilter===index+1);
   group.classList.toggle('is-hidden',!show);if(show)count+=visible;
  });
- document.getElementById('searchStatus').textContent=!count?catalogueUI().empty:query?String(count)+' '+CATALOGUE_COPY[pageLanguage()].count:'';
+ document.getElementById('searchStatus').textContent=!count?catalogueUI().empty:query?String(count)+' '+(count===1?CATALOGUE_COPY[pageLanguage()].one:CATALOGUE_COPY[pageLanguage()].count):'';
 }
 function updateCatalogueStock() {
  const lang=pageLanguage();
@@ -331,7 +315,42 @@ function updateCatalogueStock() {
   const qty=remaining<1?0:Math.max(1,Math.min(Number(output.textContent)||1,99,remaining));output.textContent=qty;
   const buttons=card.querySelectorAll('.card-quantity button');buttons[0].disabled=qty<=1;buttons[1].disabled=remaining<1 || qty>=Math.min(99,remaining);
  });
+ syncSelectionItems();
 }
+function syncSelectionItems(copy=SELECTION_COPY[pageLanguage()]) {
+ const host=document.getElementById('selItems');if(!host)return;
+ const active=document.activeElement;
+ const focusInside=host.contains(active);
+ const focusAction=active?.dataset.action;
+ const focusRow=active?.closest?.('[data-reference]');
+ const oldIndex=focusRow?Array.from(host.children).indexOf(focusRow):0;
+ const existing=new Map(Array.from(host.children).map(row=>[row.dataset.reference,row]));
+ selection.forEach((item,index)=>{
+  let row=existing.get(item.name);
+  if(!row){
+   row=document.createElement('div');row.className='chip';row.dataset.reference=item.name;
+   const label=document.createElement('span');label.className='chip-label';row.append(label);
+   const controls=document.createElement('span');controls.className='chip-controls';
+   for(const [action,symbol] of [['decrease','−'],['increase','+'],['remove','×']]){
+    const button=document.createElement('button');button.type='button';button.dataset.action=action;button.textContent=symbol;controls.append(button);
+   }
+   row.append(controls);
+  }
+  existing.delete(item.name);
+  row.querySelector('.chip-label').textContent=`${item.name} · ${item.dose} × ${item.qty}`;
+  row.querySelectorAll('[data-action]').forEach(button=>{button.setAttribute('aria-label',copy[button.dataset.action]+' — '+item.name);button.disabled=button.dataset.action==='increase'&&remainingQuantity(item.name)<1;});
+  if(host.children[index]!==row)host.insertBefore(row,host.children[index]||null);
+ });
+ existing.forEach(row=>row.remove());
+ if(focusInside&&(document.activeElement!==active||!active.isConnected||active.disabled)){
+  if(active.isConnected&&!active.disabled){active.focus();return;}
+  const next=host.children[Math.min(Math.max(oldIndex,0),host.children.length-1)];
+  const candidate=next?.querySelector(`[data-action="${focusAction||'decrease'}"]`);
+  if(candidate&&!candidate.disabled)candidate.focus();
+  else (next?.querySelector('[data-action="decrease"]')||document.getElementById(selection.length?'selectionToggle':'catalogueSearch')).focus();
+ }
+}
+
 function openProductPreview(button) {
  const card=button.closest('.product-card');const name=card.dataset.name;
  const reference=CATALOGUE[pageLanguage()].flatMap(group=>group[1]).find(product=>product[0]===name);if(!reference)return;
@@ -339,7 +358,7 @@ function openProductPreview(button) {
  if(IMAGE_MAP[name]){const image=document.createElement('img');image.src=IMAGE_MAP[name];image.alt=name;body.append(image);}
  const title=document.createElement('h2');title.id='previewTitle';title.textContent=reference[0];body.append(title);
  for(const value of [reference[1]+' · '+reference[3],reference[2],catalogueUI().note]){const text=document.createElement('p');text.textContent=value;body.append(text);}
- const contact=document.createElement('a');contact.className='text-link';contact.href='contact.html';contact.textContent=catalogueUI().docs;body.append(contact);
+ const contact=document.createElement('a');contact.className='text-link';contact.href=`https://wa.me/33664694830?text=${encodeURIComponent(catalogueUI().docs+' — '+reference[0]+' · '+reference[1])}`;contact.textContent=catalogueUI().docs;body.append(contact);
  document.getElementById('previewClose').setAttribute('aria-label',catalogueUI().close);
- const dialog=document.getElementById('productPreview');dialog.setAttribute('aria-labelledby','previewTitle');dialog.showModal();
+ const dialog=document.getElementById('productPreview');previewOpener=button;dialog.setAttribute('aria-labelledby','previewTitle');dialog.showModal();
 }
