@@ -17,6 +17,7 @@ const carouselCopy = {
 function updateSceneCopy() {
  const copy=HOME_COPY[homeLanguage], vial=VIALS[activeVial], labels=carouselCopy[homeLanguage];
  image.alt=`${copy.vial} ${vial.name} ${vial.dose}`;
+ scene.style.setProperty('--vial-backdrop',`url(${vial.backdrop || 'glacier-night.webp'})`);
  document.getElementById('sceneDescription').textContent=vial.dose+' · '+new Intl.NumberFormat({fr:'fr-FR',en:'en-GB',pt:'pt-PT',es:'es-ES'}[homeLanguage],{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(vial.priceCents/100);
  document.getElementById('sceneName').textContent=vial.name;
  document.getElementById('sceneLink').textContent=copy.view;
@@ -45,7 +46,9 @@ async function showVial(next,direction=0) {
  if(!VIALS[next]||next===activeVial||transitioning)return;
  transitioning=true;
  try {
-  const asset=new Image();asset.src=VIALS[next].image;await asset.decode();
+  const asset=new Image();asset.src=VIALS[next].image;
+  const backdrop=new Image();backdrop.src=VIALS[next].backdrop || 'glacier-night.webp';
+  await Promise.all([asset.decode(),backdrop.decode()]);
   const animate=!reducedMotion.matches&&typeof image.animate==='function';
   if(animate){const exit=image.animate([{opacity:1,transform:'translateX(0)'},{opacity:0,transform:`translateX(${-direction*16}px)`}],{duration:150,fill:'forwards'});await exit.finished.catch(()=>{});exit.cancel();}
   activeVial=next;image.src=asset.src;

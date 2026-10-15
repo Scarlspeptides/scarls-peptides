@@ -71,7 +71,8 @@
         "en": "Skin research & extracellular matrix",
         "pt": "Investigação cutânea e matriz extracelular",
         "es": "Investigación cutánea y matriz extracelular"
-      }
+      },
+      "backdrop": "backdrops/ghk-cu.webp"
     },
     {
       "id": "klow",
@@ -86,7 +87,8 @@
         "en": "Research into regeneration mechanisms",
         "pt": "Investigação dos mecanismos de regeneração",
         "es": "Investigación de los mecanismos de regeneración"
-      }
+      },
+      "backdrop": "backdrops/klow.webp"
     },
     {
       "id": "cjc-no-dac-ipamorelin",
@@ -101,7 +103,8 @@
         "en": "Research into growth mechanisms",
         "pt": "Investigação dos mecanismos de crescimento",
         "es": "Investigación de los mecanismos de crecimiento"
-      }
+      },
+      "backdrop": "backdrops/cjc-no-dac-ipamorelin.webp"
     },
     {
       "id": "semax",
@@ -116,7 +119,8 @@
         "en": "Neurobiology & cognition research",
         "pt": "Investigação em neurobiologia e cognição",
         "es": "Investigación en neurobiología y cognición"
-      }
+      },
+      "backdrop": "backdrops/semax.webp"
     },
     {
       "id": "selank",
@@ -131,7 +135,8 @@
         "en": "Neurobiology & stress research",
         "pt": "Investigação em neurobiologia e stress",
         "es": "Investigación en neurobiología y estrés"
-      }
+      },
+      "backdrop": "backdrops/selank.webp"
     },
     {
       "id": "retatrutide",
@@ -146,7 +151,8 @@
         "en": "Metabolic research",
         "pt": "Investigação metabólica",
         "es": "Investigación metabólica"
-      }
+      },
+      "backdrop": "glacier-night.webp"
     },
     {
       "id": "mots-c",
@@ -161,7 +167,8 @@
         "en": "Metabolism & cellular energy research",
         "pt": "Investigação do metabolismo e energia celular",
         "es": "Investigación del metabolismo y energía celular"
-      }
+      },
+      "backdrop": "backdrops/mots-c.webp"
     },
     {
       "id": "nad",
@@ -176,7 +183,8 @@
         "en": "Cell biology research",
         "pt": "Investigação em biologia celular",
         "es": "Investigación en biología celular"
-      }
+      },
+      "backdrop": "backdrops/nad.webp"
     },
     {
       "id": "l-carnitine",
@@ -191,7 +199,8 @@
         "en": "Energy metabolism research",
         "pt": "Investigação do metabolismo energético",
         "es": "Investigación del metabolismo energético"
-      }
+      },
+      "backdrop": "backdrops/l-carnitine.webp"
     },
     {
       "id": "epitalon",
@@ -206,7 +215,8 @@
         "en": "Cellular ageing research",
         "pt": "Investigação do envelhecimento celular",
         "es": "Investigación del envejecimiento celular"
-      }
+      },
+      "backdrop": "backdrops/epitalon.webp"
     },
     {
       "id": "melanotan-i",
@@ -221,7 +231,8 @@
         "en": "Pigmentation research",
         "pt": "Investigação sobre pigmentação",
         "es": "Investigación sobre pigmentación"
-      }
+      },
+      "backdrop": "backdrops/melanotan-i.webp"
     },
     {
       "id": "dsip",
@@ -236,7 +247,8 @@
         "en": "Sleep neurobiology research",
         "pt": "Investigação em neurobiologia do sono",
         "es": "Investigación en neurobiología del sueño"
-      }
+      },
+      "backdrop": "backdrops/dsip.webp"
     },
     {
       "id": "glutathion",
@@ -251,7 +263,8 @@
         "en": "Research on antioxidant systems",
         "pt": "Investigação dos sistemas antioxidantes",
         "es": "Investigación sobre los sistemas antioxidantes"
-      }
+      },
+      "backdrop": "backdrops/glutathion.webp"
     }
   ]
 }

@@ -254,7 +254,7 @@ body { background:radial-gradient(ellipse at 85% 0%,#102331 0,transparent 48%),v
 #catalogue { counter-reset:collection; }
 .group-heading h2::before { content:counter(collection,decimal-leading-zero) " /"; display:inline-block; margin-right:16px; font:11px var(--font-data); letter-spacing:.08em; color:var(--muted); vertical-align:middle; }
 .product-card { position:relative; }
-.product-image,.reference-photo { position:relative; overflow:hidden; isolation:isolate; background:#071019 url('glacier-night.webp') center 56% / cover; border:1px solid #a6cfe42e; border-bottom-color:#a6cfe466; border-radius:3px; }
+.product-image,.reference-photo { position:relative; overflow:hidden; isolation:isolate; background:#071019 var(--vial-backdrop,url('glacier-night.webp')) center 56% / cover; border:1px solid #a6cfe42e; border-bottom-color:#a6cfe466; border-radius:3px; }
 .product-image::before,.reference-photo::before { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg,#02081122,transparent 50%,#02081133); }
 .product-preview-trigger:hover,.product-preview-trigger:focus-visible { background:transparent; }
 .product-image img,.reference-photo img { position:relative; filter:drop-shadow(0 14px 12px #0009); transition:transform .5s cubic-bezier(.2,.7,.2,1),filter .5s; }
@@ -280,7 +280,7 @@ body { background:radial-gradient(ellipse at 85% 0%,#102331 0,transparent 48%),v
 .sel-actions #waBtn::after { content:"↗"; margin-left:auto; font-size:21px; }
 .sel-actions #waBtn:not(:disabled):hover { background:#edfaff; transform:translateY(-1px); box-shadow:0 7px 24px #a3d8ef30; }
 .product-preview { background:#0b1722; border-color:#65869b; }
-#previewBody>img { background:#071019 url('glacier-night.webp') center / cover; border:1px solid var(--line); }
+#previewBody>img { background:#071019 var(--vial-backdrop,url('glacier-night.webp')) center / cover; border:1px solid var(--line); }
 footer { background:#04090ed9; }
 .footer-brand { letter-spacing:.08em; text-transform:uppercase; font-size:12px; }
 .reveal-pending { opacity:0; transform:translateY(18px); }

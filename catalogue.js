@@ -196,6 +196,7 @@ function renderCatalogue(lang) {
 
 function renderProduct(product, lang) {
   const [name, dose, use, price, previousPrice] = product;
+  const backdrop=window.ScarlsProducts.byName(name).backdrop || 'glacier-night.webp';
   const priceLabels = {fr:['Ancien prix','Nouveau prix'],en:['Previous price','New price'],pt:['Preço anterior','Novo preço'],es:['Precio anterior','Nuevo precio']}[lang];
   const priceMarkup = previousPrice ? `<span class="price price-reduced"><del aria-label="${priceLabels[0]}">${previousPrice}</del><span aria-label="${priceLabels[1]}">${price}</span></span>` : `<span class="price">${price}</span>`;
   const imageMarkup = IMAGE_MAP[name]
@@ -205,7 +206,7 @@ function renderProduct(product, lang) {
   const remaining = remainingQuantity(name);
   const disabled = remaining < 1;
   const addLabel = disabled ? stockQuantity(name) === 0 ? STOCK_COPY[lang].out : stockQuantity(name) === null ? LIMIT_COPY[lang].unknown : LIMIT_COPY[lang].limit : selected ? SELECTION_COPY[lang].added : SELECTION_COPY[lang].add;
-  return `<article class="product-card" id="${productId(name)}" data-name="${name}" data-dose="${dose}" data-price="${price}"><div class="product-image" data-badge="${CATALOGUE_COPY[lang].badge}"><button class="product-preview-trigger" type="button" data-action="preview" aria-label="${catalogueUI(lang).view} — ${name}">${imageMarkup}</button></div><div class="product-content"><h3 class="product-name"><span>${name}</span><span class="product-dose">${dose}</span></h3><p class="product-use">${use}</p>${stockMarkup(name, lang)}<div class="product-bottom">${priceMarkup}<div class="product-action"><div class="card-quantity" role="group" aria-label="${name} — ${lang === 'fr' ? 'quantité' : lang === 'en' ? 'quantity' : lang === 'pt' ? 'quantidade' : 'cantidad'}"><button type="button" aria-label="${SELECTION_COPY[lang].decrease}" data-step="-1" disabled>−</button><output aria-live="polite">${disabled ? 0 : 1}</output><button type="button" aria-label="${SELECTION_COPY[lang].increase}" data-step="1" ${remaining <= 1 ? 'disabled' : ''}>+</button></div><button class="add ${selected ? 'selected' : ''}" type="button" aria-label="${addLabel} — ${name} · ${dose}" data-action="add" ${disabled ? 'disabled' : ''}>${addLabel}</button></div></div></div></article>`;
+  return `<article class="product-card" id="${productId(name)}" style="--vial-backdrop:url(${backdrop})" data-name="${name}" data-dose="${dose}" data-price="${price}"><div class="product-image" data-badge="${CATALOGUE_COPY[lang].badge}"><button class="product-preview-trigger" type="button" data-action="preview" aria-label="${catalogueUI(lang).view} — ${name}">${imageMarkup}</button></div><div class="product-content"><h3 class="product-name"><span>${name}</span><span class="product-dose">${dose}</span></h3><p class="product-use">${use}</p>${stockMarkup(name, lang)}<div class="product-bottom">${priceMarkup}<div class="product-action"><div class="card-quantity" role="group" aria-label="${name} — ${lang === 'fr' ? 'quantité' : lang === 'en' ? 'quantity' : lang === 'pt' ? 'quantidade' : 'cantidad'}"><button type="button" aria-label="${SELECTION_COPY[lang].decrease}" data-step="-1" disabled>−</button><output aria-live="polite">${disabled ? 0 : 1}</output><button type="button" aria-label="${SELECTION_COPY[lang].increase}" data-step="1" ${remaining <= 1 ? 'disabled' : ''}>+</button></div><button class="add ${selected ? 'selected' : ''}" type="button" aria-label="${addLabel} — ${name} · ${dose}" data-action="add" ${disabled ? 'disabled' : ''}>${addLabel}</button></div></div></div></article>`;
 }
 
 function changePendingQty(button, change) {
@@ -356,6 +357,7 @@ function openProductPreview(button) {
  const card=button.closest('.product-card');const name=card.dataset.name;
  const reference=CATALOGUE[pageLanguage()].flatMap(group=>group[1]).find(product=>product[0]===name);if(!reference)return;
  const body=document.getElementById('previewBody');body.replaceChildren();
+ body.style.setProperty('--vial-backdrop',`url(${window.ScarlsProducts.byName(name).backdrop || 'glacier-night.webp'})`);
  if(IMAGE_MAP[name]){const image=document.createElement('img');image.src=IMAGE_MAP[name];image.alt=name;body.append(image);}
  const title=document.createElement('h2');title.id='previewTitle';title.textContent=reference[0];body.append(title);
  for(const value of [reference[1]+' · '+reference[3],reference[2],catalogueUI().note]){const text=document.createElement('p');text.textContent=value;body.append(text);}

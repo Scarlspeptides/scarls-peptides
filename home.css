@@ -21,7 +21,7 @@
 .hero-footnote::before{content:"";width:18px;height:1px;background:var(--line-strong)}
 .vial-experience{min-width:0}
 .scene-heading{display:flex;justify-content:space-between;gap:16px;margin-bottom:12px;color:var(--muted);font:10px var(--font-data);letter-spacing:.15em;text-transform:uppercase}
-.vial-scene{position:relative;height:540px;overflow:hidden;isolation:isolate;background:#071019 url('glacier-night.webp') center / cover;touch-action:pan-y;user-select:none;cursor:grab;border:1px solid #b6d9ed38;border-radius:3px;box-shadow:0 30px 80px #0004}
+.vial-scene{position:relative;height:540px;overflow:hidden;isolation:isolate;background:#071019 var(--vial-backdrop,url('glacier-night.webp')) center / cover;touch-action:pan-y;user-select:none;cursor:grab;border:1px solid #b6d9ed38;border-radius:3px;box-shadow:0 30px 80px #0004}
 .vial-scene::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#02081122,transparent 65%,#02081111)}
 .vial-scene::after{content:"";position:absolute;left:24%;right:24%;bottom:21%;height:2%;border-radius:50%;background:#02090c85;filter:blur(10px);z-index:-1}
 .vial-scene:active{cursor:grabbing}
