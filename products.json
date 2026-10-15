@@ -63,7 +63,7 @@
       "name": "GHK-Cu",
       "dose": "100 mg",
       "group": 0,
-      "priceCents": 7000,
+      "priceCents": 6500,
       "previousPriceCents": 10000,
       "image": "ghk-cu-clean.webp",
       "descriptions": {
@@ -93,7 +93,7 @@
       "name": "CJC no DAC + Ipamorelin",
       "dose": "10 mg",
       "group": 1,
-      "priceCents": 7000,
+      "priceCents": 6500,
       "previousPriceCents": 10000,
       "image": "cjc-no-dac-ipamorelin-clean.webp",
       "descriptions": {
@@ -138,7 +138,7 @@
       "name": "Retatrutide",
       "dose": "10 mg",
       "group": 3,
-      "priceCents": 15000,
+      "priceCents": 10000,
       "previousPriceCents": null,
       "image": "retatrutide-clean.webp",
       "descriptions": {
@@ -153,7 +153,7 @@
       "name": "MOTS-C",
       "dose": "10 mg",
       "group": 3,
-      "priceCents": 5000,
+      "priceCents": 6500,
       "previousPriceCents": 7000,
       "image": "mots-c-clean.webp",
       "descriptions": {
@@ -213,8 +213,8 @@
       "name": "Melanotan I",
       "dose": "10 mg",
       "group": 5,
-      "priceCents": 5000,
-      "previousPriceCents": 6000,
+      "priceCents": 6500,
+      "previousPriceCents": null,
       "image": "melanotan-i-clean.webp",
       "descriptions": {
         "fr": "Recherche sur la pigmentation",
@@ -243,8 +243,8 @@
       "name": "Glutathion",
       "dose": "600 mg",
       "group": 6,
-      "priceCents": 5000,
-      "previousPriceCents": 6500,
+      "priceCents": 12500,
+      "previousPriceCents": null,
       "image": "glutathion-clean.webp",
       "descriptions": {
         "fr": "Recherche sur les systèmes antioxydants",
