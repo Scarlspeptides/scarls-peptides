@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <title>Avant d’entrer — Scarl’s Peptides</title>
-  <link rel="stylesheet" href="style.css?v=20261014glacier">
+  <link rel="stylesheet" href="style.css?v=20261015glaciernight">
   <link rel="stylesheet" href="warning.css?v=20261014glacier">
 <meta name="theme-color" content="#071119"><link rel="icon" type="image/png" href="scarl-logo.png?v=20261013official"></head>
 <body class="warning-page"><main class="warning-card" aria-labelledby="title">
@@ -29,4 +29,3 @@ document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',(
 const checkbox=document.getElementById('confirm'),enter=document.getElementById('enter');checkbox.addEventListener('change',()=>enter.disabled=!checkbox.checked);enter.addEventListener('click',()=>{if(!checkbox.checked)return;try{sessionStorage.setItem('scarlAgeAcknowledgedV1','yes')}catch{const messages={fr:'Votre navigateur bloque le stockage de session. Autorisez-le pour continuer.',en:'Your browser blocks session storage. Allow it to continue.',pt:'O navegador bloqueia o armazenamento de sessão. Autorize-o para continuar.',es:'El navegador bloquea el almacenamiento de sesión. Permítelo para continuar.'};const error=document.getElementById('storageError');error.textContent=messages[document.documentElement.lang]||messages.fr;error.hidden=false;return;}const next=new URLSearchParams(location.search).get('next')||'index.html';const allowed=/^(index|produits|apropos|livraison|faq|contact)\.html(?:#[a-z0-9-]+)?$/;location.replace(allowed.test(next)?next:'index.html')});
 try{language(localStorage.getItem('scarlLang')||'fr')}catch{language('fr')}
 </script></body></html>
-

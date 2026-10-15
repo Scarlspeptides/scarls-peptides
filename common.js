@@ -92,3 +92,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 const FOOTER_LINKS={fr:['Confidentialité & cookies','Conditions d’utilisation','Rétractation & réclamations','Mentions légales'],en:['Privacy & cookies (FR)','Terms of use (FR)','Withdrawal & complaints (FR)','Legal information (FR)'],pt:['Privacidade e cookies (FR)','Condições de utilização (FR)','Retratação e reclamações (FR)','Informações legais (FR)'],es:['Privacidad y cookies (FR)','Condiciones de uso (FR)','Desistimiento y reclamaciones (FR)','Información legal (FR)']};
+
+// Progressive enhancement: content stays visible without motion support or JavaScript.
+document.addEventListener('DOMContentLoaded', () => {
+ if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+ const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+   if (!entry.isIntersecting) return;
+   entry.target.classList.remove('reveal-pending');
+   entry.target.classList.add('reveal-visible');
+   observer.unobserve(entry.target);
+  });
+ }, {threshold:0.08});
+ document.querySelectorAll('.reference,.correspondence-grid').forEach(element => {
+  element.classList.add('reveal-pending'); observer.observe(element);
+ });
+});
