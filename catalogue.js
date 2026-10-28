@@ -110,6 +110,12 @@ try { const saved = JSON.parse(localStorage.getItem('scarlSelection') || '[]'); 
 let activeFilter = 0;
 let previewOpener=null;
 function pageLanguage() { return typeof currentLang === "function" ? currentLang() : "fr"; }
+function isConsumable(name) {
+ const item=window.ScarlsProducts.byName(name);
+ const label=item&&window.ScarlsProducts.groups[item.group]?.labels?.fr||'';
+ return /consom|consomm|consumab/i.test(label);
+}
+
 function productId(name) { const reference=window.ScarlsProducts.byName(name);if(reference)return reference.id;return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/g, ''); }
 
 function revealLinkedProduct() {
@@ -214,7 +220,7 @@ function renderProduct(product, lang) {
   const remaining = remainingQuantity(name);
   const disabled = remaining < 1;
   const addLabel = disabled ? stockQuantity(name) === 0 ? STOCK_COPY[lang].out : stockQuantity(name) === null ? LIMIT_COPY[lang].unknown : LIMIT_COPY[lang].limit : selected ? SELECTION_COPY[lang].added : SELECTION_COPY[lang].add;
-  return `<article class="product-card" id="${escapeCatalogue(productId(name))}" style="--vial-backdrop:url(${escapeCatalogue(backdrop)})" data-name="${safeName}" data-dose="${safeDose}" data-price="${price}"><div class="product-image" data-badge="${CATALOGUE_COPY[lang].badge}"><button class="product-preview-trigger" type="button" data-action="preview" aria-label="${catalogueUI(lang).view} — ${safeName}">${imageMarkup}</button></div><div class="product-content"><h3 class="product-name"><span>${safeName}</span><span class="product-dose">${safeDose}</span></h3><p class="product-use">${safeUse}</p>${stockMarkup(name, lang)}<div class="product-bottom">${priceMarkup}<div class="product-action"><div class="card-quantity" role="group" aria-label="${safeName} — ${lang === 'fr' ? 'quantité' : lang === 'en' ? 'quantity' : lang === 'pt' ? 'quantidade' : 'cantidad'}"><button type="button" aria-label="${SELECTION_COPY[lang].decrease}" data-step="-1" disabled>−</button><output aria-live="polite">${disabled ? 0 : 1}</output><button type="button" aria-label="${SELECTION_COPY[lang].increase}" data-step="1" ${remaining <= 1 ? 'disabled' : ''}>+</button></div><button class="add ${selected ? 'selected' : ''}" type="button" aria-label="${addLabel} — ${safeName} · ${safeDose}" data-action="add" ${disabled ? 'disabled' : ''}>${addLabel}</button></div></div></div></article>`;
+  return `<article class="product-card${isConsumable(name) ? ' is-consumable' : ''}" id="${escapeCatalogue(productId(name))}" style="--vial-backdrop:url(${escapeCatalogue(backdrop)})" data-name="${safeName}" data-dose="${safeDose}" data-price="${price}"><div class="product-image" data-badge="${CATALOGUE_COPY[lang].badge}"><button class="product-preview-trigger" type="button" data-action="preview" aria-label="${catalogueUI(lang).view} — ${safeName}">${imageMarkup}</button></div><div class="product-content"><h3 class="product-name"><span>${safeName}</span><span class="product-dose">${safeDose}</span></h3><p class="product-use">${safeUse}</p>${stockMarkup(name, lang)}<div class="product-bottom">${priceMarkup}<div class="product-action"><div class="card-quantity" role="group" aria-label="${safeName} — ${lang === 'fr' ? 'quantité' : lang === 'en' ? 'quantity' : lang === 'pt' ? 'quantidade' : 'cantidad'}"><button type="button" aria-label="${SELECTION_COPY[lang].decrease}" data-step="-1" disabled>−</button><output aria-live="polite">${disabled ? 0 : 1}</output><button type="button" aria-label="${SELECTION_COPY[lang].increase}" data-step="1" ${remaining <= 1 ? 'disabled' : ''}>+</button></div><button class="add ${selected ? 'selected' : ''}" type="button" aria-label="${addLabel} — ${safeName} · ${safeDose}" data-action="add" ${disabled ? 'disabled' : ''}>${addLabel}</button></div></div></div></article>`;
 }
 
 function changePendingQty(button, change) {
@@ -365,8 +371,9 @@ function openProductPreview(button) {
  const card=button.closest('.product-card');const name=card.dataset.name;
  const reference=CATALOGUE[pageLanguage()].flatMap(group=>group[1]).find(product=>product[0]===name);if(!reference)return;
  const body=document.getElementById('previewBody');body.replaceChildren();
+ body.classList.toggle('is-consumable',isConsumable(name));
  body.style.setProperty('--vial-backdrop',`url(${window.ScarlsProducts.byName(name).backdrop || 'glacier-night.webp'})`);
- if(IMAGE_MAP[name]){const image=document.createElement('img');image.src=IMAGE_MAP[name];image.alt=name;body.append(image);}
+ if(IMAGE_MAP[name]){const image=document.createElement('img');image.src=IMAGE_MAP[name];image.alt=name;if(isConsumable(name)){const stage=document.createElement('div');stage.className='consumable-photo';stage.append(image);body.append(stage);}else{body.append(image);}}
  const title=document.createElement('h2');title.id='previewTitle';title.textContent=reference[0];body.append(title);
  for(const value of [reference[1]+' · '+reference[3],reference[2],catalogueUI().note]){const text=document.createElement('p');text.textContent=value;body.append(text);}
  const contact=document.createElement('a');contact.className='text-link';contact.href=`https://wa.me/33664694830?text=${encodeURIComponent(catalogueUI().docs+' — '+reference[0]+' · '+reference[1])}`;contact.textContent=catalogueUI().docs;body.append(contact);
