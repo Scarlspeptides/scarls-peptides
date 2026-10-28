@@ -21,21 +21,39 @@ const nodes={};const node=id=>nodes[id]||(nodes[id]=Object.assign(new Node(),{ro
 document={activeElement:new Node(),createElement:()=>new Node(),getElementById:node,querySelectorAll:selector=>selector==='.product-group'?groups:[],addEventListener(){}};
 let payload={'GHK-Cu':3,'Semax':2},failed=false;
 const window={addEventListener(){},ScarlsShipping:{refresh(){},reset(){}}};
-const context={window,document,localStorage:{getItem(){return null},setItem(){}},location:{hash:''},AbortSignal,Date,setTimeout,requestAnimationFrame(){},fetch:async()=>{if(failed)throw Error('offline');return {ok:true,json:async()=>payload}},matchMedia:()=>({matches:true})};vm.createContext(context);
+const context={window,document,localStorage:{getItem(){return null},setItem(){}},location:{hash:''},AbortSignal,Date,setTimeout,requestAnimationFrame(){},fetch:async()=>{if(failed)throw Error('offline');return {ok:true,json:async()=>({...snapshot,stock:payload})}},matchMedia:()=>({matches:true})};vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(root,'products.js'),'utf8'),context);
+const snapshot=JSON.parse(JSON.stringify({groups:window.ScarlsProducts.groups,items:window.ScarlsProducts.items}));for(const p of snapshot.items){p.image=p.image?'https://example.com/'+p.image:null;p.quantity=0;payload[p.name]??=0;}
 let source=fs.readFileSync(path.join(root,'catalogue.js'),'utf8').replace(/\nloadStock\(\);\nsetInterval[^\n]+\nwindow\.addEventListener\('focus'[^\n]+/,'');vm.runInContext(source,context);
-vm.runInContext('renderCatalogue=()=>{throw Error("Rebuilt catalogue during stock refresh")};showToast=()=>{}',context);
+vm.runInContext('originalRenderCatalogue=renderCatalogue;showToast=()=>{}',context);
 (async()=>{
  await context.loadStock();
+ vm.runInContext('renderCatalogue=()=>{throw Error("Rebuilt catalogue during stock refresh")};',context);
  vm.runInContext('selection=[{name:"GHK-Cu",dose:"100 mg",price:"70 €",qty:1}]',context);context.renderSelection();
  const row=node('selItems').children[0],increase=row.querySelector('[data-action="increase"]');increase.focus();context.changeQty(0,1);
  assert.equal(node('selItems').children[0],row);assert.equal(document.activeElement,increase);assert(row.querySelector('.chip-label').textContent.endsWith('× 2'));
- payload={'GHK-Cu':2,'Semax':2};await context.loadStock();assert.equal(increase.disabled,true);assert.equal(document.activeElement,row.querySelector('[data-action="decrease"]'));
+ payload={...payload,'GHK-Cu':2,'Semax':2};await context.loadStock();assert.equal(increase.disabled,true);assert.equal(document.activeElement,row.querySelector('[data-action="decrease"]'));
  context.removeSelection(0);assert.equal(document.activeElement,node('catalogueSearch'));assert.equal(node('selItems').children.length,0);
  failed=true;await context.loadStock();assert.equal(node('waBtn').disabled,true);failed=false;
  const product=Object.assign(new Node(),{dataset:{name:'GHK-Cu',dose:'100 mg'}});const group=new Node();group.querySelectorAll=()=>[product];groups=[group];
  for(const search of ['ghk cu','GHK-Cu','100mg','100 mg']){node('catalogueSearch').value=search;context.applySearch();assert.equal(product.hidden,false,search);}
  node('catalogueSearch').value='unknown';context.applySearch();assert.equal(product.hidden,true);
  for(const lang of ['fr','en','pt','es']){const rows=window.ScarlsProducts.catalogue(lang).flatMap(group=>group[1]);assert.equal(rows.length,13);assert(rows.every(row=>row[3]));}
+ vm.runInContext('renderCatalogue=originalRenderCatalogue',context);
+ snapshot.groups.push({labels:{fr:'Catégorie <script>',en:'New',pt:'New',es:'New'}});
+ snapshot.items.push({id:'new-ref',name:'Nouveau <img onerror=alert(1)>',dose:'5 mg',group:snapshot.groups.length-1,priceCents:2475,previousPriceCents:null,image:null,descriptions:{fr:'Description <script>',en:'New',pt:'New',es:'New'},backdrop:'glacier-night.webp',quantity:8});
+ payload['Nouveau <img onerror=alert(1)>']=8;
+ await context.loadStock();
+ assert.equal(window.ScarlsProducts.items.length,14);
+ assert(node('catalogue').innerHTML.includes('Nouveau &lt;img onerror=alert(1)&gt;'));
+ assert(!node('catalogue').innerHTML.includes('Nouveau <img'));
+ assert(node('catalogueTools').innerHTML.includes('Catégorie &lt;script&gt;'));
+ assert(node('catalogue').innerHTML.includes('24,75'));
+ vm.runInContext('selection=[{name:"GHK-Cu",dose:"100 mg",price:"65 €",qty:1}]',context);
+ snapshot.items=snapshot.items.filter(p=>p.id!=='ghk-cu');delete payload['GHK-Cu'];await context.loadStock();
+ assert.equal(vm.runInContext('selection.length',context),0);
+ assert(!window.ScarlsProducts.byName('GHK-Cu'));
+ console.log('Passed: live product addition, category escaping, safe product markup, exact cents, archive selection removal.');
  console.log('Passed: stable quantity focus, refreshed stock controls, deletion focus, offline sending block, normalized search and multilingual catalogue.');
 })().catch(error=>{console.error(error);process.exitCode=1;});
+

@@ -1,3 +1,4 @@
+const escapeCatalogue = window.ScarlsProducts.escapeHTML;
 const CATALOGUE = Object.fromEntries(["fr","en","pt","es"].map(lang => [lang, window.ScarlsProducts.catalogue(lang)]));
 const IMAGE_MAP = Object.fromEntries(window.ScarlsProducts.items.filter(item => item.image).map(item => [item.name,item.image]));
 
@@ -35,9 +36,10 @@ function reconcileSelection() {
  const before = JSON.stringify(selection);
  selection = selection.flatMap(item => {
   const available = stockQuantity(item.name);
-  if (available === null) return [item];
+  if (available === null || !window.ScarlsProducts.byName(item.name)) return [];
   const qty = Math.min(item.qty, available);
-  return qty > 0 ? [{...item,qty}] : [];
+  const reference=CATALOGUE[pageLanguage()].flatMap(group=>group[1]).find(p=>p[0]===item.name);
+  return qty > 0 ? [{...item,qty,dose:reference[1],price:reference[3]}] : [];
  });
  saveSelection();
  return before !== JSON.stringify(selection);
@@ -55,11 +57,16 @@ async function loadStock(){
   if (!wasReady) { updateCatalogueStock(); renderSelection(); }
   let ok = false;
   try {
-   const response = await fetch('stock.json?v=' + Date.now(), {cache:'no-store', signal:AbortSignal.timeout(10000)});
-   if (!response.ok) throw new Error('stock');
-   const data = await response.json();
-   if (!data || typeof data !== 'object' || Array.isArray(data)) throw new Error('stock');
-   STOCK = data; stockReady = true; ok = true;
+   const snapshot = await window.ScarlsProducts.refresh();
+   STOCK = snapshot.stock; stockReady = true; ok = true;
+   if(snapshot.changed){
+    for(const lang of ['fr','en','pt','es'])CATALOGUE[lang]=window.ScarlsProducts.catalogue(lang);
+    for(const name of Object.keys(IMAGE_MAP))delete IMAGE_MAP[name];
+    for(const p of window.ScarlsProducts.items)if(p.image)IMAGE_MAP[p.name]=p.image;
+    activeFilter=0;
+    renderTools(pageLanguage());renderCatalogue(pageLanguage());
+    document.getElementById('catalogueEyebrow').textContent='Scarl’s Peptides / '+snapshot.items.length+' '+CATALOGUE_COPY[pageLanguage()].count;
+   }
   } catch { STOCK = {}; stockReady = false; }
   const changed = ok && reconcileSelection();
   updateCatalogueStock();
@@ -103,7 +110,7 @@ try { const saved = JSON.parse(localStorage.getItem('scarlSelection') || '[]'); 
 let activeFilter = 0;
 let previewOpener=null;
 function pageLanguage() { return typeof currentLang === "function" ? currentLang() : "fr"; }
-function productId(name) { return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/g, ''); }
+function productId(name) { const reference=window.ScarlsProducts.byName(name);if(reference)return reference.id;return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/g, ''); }
 
 function revealLinkedProduct() {
   const id = location.hash.slice(1);
@@ -162,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function setPageLang(lang) {
   const l = CATALOGUE[lang] ? lang : 'fr';
   const copy = CATALOGUE_COPY[l];
-  document.getElementById('catalogueEyebrow').textContent = copy.head[0];
+  document.getElementById('catalogueEyebrow').textContent = 'Scarl’s Peptides / '+window.ScarlsProducts.items.length+' '+copy.count;
   document.getElementById('catalogueTitle').textContent = copy.head[1];
   document.getElementById('catalogueLead').textContent = copy.head[2];
   document.getElementById('catalogueTools').setAttribute('aria-label', copy.filterLabel);
@@ -178,7 +185,7 @@ function setPageLang(lang) {
 
 function renderTools(lang) {
   const groups = CATALOGUE[lang];
-  document.getElementById('catalogueTools').innerHTML = `<button class="filter ${activeFilter === 0 ? 'active' : ''}" type="button" aria-pressed="${activeFilter === 0}" data-filter="0">${CATALOGUE_COPY[lang].all}</button>` + groups.map((group, index) => `<button class="filter ${activeFilter === index + 1 ? 'active' : ''}" type="button" aria-pressed="${activeFilter === index + 1}" data-filter="${index + 1}">${group[0]}</button>`).join('');
+  document.getElementById('catalogueTools').innerHTML = `<button class="filter ${activeFilter === 0 ? 'active' : ''}" type="button" aria-pressed="${activeFilter === 0}" data-filter="0">${CATALOGUE_COPY[lang].all}</button>` + groups.map((group, index) => `<button class="filter ${activeFilter === index + 1 ? 'active' : ''}" type="button" aria-pressed="${activeFilter === index + 1}" data-filter="${index + 1}">${escapeCatalogue(group[0])}</button>`).join('');
 }
 
 function setFilter(index) {
@@ -190,23 +197,24 @@ function setFilter(index) {
 
 function renderCatalogue(lang) {
   const groups = CATALOGUE[lang];
-  document.getElementById('catalogue').innerHTML = groups.map((group, groupIndex) => `<section class="product-group ${activeFilter !== 0 && activeFilter !== groupIndex + 1 ? 'is-hidden' : ''}"><div class="group-heading"><h2>${group[0]}</h2><span>${group[1].length} ${group[1].length === 1 ? CATALOGUE_COPY[lang].one : CATALOGUE_COPY[lang].count}</span></div><div class="product-grid">${group[1].map(product => renderProduct(product, lang)).join('')}</div></section>`).join('') + `<div class="notice"><strong>i</strong><span>${CATALOGUE_COPY[lang].notice}</span></div>`;
+  document.getElementById('catalogue').innerHTML = groups.map((group, groupIndex) => `<section class="product-group ${activeFilter !== 0 && activeFilter !== groupIndex + 1 ? 'is-hidden' : ''}"><div class="group-heading"><h2>${escapeCatalogue(group[0])}</h2><span>${group[1].length} ${group[1].length === 1 ? CATALOGUE_COPY[lang].one : CATALOGUE_COPY[lang].count}</span></div><div class="product-grid">${group[1].map(product => renderProduct(product, lang)).join('')}</div></section>`).join('') + `<div class="notice"><strong>i</strong><span>${CATALOGUE_COPY[lang].notice}</span></div>`;
   applySearch();
 }
 
 function renderProduct(product, lang) {
   const [name, dose, use, price, previousPrice] = product;
+  const safeName=escapeCatalogue(name),safeDose=escapeCatalogue(dose),safeUse=escapeCatalogue(use);
   const backdrop=window.ScarlsProducts.byName(name).backdrop || 'glacier-night.webp';
   const priceLabels = {fr:['Ancien prix','Nouveau prix'],en:['Previous price','New price'],pt:['Preço anterior','Novo preço'],es:['Precio anterior','Nuevo precio']}[lang];
   const priceMarkup = previousPrice ? `<span class="price price-reduced"><del aria-label="${priceLabels[0]}">${previousPrice}</del><span aria-label="${priceLabels[1]}">${price}</span></span>` : `<span class="price">${price}</span>`;
   const imageMarkup = IMAGE_MAP[name]
-    ? `<img src="${IMAGE_MAP[name]}" alt="${name} — ${dose}" width="800" height="915" loading="lazy" decoding="async">`
-    : `<div class="product-image-pending"><strong>${name}</strong><span>${dose}</span><small>${{fr:'Visuel à venir',en:'Image coming soon',pt:'Imagem em breve',es:'Imagen próximamente'}[lang]}</small></div>`;
+    ? `<img src="${escapeCatalogue(IMAGE_MAP[name])}" alt="${safeName} — ${safeDose}" width="800" height="915" loading="lazy" decoding="async">`
+    : `<div class="product-image-pending"><strong>${safeName}</strong><span>${safeDose}</span><small>${{fr:'Visuel à venir',en:'Image coming soon',pt:'Imagem em breve',es:'Imagen próximamente'}[lang]}</small></div>`;
   const selected = selection.some(item => item.name === name);
   const remaining = remainingQuantity(name);
   const disabled = remaining < 1;
   const addLabel = disabled ? stockQuantity(name) === 0 ? STOCK_COPY[lang].out : stockQuantity(name) === null ? LIMIT_COPY[lang].unknown : LIMIT_COPY[lang].limit : selected ? SELECTION_COPY[lang].added : SELECTION_COPY[lang].add;
-  return `<article class="product-card" id="${productId(name)}" style="--vial-backdrop:url(${backdrop})" data-name="${name}" data-dose="${dose}" data-price="${price}"><div class="product-image" data-badge="${CATALOGUE_COPY[lang].badge}"><button class="product-preview-trigger" type="button" data-action="preview" aria-label="${catalogueUI(lang).view} — ${name}">${imageMarkup}</button></div><div class="product-content"><h3 class="product-name"><span>${name}</span><span class="product-dose">${dose}</span></h3><p class="product-use">${use}</p>${stockMarkup(name, lang)}<div class="product-bottom">${priceMarkup}<div class="product-action"><div class="card-quantity" role="group" aria-label="${name} — ${lang === 'fr' ? 'quantité' : lang === 'en' ? 'quantity' : lang === 'pt' ? 'quantidade' : 'cantidad'}"><button type="button" aria-label="${SELECTION_COPY[lang].decrease}" data-step="-1" disabled>−</button><output aria-live="polite">${disabled ? 0 : 1}</output><button type="button" aria-label="${SELECTION_COPY[lang].increase}" data-step="1" ${remaining <= 1 ? 'disabled' : ''}>+</button></div><button class="add ${selected ? 'selected' : ''}" type="button" aria-label="${addLabel} — ${name} · ${dose}" data-action="add" ${disabled ? 'disabled' : ''}>${addLabel}</button></div></div></div></article>`;
+  return `<article class="product-card" id="${escapeCatalogue(productId(name))}" style="--vial-backdrop:url(${escapeCatalogue(backdrop)})" data-name="${safeName}" data-dose="${safeDose}" data-price="${price}"><div class="product-image" data-badge="${CATALOGUE_COPY[lang].badge}"><button class="product-preview-trigger" type="button" data-action="preview" aria-label="${catalogueUI(lang).view} — ${safeName}">${imageMarkup}</button></div><div class="product-content"><h3 class="product-name"><span>${safeName}</span><span class="product-dose">${safeDose}</span></h3><p class="product-use">${safeUse}</p>${stockMarkup(name, lang)}<div class="product-bottom">${priceMarkup}<div class="product-action"><div class="card-quantity" role="group" aria-label="${safeName} — ${lang === 'fr' ? 'quantité' : lang === 'en' ? 'quantity' : lang === 'pt' ? 'quantidade' : 'cantidad'}"><button type="button" aria-label="${SELECTION_COPY[lang].decrease}" data-step="-1" disabled>−</button><output aria-live="polite">${disabled ? 0 : 1}</output><button type="button" aria-label="${SELECTION_COPY[lang].increase}" data-step="1" ${remaining <= 1 ? 'disabled' : ''}>+</button></div><button class="add ${selected ? 'selected' : ''}" type="button" aria-label="${addLabel} — ${safeName} · ${safeDose}" data-action="add" ${disabled ? 'disabled' : ''}>${addLabel}</button></div></div></div></article>`;
 }
 
 function changePendingQty(button, change) {
@@ -275,7 +283,7 @@ async function sendInfoWhatsApp() { if (!selection.length || !await prepareSelec
 function showToast(message) { const toast = document.getElementById('toast'); toast.textContent = message; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2200); }
 
 loadStock();
-setInterval(() => { if (!document.hidden) loadStock(); }, 60000);
+setInterval(() => { if (!document.hidden) loadStock(); }, 30000);
 window.addEventListener('focus', () => loadStock());
 
 
@@ -365,3 +373,4 @@ function openProductPreview(button) {
  document.getElementById('previewClose').setAttribute('aria-label',catalogueUI().close);
  const dialog=document.getElementById('productPreview');previewOpener=button;dialog.setAttribute('aria-labelledby','previewTitle');dialog.showModal();
 }
+

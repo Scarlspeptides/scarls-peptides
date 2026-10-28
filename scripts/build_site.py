@@ -8,11 +8,11 @@ data=json.loads((ROOT/'products.json').read_text())
 module='''(function(root) {
  const data=DATA;
  const locale={fr:'fr-FR',en:'en-GB',pt:'pt-PT',es:'es-ES'};
- const money=(cents,lang)=>new Intl.NumberFormat(locale[lang]||locale.fr,{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(cents/100);
+ const money=(cents,lang)=>new Intl.NumberFormat(locale[lang]||locale.fr,{style:'currency',currency:'EUR',maximumFractionDigits:2}).format(cents/100);
  root.ScarlsProducts={...data,byName:name=>data.items.find(item=>item.name===name),catalogue:(lang='fr')=>data.groups.map((group,index)=>[group.labels[lang]||group.labels.fr,data.items.filter(item=>item.group===index).map(item=>[item.name,item.dose,item.descriptions[lang]||item.descriptions.fr,money(item.priceCents,lang),item.previousPriceCents?money(item.previousPriceCents,lang):undefined])])};
 })(typeof window!=='undefined'?window:globalThis);
 '''.replace('DATA',json.dumps(data,ensure_ascii=False,separators=(',',':')))
-(ROOT/'products.js').write_text(module)
+(ROOT/'products.js').write_text(module+'\n'+(ROOT/'catalogue-sync.js').read_text())
 f=ROOT/'home.js';s=f.read_text();copy=json.loads((ROOT/'home-copy.json').read_text());s=re.sub(r'/\* HOME_COPY_START \*/.*?/\* HOME_COPY_END \*/','/* HOME_COPY_START */\nconst HOME_COPY = '+json.dumps(copy,ensure_ascii=False,separators=(',',':'))+';\n/* HOME_COPY_END */',s,flags=re.S);f.write_text(s)
 header=(ROOT/'partials/header.html').read_text().strip();footer=(ROOT/'partials/footer.html').read_text().strip()
 for file in ['index.html','produits.html','apropos.html','livraison.html','contact.html','faq.html']:
@@ -35,3 +35,4 @@ markup='<div class="container" id="catalogue">'+''.join(cards)+'</div><!-- catal
 s=re.sub(r'<div(?: class="container")? id="catalogue">.*?</div><!-- catalogue-end -->',lambda m:markup,s,flags=re.S) if '<!-- catalogue-end -->' in s else s.replace('<div class="container" id="catalogue"></div>',markup.replace('<div id="catalogue">','<div class="container" id="catalogue">',1))
 f.write_text(s)
 print('Built shared components, CSS, product data and static catalogue.')
+
