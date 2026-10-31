@@ -1,0 +1,24 @@
+.scarl-assistant{--chat-bg:#0d1b24;--chat-line:#38505e;--chat-muted:#b4c8d3;position:fixed;right:20px;bottom:max(24px,env(safe-area-inset-bottom));z-index:65;font-family:inherit;color:#f3f8fb;font-size:14px;line-height:1.55;color-scheme:dark}
+.scarl-assistant *{box-sizing:border-box}.scarl-assistant [hidden]{display:none!important}
+.scarl-assistant button,.scarl-assistant input{font:inherit}.scarl-assistant button{cursor:pointer}
+.scarl-assistant button:focus-visible,.scarl-assistant a:focus-visible,.scarl-assistant input:focus-visible{outline:2px solid #c4e8fc;outline-offset:3px}
+.scarl-assistant .chat-launch{display:flex;align-items:center;gap:10px;min-height:48px;padding:12px 18px;background:#d5eaf4;color:#102632;border:1px solid #edf8ff;border-radius:8px;box-shadow:0 8px 32px #0005;font-weight:600}
+.chat-launch svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6}
+.scarl-assistant .chat-panel{width:min(390px,calc(100vw - 32px));height:min(640px,calc(100dvh - 120px));display:flex;flex-direction:column;background:var(--chat-bg);border:1px solid var(--chat-line);border-radius:12px;box-shadow:0 18px 64px #0008;overflow:hidden;margin-bottom:12px}
+.chat-header{display:flex;align-items:center;gap:10px;padding:16px 18px;border-bottom:1px solid var(--chat-line)}
+.chat-heading{flex:1}.chat-heading h2{margin:0;font-size:17px;font-weight:600;color:#f3f8fb;letter-spacing:0}.chat-heading p{margin:2px 0 0;color:var(--chat-muted);font-size:11px}
+.scarl-assistant .chat-icon{min-width:40px;min-height:40px;border:1px solid var(--chat-line);border-radius:6px;background:transparent;color:#f3f8fb;font-size:22px}
+.chat-log{flex:1;overflow:auto;overscroll-behavior:contain;padding:18px;min-height:70px;scrollbar-width:thin}
+.chat-message{margin:0 0 15px;max-width:100%;padding:12px 14px;background:#162b38;border:1px solid #2d4554;border-radius:9px;color:#edf5fa;overflow-wrap:anywhere}
+.chat-message p{margin:0;white-space:pre-wrap;font-size:14px;line-height:1.6;color:inherit}.chat-message .chat-speaker{display:block;margin-bottom:5px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--chat-muted)}
+.chat-message.user{margin-left:30px;background:#d5eaf4;color:#102632;border-color:#d5eaf4}.chat-message.user .chat-speaker{color:#375365}
+.chat-message a{color:#d5eeff;text-decoration:underline;text-underline-offset:3px}.chat-sources{margin-top:9px;font-size:11px;display:flex;flex-wrap:wrap;gap:6px 12px}
+.chat-choices{display:flex;flex-wrap:wrap;gap:7px;padding:0 18px 13px;max-height:155px;overflow:auto;border-bottom:1px solid var(--chat-line)}
+.scarl-assistant .chat-choice{min-height:38px;padding:8px 11px;border:1px solid #496474;border-radius:6px;background:#152a37;color:#e2f0f8;font-size:12px;text-align:left}.scarl-assistant .chat-choice:hover{background:#243f50;border-color:#8eb6cb}
+.chat-form{display:flex;gap:8px;padding:12px 18px 6px}.chat-form input{width:0;flex:1;min-height:44px;padding:10px;border:1px solid #496474;border-radius:6px;background:#08141d;color:#f3f8fb}.chat-form input::placeholder{color:#adc2cf}
+.scarl-assistant .chat-send{min-height:44px;padding:8px 12px;border:1px solid #d5eaf4;border-radius:6px;background:#d5eaf4;color:#102632;font-size:12px;font-weight:600}
+.chat-bottom{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:4px 18px 12px;font-size:10px;color:var(--chat-muted)}
+.scarl-assistant .chat-clear{min-height:32px;padding:4px 0;background:none;border:0;color:#c5dfed;text-decoration:underline;font-size:11px}.chat-contact{display:inline-block;margin-top:10px;padding:6px 0;min-height:36px}
+@media(max-width:600px){.scarl-assistant{right:12px;bottom:max(16px,env(safe-area-inset-bottom))}.scarl-assistant .chat-launch{padding:10px 13px;font-size:12px}.scarl-assistant .chat-panel{width:calc(100vw - 24px);height:min(620px,calc(100dvh - 102px))}.scarl-assistant.chat-open{bottom:max(10px,env(safe-area-inset-bottom))}.scarl-assistant.chat-open .chat-launch{display:none}.chat-choices{max-height:140px}.chat-form input{font-size:16px}}
+/* Keep the floating help control above the catalogue selection bar. */
+body:has(.selection[style*="block"]) .scarl-assistant:not(.chat-open){bottom:150px}
