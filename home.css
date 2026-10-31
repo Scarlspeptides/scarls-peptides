@@ -81,3 +81,11 @@
 .reference-section{padding-block:80px}
 .hero-baseline{font-size:11px}
 @media(max-width:760px){.hero-copy h1{font-size:clamp(64px,15vw,96px);letter-spacing:-.05em}.hero-description{max-width:31ch}.hero-copy .eyebrow{font-size:9px;letter-spacing:.1em}.scene-heading{font-size:10px}.scene-image-wrap{padding-inline:10%}.reference-section{padding-block:48px}.correspondence h2{letter-spacing:-.025em}}
+
+.catalogue-announcement #announcementTitle{font-size:14px;color:var(--ice);font-weight:600}
+.mascot-guide{display:flex;align-items:center;gap:12px;padding:16px 0 4px;min-width:0}
+.mascot-pose{width:100px;height:100px;flex:0 0 100px;background-image:url('assets/mascot/scarls-poses.png');background-size:400% 300%;background-repeat:no-repeat}
+.mascot-speech{position:relative;flex:1;min-width:0;padding:13px 16px;border:1px solid var(--line-strong);border-radius:14px 14px 14px 3px;background:#112430;color:var(--ink)}
+.mascot-speech strong{display:block;margin-bottom:4px;color:var(--ice);font-size:12px}
+.mascot-speech p{margin:0;font-size:13px;line-height:1.6;overflow-wrap:anywhere}
+@media(max-width:600px){.mascot-guide{gap:8px;padding-top:12px}.mascot-pose{width:78px;height:78px;flex-basis:78px}.mascot-speech{padding:11px 12px}.mascot-speech p{font-size:12px}}
