@@ -31,3 +31,5 @@ collect an address. Keep research findings separate from claimed clinical benefi
 
 Validation: `node scripts/test_assistant.cjs`. Update sources and editorial answers
 together when the catalogue or medical evidence changes.
+
+The FAQ topics and KLOW composition incorporate the owner’s catalogue notes (version 44, 2026-10-31). Medical effects retain their study context and linked evidence; raw admin descriptions are not automatically used as clinical claims.
