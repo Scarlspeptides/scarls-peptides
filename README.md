@@ -33,3 +33,19 @@ Validation: `node scripts/test_assistant.cjs`. Update sources and editorial answ
 together when the catalogue or medical evidence changes.
 
 The FAQ topics and KLOW composition incorporate the owner’s catalogue notes (version 44, 2026-10-31). Medical effects retain their study context and linked evidence; raw admin descriptions are not automatically used as clinical claims.
+
+### Multilingual FAQ and comparisons
+
+`assistant-content.json` contains the reviewed FR/EN/PT/ES entries. `assistant-ui.json`
+contains every widget label and prepared general response. `assistant-engine.js` implements
+exact aliases, conservative spelling suggestions (confirmed by the visitor), and educational
+two-reference comparisons. `scripts/build_site.py` generates `assistant-data.js` from these
+sources. The widget follows the page language and translates existing bot messages when it
+changes; visitor-written messages remain as entered. It fetches only the public published
+FAQ from the administration service, keeping this bundled content as the offline fallback.
+Live CMS data must pass the same four-language and HTTPS validation before replacing it.
+
+The administration Chatbot tab manages drafts, previews and publications. Drafts are never
+returned by its public endpoint. New product-description translations can also be entered
+in the product editor; a blank translation falls back to French. This is manual editorial
+translation, not an automatic AI translation service.

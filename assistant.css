@@ -22,3 +22,4 @@
 @media(max-width:600px){.scarl-assistant{right:12px;bottom:max(16px,env(safe-area-inset-bottom))}.scarl-assistant .chat-launch{padding:10px 13px;font-size:12px}.scarl-assistant .chat-panel{width:calc(100vw - 24px);height:min(620px,calc(100dvh - 102px))}.scarl-assistant.chat-open{bottom:max(10px,env(safe-area-inset-bottom))}.scarl-assistant.chat-open .chat-launch{display:none}.chat-choices{max-height:140px}.chat-form input{font-size:16px}}
 /* Keep the floating help control above the catalogue selection bar. */
 body:has(.selection[style*="block"]) .scarl-assistant:not(.chat-open){bottom:150px}
+.chat-comparison{display:grid;gap:12px;margin-top:12px}.chat-comparison section{padding:12px 0 0;border-top:1px solid #496474}.chat-comparison h3{font-size:14px;margin:0 0 6px;color:inherit}.chat-comparison p{font-size:13px}

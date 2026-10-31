@@ -1,0 +1,414 @@
+{
+  "entries": [
+    {
+      "id": "ghk-cu",
+      "name": "GHK-Cu",
+      "aliases": [
+        "ghk cu",
+        "ghk",
+        "peptide cuivre",
+        "GHK-Cu",
+        "GHKCu"
+      ],
+      "answer": {
+        "fr": "Peau : production de collagène stimulée en laboratoire. Pilosité : nombre et épaisseur des poils des sourcils améliorés dans un petit essai de sérum local chez 18 personnes.",
+        "en": "Skin: collagen production stimulated in laboratory cells. Hair: eyebrow hair count and thickness improved in a small topical serum trial involving 18 people.",
+        "pt": "Pele: produção de colagénio estimulada em células no laboratório. Pelos: número e espessura dos pelos das sobrancelhas melhoraram num pequeno ensaio de sérum tópico com 18 pessoas.",
+        "es": "Piel: producción de colágeno estimulada en células de laboratorio. Vello: mejoraron el número y el grosor de los pelos de las cejas en un pequeño ensayo de sérum tópico con 18 personas."
+      },
+      "risk": {
+        "fr": "Les données de sécurité des formes injectables sont limitées ; réactions immunitaires et impuretés sont des préoccupations.",
+        "en": "Human safety data for injectable forms are limited; immune reactions and impurities are concerns.",
+        "pt": "Os dados de segurança das formas injetáveis em humanos são limitados; reações imunitárias e impurezas são preocupações.",
+        "es": "Los datos de seguridad de las formas inyectables en humanos son limitados; preocupan las reacciones inmunitarias y las impurezas."
+      },
+      "sources": [
+        [
+          "Étude sur cellules · collagène",
+          "https://pubmed.ncbi.nlm.nih.gov/3169264/"
+        ],
+        [
+          "Petit essai · sérum pour sourcils",
+          "https://so09.tci-thaijo.org/index.php/PMR/article/view/9318"
+        ],
+        [
+          "FDA · données de sécurité",
+          "https://www.fda.gov/drugs/human-drug-compounding/certain-bulk-drug-substances-use-compounding-may-present-significant-safety-risks"
+        ]
+      ],
+      "enabled": true
+    },
+    {
+      "id": "klow",
+      "name": "KLOW",
+      "aliases": [
+        "klow",
+        "KLOW"
+      ],
+      "answer": {
+        "fr": "Composition indiquée dans la fiche : KPV, BPC-157, TB500 et GHK-Cu. Les recherches sur ces composants portent notamment sur l’inflammation et la réparation des tissus ; ce ne sont pas des résultats cliniques du mélange.",
+        "en": "The product sheet lists KPV, BPC-157, TB500 and GHK-Cu. Research on these components includes inflammation and tissue repair; these are not clinical results for the blend.",
+        "pt": "A ficha indica KPV, BPC-157, TB500 e GHK-Cu. A investigação destes componentes inclui inflamação e reparação dos tecidos; não são resultados clínicos da mistura.",
+        "es": "La ficha indica KPV, BPC-157, TB500 y GHK-Cu. La investigación de estos componentes incluye inflamación y reparación de tejidos; no son resultados clínicos de la mezcla."
+      },
+      "risk": {
+        "fr": "La sécurité de chaque composant ne démontre pas celle du mélange.",
+        "en": "Safety findings for individual components do not establish the safety of the blend.",
+        "pt": "Os dados de segurança de cada componente não demonstram a segurança da mistura.",
+        "es": "Los datos de seguridad de cada componente no demuestran la seguridad de la mezcla."
+      },
+      "sources": [
+        [
+          "FDA · données de sécurité",
+          "https://www.fda.gov/drugs/human-drug-compounding/certain-bulk-drug-substances-use-compounding-may-present-significant-safety-risks"
+        ]
+      ],
+      "enabled": true
+    },
+    {
+      "id": "cjc-no-dac-ipamorelin",
+      "name": "CJC no DAC + Ipamorelin",
+      "aliases": [
+        "cjc",
+        "cjc1295",
+        "cjc 1295",
+        "ipamorelin",
+        "ipamoreline",
+        "ipa",
+        "CJC no DAC + Ipamorelin"
+      ],
+      "answer": {
+        "fr": "Association autour de la libération d’hormone de croissance (GH). L’ipamoreline stimule cette libération dans des études chez des volontaires humains.",
+        "en": "A combination related to growth hormone (GH) release. Ipamorelin stimulated GH release in studies involving human volunteers.",
+        "pt": "Associação relacionada com a libertação de hormona do crescimento (GH). A ipamorelina estimulou essa libertação em estudos com voluntários humanos.",
+        "es": "Combinación relacionada con la liberación de hormona del crecimiento (GH). La ipamorelina estimuló esa liberación en estudios con voluntarios humanos."
+      },
+      "risk": {
+        "fr": "Des effets hormonaux sont possibles. Les données de sécurité de l’ipamoreline sont insuffisantes pour plusieurs voies injectables.",
+        "en": "Hormonal effects are possible. Safety data for ipamorelin are insufficient for several injectable routes.",
+        "pt": "São possíveis efeitos hormonais. Os dados de segurança da ipamorelina são insuficientes para várias vias injetáveis.",
+        "es": "Puede haber efectos hormonales. Los datos de seguridad de la ipamorelina son insuficientes para varias vías inyectables."
+      },
+      "sources": [
+        [
+          "Étude sur l’ipamoreline chez l’humain",
+          "https://pubmed.ncbi.nlm.nih.gov/10496658/"
+        ],
+        [
+          "FDA · données de sécurité",
+          "https://www.fda.gov/drugs/human-drug-compounding/certain-bulk-drug-substances-use-compounding-may-present-significant-safety-risks"
+        ]
+      ],
+      "enabled": true
+    },
+    {
+      "id": "semax",
+      "name": "Semax",
+      "aliases": [
+        "semax",
+        "Semax"
+      ],
+      "answer": {
+        "fr": "Concentration et cognition : axes de recherche du Semax. Des effets sur la neuroprotection ont été observés dans des modèles chez le rat.",
+        "en": "Concentration and cognition are areas of Semax research. Effects related to neuroprotection have been observed in rat models.",
+        "pt": "Concentração e cognição são áreas de investigação do Semax. Foram observados efeitos relacionados com a neuroproteção em modelos em ratos.",
+        "es": "La concentración y la cognición son áreas de investigación del Semax. Se han observado efectos relacionados con la neuroprotección en modelos en ratas."
+      },
+      "risk": {
+        "fr": "Des incertitudes de sécurité et un risque de réactions immunitaires sont signalés pour ces préparations.",
+        "en": "Safety uncertainties and a risk of immune reactions have been identified for these preparations.",
+        "pt": "Foram identificadas incertezas de segurança e risco de reações imunitárias nestas preparações.",
+        "es": "Se han identificado incertidumbres de seguridad y riesgo de reacciones inmunitarias en estas preparaciones."
+      },
+      "sources": [
+        [
+          "Étude chez le rat",
+          "https://pubmed.ncbi.nlm.nih.gov/34201112/"
+        ],
+        [
+          "FDA · données de sécurité",
+          "https://www.fda.gov/drugs/human-drug-compounding/certain-bulk-drug-substances-use-compounding-may-present-significant-safety-risks"
+        ]
+      ],
+      "enabled": true
+    },
+    {
+      "id": "selank",
+      "name": "Selank",
+      "aliases": [
+        "selank",
+        "Selank"
+      ],
+      "answer": {
+        "fr": "Stress et anxiété : diminution de certains indicateurs anxieux observée dans des expériences chez le rat.",
+        "en": "Stress and anxiety: reductions in certain anxiety indicators have been observed in rat experiments.",
+        "pt": "Stress e ansiedade: foi observada uma redução de alguns indicadores de ansiedade em experiências com ratos.",
+        "es": "Estrés y ansiedad: se observó una reducción de algunos indicadores de ansiedad en experimentos con ratas."
+      },
+      "risk": {
+        "fr": "Les données de sécurité humaine restent insuffisantes ; des réactions immunitaires sont possibles.",
+        "en": "Human safety data remain insufficient; immune reactions are possible.",
+        "pt": "Os dados de segurança em humanos continuam a ser insuficientes; são possíveis reações imunitárias.",
+        "es": "Los datos de seguridad en humanos siguen siendo insuficientes; puede haber reacciones inmunitarias."
+      },
+      "sources": [
+        [
+          "Étude chez le rat",
+          "https://pubmed.ncbi.nlm.nih.gov/28280289/"
+        ],
+        [
+          "FDA · données de sécurité",
+          "https://www.fda.gov/drugs/human-drug-compounding/certain-bulk-drug-substances-use-compounding-may-present-significant-safety-risks"
+        ]
+      ],
+      "enabled": true
+    },
+    {
+      "id": "retatrutide",
+      "name": "Retatrutide",
+      "aliases": [
+        "retatrutide",
+        "retatrutid",
+        "reta",
+        "rétatrutide",
+        "Retatrutide"
+      ],
+      "answer": {
+        "fr": "Agit sur les récepteurs GLP-1, GIP et glucagon. Une baisse de la faim et du poids a été observée dans des essais chez l’humain.",
+        "en": "Acts on GLP-1, GIP and glucagon receptors. Reduced hunger and body weight have been observed in human clinical trials.",
+        "pt": "Atua nos recetores GLP-1, GIP e glucagon. Foram observadas reduções da fome e do peso em ensaios em humanos.",
+        "es": "Actúa sobre los receptores GLP-1, GIP y glucagón. Se observaron reducciones del hambre y del peso en ensayos en humanos."
+      },
+      "risk": {
+        "fr": "Les essais rapportent notamment des effets digestifs. La qualité et la sécurité d’une fiole hors essai ne se déduisent pas de ces résultats.",
+        "en": "Trials report gastrointestinal side effects, among others. These results do not establish the quality or safety of a vial supplied outside a trial.",
+        "pt": "Os ensaios relatam, entre outros, efeitos digestivos. Estes resultados não demonstram a qualidade ou segurança de um frasco fornecido fora de um ensaio.",
+        "es": "Los ensayos notifican, entre otros, efectos digestivos. Estos resultados no demuestran la calidad ni la seguridad de un vial suministrado fuera de un ensayo."
+      },
+      "sources": [
+        [
+          "Essai de phase 2 · poids",
+          "https://doi.org/10.1056/NEJMoa2301972"
+        ],
+        [
+          "Étude de phase 2 · appétit",
+          "https://pubmed.ncbi.nlm.nih.gov/40916752/"
+        ]
+      ],
+      "enabled": true
+    },
+    {
+      "id": "mots-c",
+      "name": "MOTS-C",
+      "aliases": [
+        "mots c",
+        "mots",
+        "MOTS-C",
+        "MOTSC"
+      ],
+      "answer": {
+        "fr": "Métabolisme : amélioration de la sensibilité à l’insuline observée dans des études chez la souris.",
+        "en": "Metabolism: improved insulin sensitivity has been observed in mouse studies.",
+        "pt": "Metabolismo: foi observada uma melhoria da sensibilidade à insulina em estudos com ratinhos.",
+        "es": "Metabolismo: se observó una mejora de la sensibilidad a la insulina en estudios con ratones."
+      },
+      "risk": {
+        "fr": "Les données de sécurité humaine sont insuffisantes ; impuretés et réactions immunitaires sont des préoccupations.",
+        "en": "Human safety data are insufficient; impurities and immune reactions are concerns.",
+        "pt": "Os dados de segurança em humanos são insuficientes; impurezas e reações imunitárias são preocupações.",
+        "es": "Los datos de seguridad en humanos son insuficientes; preocupan las impurezas y las reacciones inmunitarias."
+      },
+      "sources": [
+        [
+          "Étude préclinique",
+          "https://pubmed.ncbi.nlm.nih.gov/25738459/"
+        ],
+        [
+          "FDA · données de sécurité",
+          "https://www.fda.gov/drugs/human-drug-compounding/certain-bulk-drug-substances-use-compounding-may-present-significant-safety-risks"
+        ]
+      ],
+      "enabled": true
+    },
+    {
+      "id": "nad",
+      "name": "NAD+",
+      "aliases": [
+        "nad",
+        "nad plus",
+        "NAD+"
+      ],
+      "answer": {
+        "fr": "Énergie cellulaire : coenzyme naturellement impliquée dans les réactions qui permettent de produire de l’énergie.",
+        "en": "Cellular energy: a coenzyme naturally involved in reactions that help produce energy.",
+        "pt": "Energia celular: coenzima naturalmente envolvida em reações que permitem produzir energia.",
+        "es": "Energía celular: coenzima que participa de forma natural en las reacciones que permiten producir energía."
+      },
+      "risk": {
+        "fr": "Le rôle d’une molécule dans le corps ne démontre ni l’efficacité ni la sécurité de son administration.",
+        "en": "A molecule’s natural role in the body does not establish the efficacy or safety of administering it.",
+        "pt": "O papel natural de uma molécula no organismo não demonstra a eficácia nem a segurança da sua administração.",
+        "es": "La función natural de una molécula en el cuerpo no demuestra la eficacia ni la seguridad de administrarla."
+      },
+      "sources": [
+        [
+          "NIH · rôle du NAD",
+          "https://ods.od.nih.gov/factsheets/Niacin-HealthProfessional/"
+        ]
+      ],
+      "enabled": true
+    },
+    {
+      "id": "l-carnitine",
+      "name": "L-Carnitine",
+      "aliases": [
+        "l carnitine",
+        "carnitine",
+        "L-Carnitine",
+        "LCarnitine"
+      ],
+      "answer": {
+        "fr": "Métabolisme énergétique : transporte les acides gras vers les mitochondries pour qu’ils puissent servir de carburant, notamment aux muscles.",
+        "en": "Energy metabolism: transports fatty acids to mitochondria so they can be used as fuel, particularly in muscles.",
+        "pt": "Metabolismo energético: transporta ácidos gordos para as mitocôndrias para serem utilizados como combustível, nomeadamente nos músculos.",
+        "es": "Metabolismo energético: transporta ácidos grasos a las mitocondrias para utilizarlos como combustible, especialmente en los músculos."
+      },
+      "risk": {
+        "fr": "Les effets et les risques dépendent du contexte médical et de la forme utilisée. Les données des compléments ne valident pas les injections.",
+        "en": "Effects and risks depend on the medical context and formulation. Supplement data do not validate injections.",
+        "pt": "Os efeitos e riscos dependem do contexto médico e da formulação. Os dados de suplementos não validam injeções.",
+        "es": "Los efectos y riesgos dependen del contexto médico y de la formulación. Los datos de suplementos no validan las inyecciones."
+      },
+      "sources": [
+        [
+          "NIH · carnitine",
+          "https://ods.od.nih.gov/factsheets/Carnitine-HealthProfessional/"
+        ]
+      ],
+      "enabled": true
+    },
+    {
+      "id": "epitalon",
+      "name": "Epitalon",
+      "aliases": [
+        "epitalon",
+        "epithalon",
+        "epitalone",
+        "Epitalon"
+      ],
+      "answer": {
+        "fr": "Vieillissement cellulaire : activation de la télomérase et allongement des télomères observés dans des cultures de cellules humaines.",
+        "en": "Cellular ageing: telomerase activation and telomere elongation have been observed in cultures of human cells.",
+        "pt": "Envelhecimento celular: ativação da telomerase e alongamento dos telómeros observados em culturas de células humanas.",
+        "es": "Envejecimiento celular: se observaron activación de la telomerasa y alargamiento de los telómeros en cultivos de células humanas."
+      },
+      "risk": {
+        "fr": "La sécurité humaine reste insuffisamment documentée. Un résultat en laboratoire ne démontre pas un effet anti-âge clinique.",
+        "en": "Human safety remains insufficiently documented. A laboratory result does not establish a clinical anti-ageing effect.",
+        "pt": "A segurança em humanos continua insuficientemente documentada. Um resultado de laboratório não demonstra um efeito antienvelhecimento clínico.",
+        "es": "La seguridad en humanos sigue insuficientemente documentada. Un resultado de laboratorio no demuestra un efecto antienvejecimiento clínico."
+      },
+      "sources": [
+        [
+          "Étude sur cellules humaines",
+          "https://pubmed.ncbi.nlm.nih.gov/12937682/"
+        ],
+        [
+          "FDA · données de sécurité",
+          "https://www.fda.gov/drugs/human-drug-compounding/certain-bulk-drug-substances-use-compounding-may-present-significant-safety-risks"
+        ]
+      ],
+      "enabled": true
+    },
+    {
+      "id": "melanotan-i",
+      "name": "Melanotan I",
+      "aliases": [
+        "melanotan i",
+        "melanotan 1",
+        "mt1",
+        "melanotan",
+        "Melanotan I"
+      ],
+      "answer": {
+        "fr": "Pigmentation : stimulation de la production de mélanine, le pigment de la peau.",
+        "en": "Pigmentation: stimulates production of melanin, the pigment in skin.",
+        "pt": "Pigmentação: estimula a produção de melanina, o pigmento da pele.",
+        "es": "Pigmentación: estimula la producción de melanina, el pigmento de la piel."
+      },
+      "risk": {
+        "fr": "La présentation, la qualité et le cadre médical comptent. La pigmentation ne remplace pas une protection solaire.",
+        "en": "Formulation, quality and the medical setting matter. Pigmentation does not replace sun protection.",
+        "pt": "A formulação, a qualidade e o contexto médico são importantes. A pigmentação não substitui a proteção solar.",
+        "es": "La formulación, la calidad y el contexto médico importan. La pigmentación no sustituye a la protección solar."
+      },
+      "sources": [
+        [
+          "EMA · afamélanotide / Scenesse",
+          "https://www.ema.europa.eu/en/medicines/human/EPAR/scenesse"
+        ]
+      ],
+      "enabled": true
+    },
+    {
+      "id": "dsip",
+      "name": "DSIP",
+      "aliases": [
+        "dsip",
+        "emideltide",
+        "DSIP"
+      ],
+      "answer": {
+        "fr": "Sommeil : effets variables dans de petites études humaines, avec une amélioration de certains paramètres dans certaines études.",
+        "en": "Sleep: mixed findings in small human studies, with improvements in some measures in certain studies.",
+        "pt": "Sono: resultados variáveis em pequenos estudos em humanos, com melhorias de alguns parâmetros em certos estudos.",
+        "es": "Sueño: resultados variables en pequeños estudios en humanos, con mejoras de algunos parámetros en ciertos estudios."
+      },
+      "risk": {
+        "fr": "Les données de sécurité sont insuffisantes ; des réactions immunitaires et des impuretés sont des préoccupations.",
+        "en": "Safety data are insufficient; immune reactions and impurities are concerns.",
+        "pt": "Os dados de segurança são insuficientes; reações imunitárias e impurezas são preocupações.",
+        "es": "Los datos de seguridad son insuficientes; preocupan las reacciones inmunitarias y las impurezas."
+      },
+      "sources": [
+        [
+          "Étude humaine · résultats contrastés",
+          "https://pubmed.ncbi.nlm.nih.gov/1299794/"
+        ],
+        [
+          "Étude humaine · absence de différence significative",
+          "https://pubmed.ncbi.nlm.nih.gov/3583493/"
+        ],
+        [
+          "FDA · données de sécurité",
+          "https://www.fda.gov/drugs/human-drug-compounding/certain-bulk-drug-substances-use-compounding-may-present-significant-safety-risks"
+        ]
+      ],
+      "enabled": true
+    },
+    {
+      "id": "glutathion",
+      "name": "Glutathion",
+      "aliases": [
+        "glutathion",
+        "glutathione",
+        "gluta",
+        "Glutathion"
+      ],
+      "answer": {
+        "fr": "Antioxydant naturellement présent dans le corps : contribue à protéger les cellules contre le stress oxydatif.",
+        "en": "A naturally occurring antioxidant that helps protect cells from oxidative stress.",
+        "pt": "Antioxidante naturalmente presente no organismo que ajuda a proteger as células do stress oxidativo.",
+        "es": "Antioxidante presente de forma natural en el cuerpo que contribuye a proteger las células del estrés oxidativo."
+      },
+      "risk": {
+        "fr": "La présence naturelle dans le corps ne garantit pas la sécurité d’une injection. Ce module ne conseille pas d’administration.",
+        "en": "Natural presence in the body does not guarantee injection safety. This module does not advise on administration.",
+        "pt": "A presença natural no organismo não garante a segurança de uma injeção. Este módulo não aconselha a administração.",
+        "es": "La presencia natural en el cuerpo no garantiza la seguridad de una inyección. Este módulo no aconseja sobre administración."
+      },
+      "sources": [],
+      "enabled": true
+    }
+  ]
+}
