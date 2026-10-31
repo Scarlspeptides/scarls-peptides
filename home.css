@@ -89,3 +89,35 @@
 .mascot-speech strong{display:block;margin-bottom:4px;color:var(--ice);font-size:12px}
 .mascot-speech p{margin:0;font-size:13px;line-height:1.6;overflow-wrap:anywhere}
 @media(max-width:600px){.mascot-guide{gap:8px;padding-top:12px}.mascot-pose{width:78px;height:78px;flex-basis:78px}.mascot-speech{padding:11px 12px}.mascot-speech p{font-size:12px}}
+
+/* A lighter editorial entrance, with a compact mobile hierarchy. */
+.home-page .catalogue-announcement{background:transparent;border-bottom:0}
+.home-page .announcement-inner{justify-content:flex-start;padding-block:8px;min-height:34px}
+.home-page .catalogue-announcement #announcementTitle{font-size:12px;line-height:1.5;font-weight:500;letter-spacing:.015em;color:#b4c9d3}
+.home-page .collection-layout{padding-block:38px 36px;gap:56px}
+.home-page .hero-copy{padding-block:16px}
+.home-page .hero-copy .eyebrow{font-size:9px;line-height:1.6;font-weight:400;letter-spacing:.12em;color:#91a5b0;margin-bottom:22px;max-width:40ch}
+.home-page .hero-copy h1{font-size:clamp(58px,6.4vw,88px);font-weight:400;line-height:1.02;letter-spacing:-.045em;color:#eeeae2}
+.home-page .hero-copy h1 em{color:#abc4cf;padding-bottom:.07em;font-weight:400}
+.home-page .hero-description{max-width:34ch;margin:22px 0 24px;color:#aab8c1;font-size:15px;font-weight:400;line-height:1.65;letter-spacing:0}
+.home-page .hero-copy .button{width:fit-content;min-height:46px;padding:11px 18px;gap:22px;border:1px solid #c5d6de;background:#c5d6de;color:#11232c;border-radius:6px;font-size:14px;line-height:1.5;font-weight:500;letter-spacing:0}
+.home-page .hero-copy .button::after{font-size:19px}
+.home-page .hero-copy .button:hover{background:#e0e8e9;border-color:#e0e8e9}
+.home-page .hero-footnote{margin-top:16px;color:#93a5b0;font-size:10px;font-weight:400}
+.home-page .hero-footnote::before{background:#607b8a;width:14px}
+.home-page .scene-heading{color:#96acb8;font-size:9px;letter-spacing:.1em}
+.home-page .scene-product strong{color:#eeeae2;font-weight:400}
+.home-page .scene-product>span,.home-page .scene-hint{color:#99aeb9}
+.home-page .vial-choice{color:#9cafba}
+.home-page .vial-choice.active{color:#e1e9eb;border-bottom-color:#a8c3d0}
+@media(max-width:760px){
+ .home-page .collection-layout{padding-block:20px 24px;gap:24px}
+ .home-page .hero-copy{padding:0}
+ .home-page .hero-copy .eyebrow{font-size:8px;letter-spacing:.09em;margin-bottom:14px;max-width:none}
+ .home-page .hero-copy h1{font-size:clamp(45px,12vw,64px);line-height:1.02;letter-spacing:-.045em}
+ .home-page .hero-description{font-size:14px;line-height:1.6;margin:16px 0 18px;max-width:35ch}
+ .home-page .hero-copy .button{min-height:44px;padding:10px 16px;font-size:13px;gap:20px}
+ .home-page .hero-footnote{margin-top:13px;font-size:9px}
+ .home-page .announcement-inner{padding-block:6px;min-height:30px}
+ .home-page .catalogue-announcement #announcementTitle{font-size:11px}
+}
