@@ -30,6 +30,7 @@ function updateMenu(open) {
   if (!nav || !toggle) return;
   const labels = {fr:['Ouvrir le menu','Fermer le menu'],en:['Open menu','Close menu'],pt:['Abrir menu','Fechar menu'],es:['Abrir menú','Cerrar menú']};
   nav.classList.toggle('open', open);
+  if(open)updateLanguageMenu(false);
   toggle.setAttribute('aria-expanded', String(open));
   toggle.setAttribute('aria-label', labels[currentLang()][Number(open)]);
   toggle.innerHTML = open ? '&times;' : '&#9776;';
@@ -50,18 +51,28 @@ function applyNav(lang) {
     const active = button.dataset.lang === language;
     button.classList.toggle('active', active);
     button.setAttribute('aria-pressed', String(active));
-    button.textContent = button.dataset.lang.toUpperCase();
+    button.textContent = LANGUAGE_FLAGS[button.dataset.lang]+' '+LANGUAGE_NAMES[button.dataset.lang];
     button.lang = button.dataset.lang;
     button.setAttribute('aria-label', {fr:'Français',en:'English',pt:'Português',es:'Español'}[button.dataset.lang]);
   });
   try { localStorage.setItem('scarlLang', language); } catch {}
   const skip = document.querySelector('.skip-link');
   if (skip) skip.textContent = {fr:'Aller au contenu',en:'Skip to content',pt:'Ir para o conteúdo',es:'Ir al contenido'}[language];
+  const languageToggle=document.querySelector('.language-toggle');
+  if(languageToggle){languageToggle.textContent=LANGUAGE_FLAGS[language]+' '+language.toUpperCase()+' ▾';languageToggle.setAttribute('aria-label',langs?.getAttribute('aria-label')+' · '+LANGUAGE_NAMES[language]);}
+  updateLanguageMenu(false);
   updateMenu(false);
   if (typeof setPageLang === 'function') setPageLang(language);
 
 }
 
+const LANGUAGE_FLAGS={fr:'🇫🇷',en:'🇬🇧',pt:'🇵🇹',es:'🇪🇸'};
+const LANGUAGE_NAMES={fr:'Français',en:'English',pt:'Português',es:'Español'};
+function updateLanguageMenu(open){
+ const list=document.querySelector('.langs'),button=document.querySelector('.language-toggle');
+ if(!list||!button)return;list.classList.toggle('open',open);button.setAttribute('aria-expanded',String(open));
+ if(open)updateMenu(false);
+}
 function installMobileNav() {
   const nav = document.querySelector('.main-nav');
   const header = document.querySelector('.header-in');
@@ -81,7 +92,12 @@ function installMobileNav() {
   document.addEventListener('keydown', event => { if (event.key === 'Escape' && nav.classList.contains('open')) { updateMenu(false); toggle.focus(); } });
   document.addEventListener('click', event => { if (!header.contains(event.target)) updateMenu(false); });
   matchMedia('(max-width: 760px)').addEventListener('change', () => updateMenu(false));
-  header.insertBefore(toggle, nav);
+  const actions=document.createElement('div');actions.className='header-actions';
+  const langs=header.querySelector('.langs');
+  if(langs){const languageToggle=document.createElement('button');languageToggle.type='button';languageToggle.className='language-toggle';languageToggle.setAttribute('aria-expanded','false');langs.id='languageOptions';languageToggle.setAttribute('aria-controls',langs.id);languageToggle.addEventListener('click',()=>updateLanguageMenu(!langs.classList.contains('open')));actions.append(languageToggle,langs);}
+  actions.append(toggle,nav);header.append(actions);
+  document.addEventListener('click',event=>{if(!actions.contains(event.target))updateLanguageMenu(false);});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&langs?.classList.contains('open')){updateLanguageMenu(false);actions.querySelector('.language-toggle').focus();}});
 }
 
 document.addEventListener('DOMContentLoaded', () => {
