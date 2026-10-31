@@ -320,3 +320,19 @@ footer { background:#080d11; }
 @media(max-width:760px) and (min-width:481px) {
  .product-card.is-consumable .product-image img { max-height:260px; }
 }
+
+/* Compact selection control opposite the Questions control. */
+#selection.selection{position:fixed;left:20px;right:auto;bottom:max(24px,env(safe-area-inset-bottom));z-index:66;width:60px;margin:0;padding:0;border:0;border-radius:50%;background:transparent;box-shadow:none}
+#selection .selection-heading{position:relative}
+#selection:not(.is-open) .sel-top{position:relative;display:grid;place-items:center;flex:none;width:60px;height:60px;min-height:60px;border-radius:50%;background:var(--ice);color:var(--ice-ink);box-shadow:0 6px 24px #0005;border:1px solid var(--control-border)}
+.sel-cart-icon{display:block;width:25px;height:25px;flex-shrink:0}
+.sel-badge{position:absolute;right:-2px;top:-3px;display:grid;place-items:center;min-width:22px;height:22px;padding:0 5px;border-radius:12px;background:#3159c2;color:white;font-size:11px;font-weight:700;border:2px solid var(--bg-soft)}
+#selection:not(.is-open) .sel-title,#selection:not(.is-open) .sel-count,#selection:not(.is-open) .sel-chevron{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+#selection.is-open{width:min(420px,calc(100vw - 40px));padding:16px;border:1px solid var(--control-border);border-radius:18px;background:var(--bg-soft);box-shadow:0 16px 48px #0007;max-height:calc(100dvh - 48px)}
+#selection.is-open .sel-cart-icon{width:22px;height:22px}
+#selection.is-open .sel-badge{display:none}
+#selection.is-open .sel-top{flex-wrap:nowrap;gap:10px}
+#selection.is-open .sel-chevron{display:none}
+#selection.is-open .sel-count{font-size:12px}
+#selectionDetails{max-height:calc(100dvh - 140px);padding-bottom:4px}
+@media(max-width:600px){#selection.selection{left:12px;bottom:max(16px,env(safe-area-inset-bottom));width:56px}#selection:not(.is-open) .sel-top{width:56px;height:56px;min-height:56px}#selection.is-open{width:calc(100vw - 24px);bottom:max(10px,env(safe-area-inset-bottom));max-height:calc(100dvh - 24px)}#selection.is-open .sel-title{font-size:14px}#selectionDetails{max-height:calc(100dvh - 116px)}}

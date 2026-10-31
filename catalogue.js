@@ -261,6 +261,8 @@ function renderSelection() {
   const total = selection.reduce((sum, item) => sum + (item.qty || 1), 0);
   document.getElementById('selection').classList.toggle('show', total > 0);
   document.getElementById('selTitle').textContent = copy.title;
+  document.getElementById('selBadge').textContent = total;
+  document.getElementById('selectionToggle').setAttribute('aria-label', `${copy.title} · ${total}`);
   const amount = shippingProductSubtotal();
   const formatted = amount === null ? '—' : new Intl.NumberFormat(lang,{style:'currency',currency:'EUR'}).format(amount/100);
   document.getElementById('selCount').textContent = `${total} · ${formatted}`;
@@ -299,7 +301,9 @@ window.addEventListener('focus', () => loadStock());
 function catalogueUI(lang=pageLanguage()) {
  return ({fr:{search:'Rechercher une référence',close:'Fermer la sélection',view:'Voir la fiche',empty:'Aucune référence trouvée.',docs:'Demander la documentation',note:'Recherche uniquement. Utilisation humaine ou animale exclue.'},en:{search:'Search references',close:'Close selection',view:'View reference',empty:'No references found.',docs:'Request documentation',note:'Research only. Not for human or animal use.'},pt:{search:'Pesquisar referências',close:'Fechar seleção',view:'Ver referência',empty:'Nenhuma referência encontrada.',docs:'Pedir documentação',note:'Apenas investigação. Não destinado a uso humano ou animal.'},es:{search:'Buscar referencias',close:'Cerrar selección',view:'Ver referencia',empty:'No se encontraron referencias.',docs:'Solicitar documentación',note:'Solo investigación. No destinado al uso humano ni animal.'}})[lang];
 }
+window.addEventListener('scarl:chat-open',()=>setSelectionOpen(false));
 function setSelectionOpen(open,focus=false) {
+ if(open)window.dispatchEvent?.(new CustomEvent('scarl:selection-open')); 
  document.getElementById('selectionDetails').hidden=!open;
  document.getElementById('selectionToggle').setAttribute('aria-expanded',String(open));
  document.getElementById('selectionClose').hidden=!open;
