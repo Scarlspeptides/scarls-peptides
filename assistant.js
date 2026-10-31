@@ -25,7 +25,7 @@
   }
   function renderLog(){log.replaceChildren();events.forEach(drawMessage);log.scrollTop=log.scrollHeight;}
   function push(event){events.push(event);while(events.length>80)events.shift();drawMessage(event);while(log.children.length>80)log.firstElementChild.remove();log.scrollTop=log.scrollHeight;}
-  function button(label,fn){const b=document.createElement('button');b.className='chat-choice';b.type='button';b.textContent=label;b.addEventListener('click',()=>{fn();input.focus({preventScroll:true});});choices.append(b);}
+  function button(label,fn){const b=document.createElement('button');b.className='chat-choice';b.type='button';b.textContent=label;b.addEventListener('click',()=>{fn();});choices.append(b);}
   function renderChoices(){
    choices.replaceChildren();
    if(choiceIds){for(const id of choiceIds){const e=find(id);if(e)button(e.name,()=>pick(id));}button(ui().back,()=>{comparisonMode=false;compareIds=[];choiceIds=null;renderChoices();});}
@@ -48,8 +48,8 @@
   function reset(){events.length=0;currentId=null;comparisonMode=false;compareIds=[];choiceIds=null;input.value='';push({kind:'key',key:'welcome'});renderChoices();}
   function toggle(open){panel.hidden=!open;host.classList.toggle('chat-open',open);launch.setAttribute('aria-expanded',String(open));if(open){if(!events.length)reset();close.focus({preventScroll:true});}else launch.focus({preventScroll:true});}
   launch.addEventListener('click',()=>toggle(panel.hidden));close.addEventListener('click',()=>toggle(false));host.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden){e.stopPropagation();toggle(false);}});
-  host.querySelector('form').addEventListener('submit',e=>{e.preventDefault();const q=input.value;input.value='';ask(q);input.focus({preventScroll:true});});
-  host.querySelector('.chat-clear').addEventListener('click',()=>{reset();input.focus({preventScroll:true});});
+  host.querySelector('form').addEventListener('submit',e=>{e.preventDefault();const q=input.value;input.value='';ask(q);input.blur();});
+  host.querySelector('.chat-clear').addEventListener('click',()=>{reset();close.focus({preventScroll:true});});
   new MutationObserver(translate).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});translate();
   let refreshing=false;
   async function refreshContent(){
