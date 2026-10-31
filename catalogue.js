@@ -179,10 +179,10 @@ function setPageLang(lang) {
   document.getElementById('catalogueTitle').textContent = copy.head[1];
   document.getElementById('catalogueLead').textContent = copy.head[2];
   document.getElementById('catalogueTools').setAttribute('aria-label', copy.filterLabel);
-  document.getElementById("catalogueUpdate").textContent = {"fr": "Nouveaux prix en ligne. Un énorme réassort arrive.", "en": "New prices are live. A huge restock is coming.", "pt": "Os novos preços estão disponíveis. Uma grande reposição está a chegar.", "es": "Los nuevos precios ya están disponibles. Se acerca una gran reposición."}[l];
   const ui = catalogueUI(l);
   document.getElementById("searchLabel").textContent=ui.search;
-  document.getElementById("catalogueSearch").placeholder=ui.search;
+  document.getElementById("catalogueSearch").placeholder={fr:'Rechercher…',en:'Search…',pt:'Pesquisar…',es:'Buscar…'}[l];
+  const categoryLabel=document.getElementById('categoryLabel');if(categoryLabel)categoryLabel.textContent={fr:'Catégories',en:'Categories',pt:'Categorias',es:'Categorías'}[l];
   document.getElementById("selectionClose").setAttribute("aria-label",ui.close);
   renderTools(l);
   renderCatalogue(l);
@@ -191,11 +191,15 @@ function setPageLang(lang) {
 
 function renderTools(lang) {
   const groups = CATALOGUE[lang];
-  document.getElementById('catalogueTools').innerHTML = `<button class="filter ${activeFilter === 0 ? 'active' : ''}" type="button" aria-pressed="${activeFilter === 0}" data-filter="0">${CATALOGUE_COPY[lang].all}</button>` + groups.map((group, index) => `<button class="filter ${activeFilter === index + 1 ? 'active' : ''}" type="button" aria-pressed="${activeFilter === index + 1}" data-filter="${index + 1}">${escapeCatalogue(group[0])}</button>`).join('');
+  const options=[[CATALOGUE_COPY[lang].all,groups.reduce((sum,g)=>sum+g[1].length,0)],...groups.map(g=>[g[0],g[1].length])];
+  document.getElementById('catalogueTools').innerHTML = options.map(([label,count],index)=>`<button class="filter ${activeFilter===index?'active':''}" type="button" aria-pressed="${activeFilter===index}" data-filter="${index}"><span>${escapeCatalogue(label)}</span><small>${count}</small></button>`).join('');
+  const current=document.getElementById('categoryCurrent');if(current)current.textContent=options[activeFilter]?.[0]||options[0][0];
 }
 
 function setFilter(index) {
   activeFilter = index;
+  const browser=document.getElementById('categoryBrowser');
+  if(browser){browser.open=false;browser.querySelector?.('summary')?.focus({preventScroll:true});}
   const lang = pageLanguage();
   renderTools(lang);
   applySearch();
