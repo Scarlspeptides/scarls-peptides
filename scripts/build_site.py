@@ -23,9 +23,9 @@ for file in ['index.html','produits.html','apropos.html','livraison.html','conta
  s=re.sub(r'<footer>.*?</footer>',lambda m:footer,s,flags=re.S)
  # Static FAQ assistant is limited to public information pages.
  s=re.sub(r'\s*<link rel="stylesheet" href="assistant\.css[^\"]*">','',s)
- s=re.sub(r'\s*<script src="assistant(?:-data)?\.js[^\"]*"></script>','',s)
- s=s.replace('</head>','  <link rel="stylesheet" href="assistant.css?v=20261031faq">\n</head>')
- s=s.replace('</body>','  <script src="assistant-data.js?v=20261031faq" defer></script>\n  <script src="assistant.js?v=20261031faq" defer></script>\n</body>')
+ s=re.sub(r'\s*<script src="assistant(?:-data)?\.js[^\"]*"[^>]*></script>','',s)
+ s=s.replace('</head>','  <link rel="stylesheet" href="assistant.css?v=20261031faq2">\n</head>')
+ s=s.replace('</body>','  <script src="assistant-data.js?v=20261031faq2" defer></script>\n  <script src="assistant.js?v=20261031faq2" defer></script>\n</body>')
  f.write_text(s)
 # Readable static catalogue remains available when JavaScript fails.
 f=ROOT/'produits.html';s=f.read_text();cards=[]

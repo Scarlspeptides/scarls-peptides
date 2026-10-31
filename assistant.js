@@ -12,8 +12,7 @@
     let currentId=null,count=0;
     function showChoices(ids) {
       choices.replaceChildren();
-      const items=ids ? ids.map(id=>faq.entries.find(e=>e.id===id)).filter(Boolean).map(e=>[e.name,'À quoi sert '+e.name+' ?']) : [['Les références','Quels peptides ?'],['Quels risques ?','Quels risques ?'],['Contact général','Votre contact ?']];
-      if (!ids && currentId) items.unshift(['Ses risques','Quels sont ses risques ?']);
+      const items=ids ? ids.map(id=>faq.entries.find(e=>e.id===id)).filter(Boolean).map(e=>[e.name,'À quoi sert '+e.name+' ?']) : [['Les références','Quels peptides ?'],['Contact général','Votre contact ?']];
       if (ids) items.push(['Autres questions','Bonjour']);
       for (const [label,q] of items) {const b=document.createElement('button');b.className='chat-choice';b.type='button';b.textContent=label;b.addEventListener('click',()=>{ask(q);input.focus({preventScroll:true});});choices.append(b);}
     }
