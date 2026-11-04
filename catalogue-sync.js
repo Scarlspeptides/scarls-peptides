@@ -6,9 +6,9 @@
  let pending=null,lastCatalogue=null,lastRefreshAt=0,lastSnapshot=null;
  // Avoid repeated requests caused by rapid focus/visibility changes.
  const MIN_REFRESH_GAP_MS=15000;
- api.refresh=async function(){
+ api.refresh=async function({force=false}={}){
   if(pending)return pending;
-  if(lastSnapshot&&Date.now()-lastRefreshAt<MIN_REFRESH_GAP_MS)return {...lastSnapshot,changed:false};
+  if(!force&&lastSnapshot&&Date.now()-lastRefreshAt<MIN_REFRESH_GAP_MS)return {...lastSnapshot,changed:false};
   pending=(async()=>{
    const response=await fetch(api.endpoint+'?v='+Date.now(),{cache:'no-store',credentials:'omit',signal:AbortSignal.timeout(10000)});
    if(!response.ok)throw Error('Catalogue unavailable');
