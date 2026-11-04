@@ -63,8 +63,16 @@ async function loadStock(){
     for(const lang of ['fr','en','pt','es'])CATALOGUE[lang]=window.ScarlsProducts.catalogue(lang);
     for(const name of Object.keys(IMAGE_MAP))delete IMAGE_MAP[name];
     for(const p of window.ScarlsProducts.items)if(p.image)IMAGE_MAP[p.name]=p.image;
-    activeFilter=0;
+    // Preserve the visitor's category when catalogue data changes.
+    if(activeFilter>CATALOGUE[pageLanguage()].length)activeFilter=0;
+    const focusedProduct=document.activeElement?.closest?.('[data-name]')?.getAttribute('data-name');
+    const focusedControl=document.activeElement?.getAttribute?.('class');
     renderTools(pageLanguage());renderCatalogue(pageLanguage());
+    if(focusedProduct&&focusedControl){
+     const card=[...document.querySelectorAll('#catalogue [data-name]')].find(el=>el.getAttribute('data-name')===focusedProduct);
+     const control=[...card?.querySelectorAll('button,a')||[]].find(el=>el.className===focusedControl);
+     control?.focus({preventScroll:true});
+    }
     document.getElementById('catalogueEyebrow').textContent='Scarl’s Peptides / '+snapshot.items.length+' '+CATALOGUE_COPY[pageLanguage()].count;
    }
   } catch { STOCK = {}; stockReady = false; }
