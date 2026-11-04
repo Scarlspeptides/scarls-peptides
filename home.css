@@ -181,3 +181,16 @@
 }
 @media(max-width:380px){.home-page .vial-scene{height:330px}}
 @media(prefers-reduced-motion:reduce){.home-page .vial-scene,.home-page .reference-photo{transition:none}}
+
+/* Audit mobile: primary action stays visible before the product gallery. */
+@media(max-width:760px){
+ .home-page .collection-layout{padding-block:24px 20px;gap:16px}
+ .home-page .hero-copy{padding-block:8px}
+ .home-page .hero-copy .eyebrow{margin-bottom:14px}
+ .home-page .hero-copy h1{font-size:clamp(44px,11vw,64px)}
+ .home-page .hero-description{margin:14px 0 18px}
+ .home-page .hero-copy .button{min-height:48px}
+ .home-page .hero-footnote{margin-top:12px}
+ .home-page .vial-scene{height:clamp(290px,90vw,380px)}
+ .home-page .mascot-guide{max-width:100%}
+}
