@@ -50,14 +50,14 @@ const STOCK_COPY = {
   pt:{in:'Em stock',low:'Stock baixo',out:'Sem stock'},
   es:{in:'En stock',low:'Stock bajo',out:'Agotado'}
 };
-async function loadStock(){
+async function loadStock(force=false){
  if (stockRequest) return stockRequest;
  stockRequest = (async () => {
   const wasReady = stockReady;
   if (!wasReady) { updateCatalogueStock(); renderSelection(); }
   let ok = false;
   try {
-   const snapshot = await window.ScarlsProducts.refresh();
+   const snapshot = await window.ScarlsProducts.refresh({force});
    STOCK = snapshot.stock; stockReady = true; ok = true;
    if(snapshot.changed){
     for(const lang of ['fr','en','pt','es'])CATALOGUE[lang]=window.ScarlsProducts.catalogue(lang);
@@ -85,7 +85,8 @@ async function loadStock(){
  try { return await stockRequest; } finally { stockRequest = null; }
 }
 async function prepareSelection() {
- const result = await loadStock();
+ // Always validate live stock before exporting or sending a selection.
+ const result = await loadStock(true);
  if (!result.ok || !selectionAllowed()) { showToast(LIMIT_COPY[pageLanguage()].unknown); return false; }
  if (result.changed) { showToast(LIMIT_COPY[pageLanguage()].changed); return false; }
  return true;
