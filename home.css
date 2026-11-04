@@ -144,3 +144,40 @@
  .home-page .hero-copy .button:hover{transform:none}
 }
 @media(prefers-reduced-motion:reduce){.home-page .hero-copy .button,.home-page .vial-scene,.home-page .reference-photo{transition:none!important}}
+
+
+/* Reference-inspired cinematic glacier hero; original vials, labels and mascot retained. */
+.home-page{background:#07121d}
+.home-page .collection-hero{background:radial-gradient(ellipse at 68% 48%,rgba(32,124,173,.20),transparent 54%),linear-gradient(90deg,rgba(3,10,19,.90),rgba(4,14,26,.64)),url('glacier-night.webp') center / cover}
+.home-page .collection-hero::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,transparent 65%,#07121d 100%)}
+.home-page .collection-layout{grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);gap:clamp(30px,4vw,66px);padding-block:clamp(52px,6vw,94px) 40px}
+.home-page .hero-copy .eyebrow{font-size:11px;letter-spacing:.26em;color:#8ad8f5}
+.home-page .hero-copy h1{font-size:clamp(54px,6vw,94px);font-weight:600;line-height:1.03;letter-spacing:-.055em;color:#f2f8fd;text-shadow:0 6px 32px #0008}
+.home-page .hero-copy h1 em{color:#65d9f7;text-shadow:0 0 36px #2bb4e533}
+.home-page .hero-description{font-size:clamp(15px,1.2vw,17px);line-height:1.75;color:#c3d5e0;max-width:39ch}
+.home-page .hero-copy .button{border-radius:999px;background:linear-gradient(135deg,#a7ebff,#5dd5f5);border-color:#9be7fa;color:#061925;font-weight:650;box-shadow:0 6px 32px #2aa8d055}
+.home-page .hero-copy .button:hover{background:#d5f5ff;border-color:#d5f5ff}
+.home-page .vial-experience{position:relative}
+.home-page .vial-scene{height:clamp(390px,40vw,570px);border-radius:20px;border:1px solid #9cdcf447;background-color:#081a2a;box-shadow:0 22px 75px #0008,0 0 54px #36a9d51b}
+.home-page .vial-scene::before{background:radial-gradient(ellipse at center,#58bde329,transparent 58%),linear-gradient(180deg,#0208111a,transparent 65%,#02081170)}
+.home-page .scene-image{filter:drop-shadow(0 22px 25px #000c)}
+.home-page .scene-heading{color:#a4d7e8}
+.home-page .scene-controls{align-items:center}
+.home-page .scene-arrow{border-radius:50%;border-color:#91cce36b;background:#0c2337d9;color:#d7f6ff}
+.home-page .scene-arrow:hover{background:#72d8f4;color:#071623}
+.home-page .scene-caption{border-color:#b7e6f330}
+.home-page .hero-baseline{border-top:1px solid #a4dbed2b}
+.home-page .reference-section{background:linear-gradient(180deg,#07121d,#0a1825)}
+.home-page .reference-photo{border-radius:15px;border-color:#7bbbd543;box-shadow:0 12px 38px #0005}
+.home-page .reference:hover .reference-photo{border-color:#81ddf4;box-shadow:0 16px 50px #1b91c62e}
+.home-page .catalogue-announcement{background:#0b1c2a;border-bottom:1px solid #7ac8e52d}
+.home-page .catalogue-announcement #announcementTitle{color:#9be5fa;font-weight:650;letter-spacing:.08em}
+@media(max-width:760px){
+ .home-page .collection-layout{grid-template-columns:1fr;padding-block:32px 26px;gap:22px}
+ .home-page .hero-copy h1{font-size:clamp(49px,12vw,75px)}
+ .home-page .hero-copy .eyebrow{font-size:9px;letter-spacing:.18em}
+ .home-page .vial-scene{height:390px;border-radius:14px}
+ .home-page .hero-description{max-width:38ch}
+}
+@media(max-width:380px){.home-page .vial-scene{height:330px}}
+@media(prefers-reduced-motion:reduce){.home-page .vial-scene,.home-page .reference-photo{transition:none}}

@@ -155,3 +155,31 @@ footer { background:#080d11; }
  .main-nav.open{border:1px solid var(--premium-hairline);border-radius:12px;box-shadow:0 24px 50px #0008}
 }
 @media(prefers-reduced-motion:reduce){.product-card,.product-image,.filter{transition:none!important}}
+
+
+/* Reference-inspired catalogue: cooler ink, crisp blue controls and subtle luminous edges. */
+:root{--bg:#07121d;--bg-soft:#0d1d2b;--surface:#112333;--surface-strong:#183246;--ink:#edf7fc;--muted:#b3c9d7;--ice:#8bdcf6;--blue:#8bdcf6;--control-border:#547e94;--line:#a2d7ee26}
+.site-header{background:#06111ce8;border-bottom-color:#83cce638}
+.site-header .brand-logo{filter:none}
+.main-nav a.current{color:#d8f6ff}
+.main-nav a.current::after{background:#67d9fa;box-shadow:0 0 12px #50d7ff}
+.header-actions .main-nav,.header-actions .langs{background:#0b1a29f5;border-color:#7dbad445;box-shadow:0 20px 48px #0009}
+.page-hero::before{background:linear-gradient(90deg,#04101ce8,#04101cb0),url('glacier-night.webp') right 48% / cover;opacity:.9}
+.catalogue-search input{border-radius:999px;background:#0d2132;border-color:#6797af80}
+.catalogue-tools .filter{border:1px solid #7dbad435;border-radius:999px;padding:10px 17px;min-height:42px;background:#0c1c2a;color:#c6d9e5}
+.catalogue-tools .filter.active,.catalogue-tools .filter:hover{background:#91e0fa;color:#062032;border-color:#91e0fa;box-shadow:0 0 18px #54c8ee4a}
+.product-grid{gap:26px 22px}
+.product-card{background:linear-gradient(180deg,#0b1c2a,#0b1825);border:1px solid #83cce632;border-radius:14px;overflow:hidden;padding-bottom:16px}
+.product-image{border:0;border-bottom:1px solid #84c7e52e;border-radius:0;background-color:#081827}
+.product-card:hover .product-image{border-color:#84c7e54d;box-shadow:inset 0 0 30px #2a9bd21a}
+.product-content{padding-inline:16px}
+.product-card .price{color:#f1f9ff}
+.product-card .add,.product-card .product-action button{border-radius:9px}
+.product-preview{border-radius:16px;background:#0b1b2b}
+#selection:not(.is-open) .sel-top{background:#8bdcf6;color:#062033;box-shadow:0 8px 26px #31a9d84d}
+@media(max-width:760px){
+ .product-grid{gap:18px}
+ .product-card{border-radius:12px}
+ .product-content{padding-inline:13px}
+ .catalogue-tools .filter{padding-inline:14px}
+}
