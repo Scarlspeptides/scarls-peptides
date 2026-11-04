@@ -45,3 +45,11 @@
  .scarl-assistant .chat-mascot-launch{width:38px;height:46px}
  .scarl-assistant .chat-panel{width:calc(100vw - 24px);max-height:calc(100dvh - 90px);border-radius:14px}
 }
+
+/* Audit: prevent mobile assistant from obscuring page and selection controls. */
+@media(max-width:600px){
+ .scarl-assistant .chat-panel{max-height:min(70dvh,580px)}
+ .scarl-assistant .chat-launch{min-height:48px}
+ .scarl-assistant .chat-launch:focus-visible{outline-offset:4px}
+}
+@media(prefers-reduced-motion:reduce){.chat-mascot-launch{transition:none!important}}

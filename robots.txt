@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /avertissement.html
+Sitemap: https://scarlspeptides.github.io/scarls-peptides/sitemap.xml
