@@ -50,21 +50,29 @@ const STOCK_COPY = {
   pt:{in:'Em stock',low:'Stock baixo',out:'Sem stock'},
   es:{in:'En stock',low:'Stock bajo',out:'Agotado'}
 };
-async function loadStock(){
+async function loadStock(force=false){
  if (stockRequest) return stockRequest;
  stockRequest = (async () => {
   const wasReady = stockReady;
   if (!wasReady) { updateCatalogueStock(); renderSelection(); }
   let ok = false;
   try {
-   const snapshot = await window.ScarlsProducts.refresh();
+   const snapshot = await window.ScarlsProducts.refresh({force});
    STOCK = snapshot.stock; stockReady = true; ok = true;
    if(snapshot.changed){
     for(const lang of ['fr','en','pt','es'])CATALOGUE[lang]=window.ScarlsProducts.catalogue(lang);
     for(const name of Object.keys(IMAGE_MAP))delete IMAGE_MAP[name];
     for(const p of window.ScarlsProducts.items)if(p.image)IMAGE_MAP[p.name]=p.image;
-    activeFilter=0;
+    // Preserve the visitor's category when catalogue data changes.
+    if(activeFilter>CATALOGUE[pageLanguage()].length)activeFilter=0;
+    const focusedProduct=document.activeElement?.closest?.('[data-name]')?.getAttribute('data-name');
+    const focusedControl=document.activeElement?.getAttribute?.('class');
     renderTools(pageLanguage());renderCatalogue(pageLanguage());
+    if(focusedProduct&&focusedControl){
+     const card=[...document.querySelectorAll('#catalogue [data-name]')].find(el=>el.getAttribute('data-name')===focusedProduct);
+     const control=[...card?.querySelectorAll('button,a')||[]].find(el=>el.className===focusedControl);
+     control?.focus({preventScroll:true});
+    }
     document.getElementById('catalogueEyebrow').textContent='Scarl’s Peptides / '+snapshot.items.length+' '+CATALOGUE_COPY[pageLanguage()].count;
    }
   } catch { STOCK = {}; stockReady = false; }
@@ -77,7 +85,8 @@ async function loadStock(){
  try { return await stockRequest; } finally { stockRequest = null; }
 }
 async function prepareSelection() {
- const result = await loadStock();
+ // Always validate live stock before exporting or sending a selection.
+ const result = await loadStock(true);
  if (!result.ok || !selectionAllowed()) { showToast(LIMIT_COPY[pageLanguage()].unknown); return false; }
  if (result.changed) { showToast(LIMIT_COPY[pageLanguage()].changed); return false; }
  return true;

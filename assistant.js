@@ -58,7 +58,12 @@
    if(refreshing||document.hidden)return;refreshing=true;
    try{const r=await fetch('https://scarls-administration.solarcoot14.chatgpt.site/api/chatbot/public?v='+Date.now(),{cache:'no-store',credentials:'omit',signal:AbortSignal.timeout(8000)});if(!r.ok)return;const data=await r.json();if(data.version===publishedVersion)return;if(!faq.applyContent(data))return;publishedVersion=data.version;if(currentId&&!find(currentId))currentId=null;if(choiceIds)choiceIds=choiceIds.filter(find);translate();}catch{}finally{refreshing=false;}
   }
-  refreshContent();setInterval(refreshContent,30000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshContent();});
+  // Check FAQ updates less frequently than live stock.
+   let lastContentCheck=0;
+   const checkContent=async()=>{if(document.hidden||Date.now()-lastContentCheck<120000)return;lastContentCheck=Date.now();await refreshContent();};
+   checkContent();setInterval(checkContent,120000);
+   document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkContent();});
+   window.addEventListener('focus',checkContent);
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();

@@ -92,3 +92,66 @@ footer { background:#080d11; }
 @media(max-width:760px) and (min-width:481px) {
  .product-card.is-consumable .product-image img { max-height:260px; }
 }
+
+
+/* Preserved legacy mobile controls and dropdowns from previously generated style.css. */
+
+/* Compact selection control opposite the Questions control. */
+#selection.selection{position:fixed;left:20px;right:auto;bottom:max(24px,env(safe-area-inset-bottom));z-index:66;width:60px;margin:0;padding:0;border:0;border-radius:50%;background:transparent;box-shadow:none}
+#selection .selection-heading{position:relative}
+#selection:not(.is-open) .sel-top{position:relative;display:grid;place-items:center;flex:none;width:60px;height:60px;min-height:60px;border-radius:50%;background:var(--ice);color:var(--ice-ink);box-shadow:0 6px 24px #0005;border:1px solid var(--control-border)}
+.sel-cart-icon{display:block;width:25px;height:25px;flex-shrink:0}
+.sel-badge{position:absolute;right:-2px;top:-3px;display:grid;place-items:center;min-width:22px;height:22px;padding:0 5px;border-radius:12px;background:#3159c2;color:white;font-size:11px;font-weight:700;border:2px solid var(--bg-soft)}
+#selection:not(.is-open) .sel-title,#selection:not(.is-open) .sel-count,#selection:not(.is-open) .sel-chevron{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+#selection.is-open{width:min(420px,calc(100vw - 40px));padding:16px;border:1px solid var(--control-border);border-radius:18px;background:var(--bg-soft);box-shadow:0 16px 48px #0007;max-height:calc(100dvh - 48px)}
+#selection.is-open .sel-cart-icon{width:22px;height:22px}
+#selection.is-open .sel-badge{display:none}
+#selection.is-open .sel-top{flex-wrap:nowrap;gap:10px}
+#selection.is-open .sel-chevron{display:none}
+#selection.is-open .sel-count{font-size:12px}
+#selectionDetails{max-height:calc(100dvh - 140px);padding-bottom:4px}
+@media(max-width:600px){#selection.selection{left:12px;bottom:max(16px,env(safe-area-inset-bottom));width:56px}#selection:not(.is-open) .sel-top{width:56px;height:56px;min-height:56px}#selection.is-open{width:calc(100vw - 24px);bottom:max(10px,env(safe-area-inset-bottom));max-height:calc(100dvh - 24px)}#selection.is-open .sel-title{font-size:14px}#selectionDetails{max-height:calc(100dvh - 116px)}}
+
+/* Two compact dropdowns at the top right, on every screen size. */
+.header-actions{position:relative;display:flex;align-items:center;gap:8px;margin-left:auto}
+.header-actions .menu-toggle{display:grid;place-items:center;border-radius:8px;flex-shrink:0}
+.language-toggle{display:flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:0 10px;border:1px solid var(--control-border);border-radius:8px;background:transparent;color:var(--ink);font:inherit;font-size:13px;cursor:pointer}
+.header-actions .main-nav,.header-actions .langs{position:absolute;top:calc(100% + 12px);left:auto;right:0;display:none;flex-direction:column;align-items:stretch;gap:2px;width:min(260px,calc(100vw - 32px));padding:10px;border:1px solid var(--control-border);border-radius:12px;background:var(--bg);box-shadow:0 16px 40px #0006;max-height:calc(100dvh - 100px);overflow:auto}
+.header-actions .main-nav.open,.header-actions .langs.open{display:flex}
+.header-actions .main-nav a{min-height:46px;padding:8px 14px;border-radius:6px}
+.header-actions .main-nav a::after{display:none}
+.header-actions .main-nav a:hover,.header-actions .main-nav a.current{background:var(--bg-soft);color:var(--ink)}
+.header-actions .langs{width:200px}
+.header-actions .lang{display:flex;align-items:center;justify-content:flex-start;gap:10px;min-height:46px;padding:8px 12px;border-radius:6px;font-size:14px;text-decoration:none}
+.header-actions .lang.active,.header-actions .lang:hover{background:var(--bg-soft);color:var(--ink)}
+.header-actions button:focus-visible,.header-actions a:focus-visible{outline:2px solid var(--ice);outline-offset:3px}
+@media(max-width:760px){.header-in{width:calc(100% - 24px)}.header-actions{gap:6px}.language-toggle{padding:0 8px}.header-actions .main-nav,.header-actions .langs{top:calc(100% + 10px)}}
+
+/* Premium refinement / Nov 2026: restrained obsidian glass, no layout rewrite. */
+:root{--premium-hairline:rgba(204,225,234,.17);--premium-glow:rgba(159,201,220,.10)}
+.site-header{background:rgba(10,17,22,.92);border-bottom:1px solid var(--premium-hairline);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.header-in{min-height:76px}
+.main-nav a{letter-spacing:.01em}
+.main-nav a:focus-visible,.header-actions button:focus-visible{outline-offset:5px}
+.page-hero{background:radial-gradient(ellipse at 82% 0%,var(--premium-glow),transparent 52%)}
+.page-hero .display-title{font-weight:450;letter-spacing:-.05em}
+.page-hero .lead{max-width:55ch;line-height:1.75}
+.product-grid{gap:42px 26px}
+.product-card{border-radius:12px;transition:transform .24s ease}
+.product-image{border-radius:10px;border-color:var(--premium-hairline);background-color:#0c171f;transition:border-color .24s ease,box-shadow .24s ease}
+.product-card:hover .product-image,.product-card:focus-within .product-image{border-color:rgba(196,225,237,.48);box-shadow:0 20px 50px rgba(0,0,0,.22)}
+.product-name{letter-spacing:-.025em}
+.product-use{line-height:1.65}
+.filter{padding-inline:2px;transition:color .2s ease,border-color .2s ease}
+.filter:focus-visible{border-bottom-color:var(--ice)}
+.product-preview{border-radius:14px}
+#selection.is-open{border-radius:16px;box-shadow:0 24px 70px rgba(0,0,0,.4)}
+@media(max-width:760px){
+ .header-in{min-height:68px}
+ .page-hero{padding-block:44px 30px}
+ .product-grid{gap:28px}
+ .product-image{border-radius:9px}
+ .catalogue-tools{gap:20px}
+ .main-nav.open{border:1px solid var(--premium-hairline);border-radius:12px;box-shadow:0 24px 50px #0008}
+}
+@media(prefers-reduced-motion:reduce){.product-card,.product-image,.filter{transition:none!important}}
