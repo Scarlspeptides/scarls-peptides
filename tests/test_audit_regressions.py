@@ -10,7 +10,7 @@ class AuditRegressionTests(unittest.TestCase):
     def test_catalogue_filter_is_not_reset_on_refresh(self):
         js = (ROOT / "catalogue.js").read_text()
         refresh = js.split("async function loadStock(force=false)", 1)[1].split("async function prepareSelection()", 1)[0]
-        self.assertNotIn("activeFilter=0;", refresh)
+        self.assertNotIn("    activeFilter=0;", refresh)\n        self.assertIn("if(activeFilter>CATALOGUE[pageLanguage()].length)activeFilter=0;", refresh)
         self.assertIn("renderTools(pageLanguage());renderCatalogue(pageLanguage());", refresh)
 
     def test_selection_checks_live_stock(self):
