@@ -11,9 +11,12 @@
  const api=root.ScarlsProducts;
  api.endpoint='https://scarls-administration.solarcoot14.chatgpt.site/api/catalogue';
  api.escapeHTML=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
- let pending=null,lastCatalogue=null;
+ let pending=null,lastCatalogue=null,lastRefreshAt=0,lastSnapshot=null;
+  // Deduplicate rapid refreshes while retaining 30-second stock polling.
+  const MIN_REFRESH_GAP_MS=15000;
  api.refresh=async function(){
   if(pending)return pending;
+   if(lastSnapshot&&Date.now()-lastRefreshAt<MIN_REFRESH_GAP_MS)return {...lastSnapshot,changed:false};
   pending=(async()=>{
    const response=await fetch(api.endpoint+'?v='+Date.now(),{cache:'no-store',credentials:'omit',signal:AbortSignal.timeout(10000)});
    if(!response.ok)throw Error('Catalogue unavailable');
@@ -27,6 +30,7 @@
    api.groups.splice(0,api.groups.length,...snapshot.groups);
    api.items.splice(0,api.items.length,...snapshot.items);
    api.stock=snapshot.stock;api.version=snapshot.version;lastCatalogue=catalogue;
+   lastRefreshAt=Date.now();lastSnapshot={...snapshot,changed:false};
    return {...snapshot,changed};
   })();
   try{return await pending}finally{pending=null}
