@@ -31,3 +31,16 @@
 .catalogue-page .selection .sel-badge{font-size:10px!important}
 }
 @media(max-width:390px){.catalogue-page .selection{right:8px!important;width:calc(100vw - 16px)!important}.catalogue-page .selection .sel-count{max-width:78px}.catalogue-page .selection .sel-title{font-size:14px!important}}
+
+/* v4: collapsed selection is a small floating pill, never a full drawer. */
+@media(max-width:760px){
+.catalogue-page .selection:not(.is-open){left:auto!important;right:14px!important;bottom:calc(16px + env(safe-area-inset-bottom,0px))!important;top:auto!important;width:auto!important;max-width:calc(100vw - 28px)!important;max-height:60px!important;min-height:0!important;border-radius:999px!important;padding:0!important;overflow:hidden!important;background:linear-gradient(135deg,#0b3756,#071b2e)!important;box-shadow:0 8px 28px #0008!important}
+.catalogue-page .selection:not(.is-open) .selection-heading{padding:0!important;min-height:0!important;border:0!important}
+.catalogue-page .selection:not(.is-open) .sel-top{width:auto!important;min-height:52px!important;min-width:52px!important;flex:none!important;padding:0 14px!important;gap:9px!important}
+.catalogue-page .selection:not(.is-open) .sel-title{font-size:13px!important;white-space:nowrap}
+.catalogue-page .selection:not(.is-open) .sel-count{display:none!important}
+.catalogue-page .selection:not(.is-open) .sel-chevron{display:none!important}
+.catalogue-page .selection:not(.is-open) .selection-close{display:none!important}
+.catalogue-page .selection:not(.is-open) #selectionDetails{display:none!important}
+.catalogue-page .selection.is-open{left:12px!important;right:12px!important;width:auto!important;max-height:min(78dvh,650px)!important}
+}
