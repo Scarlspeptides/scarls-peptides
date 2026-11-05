@@ -44,3 +44,15 @@
 .catalogue-page .selection:not(.is-open) #selectionDetails{display:none!important}
 .catalogue-page .selection.is-open{left:12px!important;right:12px!important;width:auto!important;max-height:min(78dvh,650px)!important}
 }
+
+/* v5: specificity-safe icon-only collapsed cart; expanded panel is scrollable. */
+@media(max-width:760px){
+body.catalogue-page #selection.selection.show:not(.is-open){position:fixed!important;display:block!important;left:auto!important;right:14px!important;top:auto!important;bottom:calc(18px + env(safe-area-inset-bottom,0px))!important;width:54px!important;height:54px!important;max-height:54px!important;padding:0!important;border:0!important;border-radius:50%!important;background:transparent!important;box-shadow:none!important;overflow:visible!important;z-index:105!important}
+body.catalogue-page #selection:not(.is-open) .selection-heading{width:54px!important;height:54px!important;min-height:54px!important;padding:0!important;border:0!important}
+body.catalogue-page #selection:not(.is-open) .sel-top{display:grid!important;place-items:center!important;width:54px!important;height:54px!important;min-width:54px!important;min-height:54px!important;max-width:54px!important;padding:0!important;border:1px solid #74dfff!important;border-radius:50%!important;background:linear-gradient(135deg,#0e4b70,#071a2c)!important;color:#e8faff!important;box-shadow:0 5px 20px #0008!important}
+body.catalogue-page #selection:not(.is-open) .sel-cart-icon{width:24px!important;height:24px!important}
+body.catalogue-page #selection:not(.is-open) .sel-title,body.catalogue-page #selection:not(.is-open) .sel-count,body.catalogue-page #selection:not(.is-open) .sel-chevron{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap!important}
+body.catalogue-page #selection:not(.is-open) #selectionDetails,body.catalogue-page #selection:not(.is-open) .selection-close{display:none!important}
+body.catalogue-page #selection.is-open{position:fixed!important;display:flex!important;flex-direction:column!important;left:12px!important;right:12px!important;top:auto!important;bottom:calc(12px + env(safe-area-inset-bottom,0px))!important;width:auto!important;max-height:min(72dvh,600px)!important;padding:0!important;overflow:hidden!important;z-index:105!important}
+body.catalogue-page #selection.is-open #selectionDetails{overflow-y:auto!important;max-height:none!important;min-height:0!important;flex:1 1 auto!important}
+}
