@@ -273,6 +273,7 @@ function renderSelection() {
   const copy = SELECTION_COPY[lang];
   const total = selection.reduce((sum, item) => sum + (item.qty || 1), 0);
   document.getElementById('selection').classList.toggle('show', total > 0);
+  if (!total) setSelectionOpen(false);
   document.getElementById('selTitle').textContent = copy.title;
   document.getElementById('selBadge').textContent = total;
   document.getElementById('selectionToggle').setAttribute('aria-label', `${copy.title} · ${total}`);
