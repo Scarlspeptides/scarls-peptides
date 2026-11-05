@@ -35,6 +35,9 @@ function stockQuantity(name) {
  return stockReady && Number.isSafeInteger(value) && value >= 0 ? value : null;
 }
 function selectedQuantity(name) { return selection.filter(item => item.name === name).reduce((sum,item) => sum + item.qty, 0); }
+function itemPriceCents(item){const base=window.ScarlsProducts.byName(item.name)?.priceCents||0;return base+(item.format==='pen'?5000:0);}
+function selectionKey(item){return item.name+'|'+(item.format==='pen'?'pen':'vial');}
+function presentationLabel(format,lang=pageLanguage()){return ({fr:['Fiole','Stylo'],en:['Vial','Pen'],pt:['Frasco','Caneta'],es:['Vial','Pluma']}[lang])[format==='pen'?1:0];}
 function remainingQuantity(name) { const stock = stockQuantity(name); return stock === null ? 0 : Math.max(0, stock - selectedQuantity(name)); }
 function selectionAllowed() { return stockReady && selection.length > 0 && selection.every(item => Number.isSafeInteger(item.qty) && item.qty > 0 && stockQuantity(item.name) !== null && item.qty <= stockQuantity(item.name)); }
 function reconcileSelection() {
@@ -44,7 +47,7 @@ function reconcileSelection() {
   if (available === null || !window.ScarlsProducts.byName(item.name)) return [];
   const qty = Math.min(item.qty, available);
   const reference=CATALOGUE[pageLanguage()].flatMap(group=>group[1]).find(p=>p[0]===item.name);
-  return qty > 0 ? [{...item,qty,dose:reference[1],price:reference[3]}] : [];
+  return qty > 0 ? [{...item,qty,dose:reference[1],format:item.format==='pen'?'pen':'vial',price:item.format==='pen'?formatPricePlusFifty(reference[3]):reference[3]}] : [];
  });
  saveSelection();
  return before !== JSON.stringify(selection);
@@ -114,10 +117,12 @@ try { const saved = JSON.parse(localStorage.getItem('scarlSelection') || '[]'); 
   const reference = item && catalogueItems.find(product => product[0] === item.name);
   const qty = item && item.qty === undefined ? 1 : item && item.qty;
   if (!reference || !Number.isSafeInteger(qty) || qty <= 0) continue;
-  const current = merged.get(item.name);
+  const format=item.format==='pen'?'pen':'vial';
+  const key=item.name+'|'+format;
+  const current = merged.get(key);
   const total = (current ? current.qty : 0) + qty;
   if (!Number.isSafeInteger(total)) continue;
-  merged.set(item.name,{name:reference[0],dose:reference[1],price:reference[3],qty:total});
+  merged.set(key,{name:reference[0],dose:reference[1],format,price:format==='pen'?formatPricePlusFifty(reference[3]):reference[3],qty:total});
  }
  selection = [...merged.values()];
 } } catch {}
@@ -147,6 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('selectionClose').addEventListener('click', () => setSelectionOpen(false,true));
   document.getElementById('catalogueSearch').addEventListener('input', applySearch);
   document.getElementById('catalogueTools').addEventListener('click',event=>{const button=event.target.closest('[data-filter]');if(button)setFilter(Number(button.dataset.filter));});
+  document.getElementById('catalogue').addEventListener('change',event=>{if(event.target.matches('.product-format-select'))updateFormatPrice(event.target);});
   document.getElementById('catalogue').addEventListener('click',event=>{
     const button=event.target.closest('button');if(!button||button.disabled)return;
     if(button.dataset.action==='preview')openProductPreview(button);
@@ -155,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   document.getElementById('selItems').addEventListener('click',event=>{
     const button=event.target.closest('[data-action]');if(!button||button.disabled)return;
-    const row=button.closest('[data-reference]'),index=selection.findIndex(item=>item.name===row.dataset.reference);if(index<0)return;
+    const row=button.closest('[data-reference]'),index=selection.findIndex(item=>selectionKey(item)===row.dataset.key);if(index<0)return;
     if(button.dataset.action==='remove')removeSelection(index);
     else changeQty(index,button.dataset.action==='increase'?1:-1);
   });
@@ -244,6 +250,7 @@ function renderProduct(product, lang) {
   return `<article class="product-card${isConsumable(name) ? ' is-consumable' : ''}" id="${escapeCatalogue(productId(name))}" style="--vial-backdrop:url(${escapeCatalogue(backdrop)})" data-name="${safeName}" data-dose="${safeDose}" data-price="${price}"><div class="product-image" data-badge="${CATALOGUE_COPY[lang].badge}"><button class="product-preview-trigger" type="button" data-action="preview" aria-label="${catalogueUI(lang).view} — ${safeName}">${imageMarkup}</button></div><div class="product-content"><h3 class="product-name"><span>${safeName}</span><span class="product-dose">${safeDose}</span></h3><p class="product-use">${safeUse}</p>${stockMarkup(name, lang)}${formatMarkup}<div class="product-bottom">${priceMarkup}<div class="product-action"><div class="card-quantity" role="group" aria-label="${safeName} — ${lang === 'fr' ? 'quantité' : lang === 'en' ? 'quantity' : lang === 'pt' ? 'quantidade' : 'cantidad'}"><button type="button" aria-label="${SELECTION_COPY[lang].decrease}" data-step="-1" disabled>−</button><output aria-live="polite">${disabled ? 0 : 1}</output><button type="button" aria-label="${SELECTION_COPY[lang].increase}" data-step="1" ${remaining <= 1 ? 'disabled' : ''}>+</button></div><button class="add ${selected ? 'selected' : ''}" type="button" aria-label="${addLabel} — ${safeName} · ${safeDose}" data-action="add" ${disabled ? 'disabled' : ''}>${addLabel}</button></div></div></div></article>`;
 }
 
+function updateFormatPrice(select){const card=select.closest('.product-card');if(!card)return;const price=select.value==='pen'?formatPricePlusFifty(card.dataset.price):card.dataset.price;const el=card.querySelector('.product-bottom .price');if(!el)return;el.replaceChildren(document.createTextNode(price));}
 function changePendingQty(button, change) {
  const card = button.closest('.product-card');
  const remaining = remainingQuantity(card.dataset.name);
@@ -257,12 +264,13 @@ function changePendingQty(button, change) {
 }
 function addSelection(button) {
  const card = button.closest('.product-card');
- const item = {name: card.dataset.name, dose: card.dataset.dose, price: card.dataset.price};
+ const format=card.querySelector('.product-format-select')?.value==='pen'?'pen':'vial';
+ const item = {name: card.dataset.name, dose: card.dataset.dose,format,price:format==='pen'?formatPricePlusFifty(card.dataset.price):card.dataset.price};
  const quantity = Number(card.querySelector('.card-quantity output').textContent);
  if (!Number.isSafeInteger(quantity) || quantity < 1 || quantity > remainingQuantity(item.name)) {
   showToast(LIMIT_COPY[pageLanguage()].blocked); return;
  }
- const current = selection.find(entry => entry.name === item.name);
+ const current = selection.find(entry => selectionKey(entry) === selectionKey(item));
  if (current) current.qty += quantity;
  else selection.push({...item, qty: quantity});
  saveSelection(); updateCatalogueStock(); renderSelection();
@@ -274,7 +282,7 @@ function addSelection(button) {
 function saveSelection() { try { localStorage.setItem('scarlSelection', JSON.stringify(selection)); } catch {} }
 function shippingProductSubtotal() {
  if (!stockReady || !selectionAllowed()) return null;
- return selection.reduce((sum,item) => sum + window.ScarlsProducts.byName(item.name).priceCents * item.qty, 0);
+ return selection.reduce((sum,item) => sum + itemPriceCents(item) * item.qty, 0);
 }
 function renderSelection() {
   const lang = pageLanguage();
@@ -306,7 +314,7 @@ function changeQty(index, change) {
 }
 function removeSelection(index) { selection.splice(index, 1); saveSelection(); updateCatalogueStock(); renderSelection(); }
 function clearSelection() { window.ScarlsShipping?.reset(); selection = []; saveSelection(); updateCatalogueStock(); renderSelection(); }
-function selectionText() { const lang = pageLanguage(); return `${SELECTION_COPY[lang].title}\n\n${selection.map(item => `• ${item.name} — ${item.dose} — ${item.price} × ${item.qty || 1}`).join('\n')}\n\n${document.getElementById('selTotal').textContent}${window.ScarlsShipping?.summary() || ''}`; }
+function selectionText() { const lang = pageLanguage(); return `${SELECTION_COPY[lang].title}\n\n${selection.map(item => `• ${item.name} — ${presentationLabel(item.format,lang)} — ${item.dose} — ${item.price} × ${item.qty || 1}`).join('\n')}\n\n${document.getElementById('selTotal').textContent}${window.ScarlsShipping?.summary() || ''}`; }
 async function copySelection() { if (!selection.length || !await prepareSelection()) return; try { await navigator.clipboard.writeText(selectionText()); showToast(SELECTION_COPY[pageLanguage()].copied); } catch (error) { showToast(selectionText()); } }
 async function downloadSelection() { if (!selection.length || !await prepareSelection()) return; const file = new Blob([selectionText()], {type:'text/plain;charset=utf-8'}); const link = document.createElement('a'); link.href = URL.createObjectURL(file); link.download = 'scarls-selection-informative.txt'; link.click(); URL.revokeObjectURL(link.href); }
 async function sendInfoWhatsApp() { if (!selection.length || !await prepareSelection()) return; const lang = pageLanguage(); const text = `${selectionText()}\n\n${lang === 'fr' ? 'Je souhaite obtenir des informations complémentaires sur ces références.' : lang === 'en' ? 'I would like more information about these references.' : lang === 'pt' ? 'Gostaria de obter mais informações sobre estas referências.' : 'Me gustaría obtener más información sobre estas referencias.'}`; window.location.href = `https://wa.me/33664694830?text=${encodeURIComponent(text)}`; }
@@ -366,11 +374,11 @@ function syncSelectionItems(copy=SELECTION_COPY[pageLanguage()]) {
  const focusAction=active?.dataset.action;
  const focusRow=active?.closest?.('[data-reference]');
  const oldIndex=focusRow?Array.from(host.children).indexOf(focusRow):0;
- const existing=new Map(Array.from(host.children).map(row=>[row.dataset.reference,row]));
+ const existing=new Map(Array.from(host.children).map(row=>[row.dataset.key||row.dataset.reference,row]));
  selection.forEach((item,index)=>{
-  let row=existing.get(item.name);
+  let row=existing.get(selectionKey(item));
   if(!row){
-   row=document.createElement('div');row.className='chip';row.dataset.reference=item.name;
+   row=document.createElement('div');row.className='chip';row.dataset.reference=item.name;row.dataset.key=selectionKey(item);
    const label=document.createElement('span');label.className='chip-label';row.append(label);
    const controls=document.createElement('span');controls.className='chip-controls';
    for(const [action,symbol] of [['decrease','−'],['increase','+'],['remove','×']]){
@@ -378,8 +386,8 @@ function syncSelectionItems(copy=SELECTION_COPY[pageLanguage()]) {
    }
    row.append(controls);
   }
-  existing.delete(item.name);
-  row.querySelector('.chip-label').textContent=`${item.name} · ${item.dose} × ${item.qty}`;
+  existing.delete(selectionKey(item));
+  row.querySelector('.chip-label').textContent=`${item.name} · ${presentationLabel(item.format)} · ${item.dose} · ${item.price} × ${item.qty}`;
   row.querySelectorAll('[data-action]').forEach(button=>{button.setAttribute('aria-label',copy[button.dataset.action]+' — '+item.name);button.disabled=button.dataset.action==='increase'&&remainingQuantity(item.name)<1;});
   if(host.children[index]!==row)host.insertBefore(row,host.children[index]||null);
  });
