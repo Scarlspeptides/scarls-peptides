@@ -265,6 +265,38 @@
         "es": "Investigación sobre los sistemas antioxidantes"
       },
       "backdrop": "backdrops/glutathion.webp"
+    },
+    {
+      "id": "melanotan-ii",
+      "name": "Melanotan II",
+      "dose": "10 mg",
+      "group": 5,
+      "priceCents": 6500,
+      "previousPriceCents": null,
+      "image": null,
+      "descriptions": {
+        "fr": "Recherche sur les récepteurs mélanocortines et la pigmentation",
+        "en": "Melanocortin receptor and pigmentation research",
+        "pt": "Investigação sobre recetores de melanocortina e pigmentação",
+        "es": "Investigación sobre receptores de melanocortina y pigmentación"
+      },
+      "backdrop": "glacier-night.webp"
+    },
+    {
+      "id": "hgh-24iu",
+      "name": "HGH",
+      "dose": "24 UI",
+      "group": 6,
+      "priceCents": 6000,
+      "previousPriceCents": null,
+      "image": null,
+      "descriptions": {
+        "fr": "Recherche sur l’hormone de croissance et la signalisation GH",
+        "en": "Growth hormone and GH signaling research",
+        "pt": "Investigação sobre a hormona do crescimento e sinalização GH",
+        "es": "Investigación sobre hormona del crecimiento y señalización GH"
+      },
+      "backdrop": "glacier-night.webp"
     }
   ]
 }
