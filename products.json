@@ -241,7 +241,7 @@
       "group": 6,
       "priceCents": 4000,
       "previousPriceCents": 5000,
-      "image": null,
+      "image": "assets/vials/dsip.svg",
       "descriptions": {
         "fr": "Recherche en neurobiologie du sommeil",
         "en": "Sleep neurobiology research",
@@ -273,7 +273,7 @@
       "group": 5,
       "priceCents": 6500,
       "previousPriceCents": null,
-      "image": null,
+      "image": "assets/vials/melanotan-ii.svg",
       "descriptions": {
         "fr": "Recherche sur les récepteurs mélanocortines et la pigmentation",
         "en": "Melanocortin receptor and pigmentation research",
@@ -289,7 +289,7 @@
       "group": 6,
       "priceCents": 6000,
       "previousPriceCents": null,
-      "image": null,
+      "image": "assets/vials/hgh-24iu.svg",
       "descriptions": {
         "fr": "Recherche sur l’hormone de croissance et la signalisation GH",
         "en": "Growth hormone and GH signaling research",
