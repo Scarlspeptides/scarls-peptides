@@ -10,10 +10,6 @@
 (function(root){
  const api=root.ScarlsProducts;
  const fallback='glacier-night.webp';
- const STATIC_ONLY_IDS=new Set(['melanotan-ii','hgh-24iu']);
- const staticOnlyProducts=api.items.filter(item=>STATIC_ONLY_IDS.has(item.id)).map(item=>({...item}));
- const VIAL_IMAGES=Object.freeze({"dsip":"assets/vials/dsip.svg","melanotan-ii":"assets/vials/melanotan-ii.svg","hgh-24iu":"assets/vials/hgh-24iu.svg"});
-
  const backdropPool=[1,2,3,4].map(n=>`backdrops/reserve-glacier-${n}.webp`);
  const curated=new Map(api.items.filter(p=>p.backdrop).map(p=>[p.id,p.backdrop]));
  function backdropFor(item,groups){
@@ -42,15 +38,7 @@
    if(!snapshot||!Array.isArray(snapshot.items)||!Array.isArray(snapshot.groups)||!snapshot.stock||typeof snapshot.stock!=='object')throw Error('Invalid catalogue');
    if(!snapshot.groups.every(g=>g&&g.labels&&['fr','en','pt','es'].every(l=>typeof g.labels[l]==='string')))throw Error('Invalid groups');
    if(!snapshot.items.every(p=>p&&typeof p.id==='string'&&typeof p.name==='string'&&typeof p.dose==='string'&&Number.isInteger(p.group)&&p.group>=0&&p.group<snapshot.groups.length&&Number.isSafeInteger(p.priceCents)&&p.priceCents>=0&&Number.isSafeInteger(snapshot.stock[p.name])&&snapshot.stock[p.name]>=0&&p.descriptions&&['fr','en','pt','es'].every(l=>typeof p.descriptions[l]==='string')&&(!p.image||p.image.startsWith('https://'))))throw Error('Invalid products');
-   // Preserve catalogue references not yet synced into the admin database.
-   // Zero stock prevents claiming availability before admin explicitly enables them.
-   for(const item of staticOnlyProducts){
-    if(!snapshot.items.some(remote=>remote.id===item.id)){
-     snapshot.items.push({...item});
-     snapshot.stock[item.name]=0;
-    }
-   }
-   snapshot.items=snapshot.items.map(item=>withBackdrop({...item,image:VIAL_IMAGES[item.id]||item.image},snapshot.groups));
+   snapshot.items=snapshot.items.map(item=>withBackdrop(item,snapshot.groups));
    const catalogue=JSON.stringify({groups:snapshot.groups,items:snapshot.items.map(({quantity,...p})=>p)});
    const changed=catalogue!==lastCatalogue;
    // Keep array references used by the generated catalogue methods.
