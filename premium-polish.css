@@ -1,0 +1,24 @@
+/* Premium polish: restrained contrast, tactile navigation, accessible interactions */
+:root{--premium-focus:#9ce9fb}
+html{scroll-behavior:smooth}
+body.catalogue-page{font-feature-settings:"kern" 1;text-rendering:optimizeLegibility}
+.catalogue-page .page-hero .container{padding-top:clamp(32px,5vw,72px);padding-bottom:clamp(24px,4vw,48px)}
+.catalogue-page .display-title{letter-spacing:-.045em;line-height:1.06;text-wrap:balance}
+.catalogue-page .page-hero p{max-width:720px;line-height:1.7}
+.catalogue-page .product-card{isolation:isolate;backface-visibility:hidden}
+.catalogue-page .product-name{letter-spacing:-.025em;line-height:1.22}
+.catalogue-page .product-card .product-use{line-height:1.55}
+.catalogue-page .product-card .product-image img{transition:transform .35s ease}
+@media(hover:hover){.catalogue-page .product-card:hover .product-image img{transform:scale(1.025)}}
+.catalogue-page .product-card button,.catalogue-page .product-card select,.catalogue-page .category-browser button{touch-action:manipulation}
+.catalogue-page button:focus-visible,.catalogue-page select:focus-visible,.catalogue-page a:focus-visible{outline:2px solid var(--premium-focus)!important;outline-offset:3px}
+.catalogue-page .product-format-select{max-width:100%;min-height:44px}
+.catalogue-page .product-card .add{transition:background-color .2s ease,transform .2s ease}
+@media(hover:hover){.catalogue-page .product-card .add:not(:disabled):hover{transform:translateY(-1px)}}
+.catalogue-page .product-card .add:disabled{cursor:not-allowed;opacity:.55}
+.catalogue-page .product-group{scroll-margin-top:95px}
+.catalogue-page #selection.is-open{backdrop-filter:blur(18px)}
+.catalogue-page #selection:not(.is-open){pointer-events:none!important}
+.catalogue-page #selection:not(.is-open) #selectionToggle{pointer-events:auto!important}
+@media(max-width:760px){.catalogue-page .page-hero .container{padding-top:26px;padding-bottom:22px}.catalogue-page .product-group{scroll-margin-top:70px}.catalogue-page #selection.is-open{max-height:min(72dvh,600px)!important}.catalogue-page #selection.is-open #selectionDetails{overscroll-behavior:contain}.catalogue-page .product-card .product-use{line-height:1.45}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.catalogue-page .product-image img,.catalogue-page .product-card,.catalogue-page .product-card .add{transition:none!important;transform:none!important}}
