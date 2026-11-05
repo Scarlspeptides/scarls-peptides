@@ -1,0 +1,24 @@
+/* Scarl's art direction — Glacier Night / editorial v2 */
+body.catalogue-page{--glacier-accent:#8bd7e8;--glacier-ink:#e8f4f8;background-color:#071522!important}
+body.catalogue-page::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(circle at 8% 15%,#7cd3ea0a 0,transparent 34%),radial-gradient(circle at 85% 75%,#7cd3ea08 0,transparent 38%)}
+.catalogue-page main,.catalogue-page footer,.catalogue-page .site-header{position:relative}
+.catalogue-page .site-header{backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid #a3d8e51c}
+.catalogue-page .page-hero .eyebrow{letter-spacing:.17em;text-transform:uppercase;font-size:11px;color:#9ad9e7}
+.catalogue-page .page-hero .display-title{max-width:15ch;letter-spacing:-.052em}
+.catalogue-page .product-group{border-color:#b7e3ee16!important;background:linear-gradient(145deg,#18394a25,#071a2b18)!important;box-shadow:none!important}
+.catalogue-page .product-card{border-color:#c0e3ed24!important;background:linear-gradient(155deg,#132b3b,#0a1c2b)!important}
+.catalogue-page .product-card:hover{border-color:#8bcfd35a!important}
+.catalogue-page .product-card .product-content{padding-bottom:clamp(16px,2vw,22px)}
+.catalogue-page .product-card .product-name{color:#f0f8fb;font-weight:700}
+.catalogue-page .product-card .product-dose{color:#a8cad7;font-weight:500}
+.catalogue-page .product-card .stock-badge{border-radius:999px}
+.catalogue-page .product-format-label{color:#bad7e2;letter-spacing:.01em}
+.catalogue-page .product-format-select{background-color:#0b2637;border:1px solid #9ac8d245;border-radius:12px;box-shadow:inset 0 1px #ffffff08}
+.catalogue-page .simulator-entry{border-color:#9cdaea2e;background:linear-gradient(105deg,#14384a99,#081b2caa);box-shadow:0 12px 36px #0002}
+.catalogue-page .simulator-entry a{transition:filter .2s,transform .2s}
+@media(hover:hover){.catalogue-page .simulator-entry a:hover{filter:brightness(1.08);transform:translateY(-1px)}}
+.catalogue-page .category-browser{border-radius:17px}
+.catalogue-page .product-grid{align-items:stretch}
+.catalogue-page #selection.selection.show:not(.is-open){isolation:isolate}
+@media(max-width:760px){.catalogue-page .site-header{z-index:70}.catalogue-page .page-hero .display-title{font-size:clamp(35px,10vw,56px)}.catalogue-page .product-group{padding:14px 9px 18px!important}.catalogue-page .product-card{box-shadow:0 5px 22px #0003!important}.catalogue-page .product-card .product-content{padding-left:12px;padding-right:12px}.catalogue-page .product-format-select{font-size:12px;padding-left:8px}.catalogue-page .simulator-entry{border-radius:15px}}
+@media(prefers-reduced-motion:reduce){.catalogue-page *{scroll-behavior:auto!important}}
