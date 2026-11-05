@@ -56,3 +56,6 @@ body.catalogue-page #selection:not(.is-open) #selectionDetails,body.catalogue-pa
 body.catalogue-page #selection.is-open{position:fixed!important;display:flex!important;flex-direction:column!important;left:12px!important;right:12px!important;top:auto!important;bottom:calc(12px + env(safe-area-inset-bottom,0px))!important;width:auto!important;max-height:min(72dvh,600px)!important;padding:0!important;overflow:hidden!important;z-index:105!important}
 body.catalogue-page #selection.is-open #selectionDetails{overflow-y:auto!important;max-height:none!important;min-height:0!important;flex:1 1 auto!important}
 }
+
+/* v6: keep the floating cart clear of the chatbot, including on narrow phones. */
+@media(max-width:760px){body.catalogue-page #selection.selection.show:not(.is-open){right:auto!important;left:12px!important;bottom:calc(16px + env(safe-area-inset-bottom,0px))!important;z-index:64!important}body.catalogue-page #selection.is-open{z-index:110!important}}
