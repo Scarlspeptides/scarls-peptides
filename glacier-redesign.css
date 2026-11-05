@@ -1,0 +1,41 @@
+/* Glacier Night visual refresh — preserves existing product artwork and mascot assets. */
+:root{--bg:#030d19;--bg-soft:#071a2d;--surface:#09213a;--surface-strong:#0d2d48;--ink:#f6fbff;--muted:#a9c5d7;--line:#234963;--line-strong:#3677a0;--blue:#56d7ff;--ice:#71ddff;--radius:16px;--shadow:0 16px 48px #0008}
+body{background:radial-gradient(ellipse at 55% 0%,#0b3553 0%,#030d19 54%);background-attachment:fixed}
+.site-header{background:#03111deF;backdrop-filter:blur(20px);border-bottom:1px solid #2d739455}
+.header-in{width:min(1400px,calc(100% - 48px));min-height:68px;padding-block:6px}
+.brand{font-weight:800;letter-spacing:-.02em;font-size:14px}
+.main-nav a.current{color:#fff;text-decoration:none;text-shadow:0 0 18px #4ed5ff;box-shadow:inset 0 -2px #5ad8ff}
+.lang.active{color:#8be9ff}
+.container{width:min(1380px,calc(100% - 56px))}
+.button,.sel-btn{border-radius:999px;border-color:#5bcff8;background:linear-gradient(135deg,#a2eeff,#27bbf4);color:#03121e;box-shadow:0 0 24px #00bfff55;transition:transform .2s,box-shadow .2s}
+.button:hover,.sel-btn:hover{transform:translateY(-2px);box-shadow:0 0 35px #00c8ff88;background:#a2eeff}
+.collection-hero{background:linear-gradient(90deg,#03101ce8,#071c2d88),url('glacier-night.webp') center/cover}
+.collection-layout{min-height:610px;gap:40px;padding-block:32px}
+.hero-copy h1{font-size:clamp(54px,6.3vw,90px);font-weight:800;letter-spacing:-.055em}
+.hero-copy h1 em{color:#79dbff}
+.hero-description{color:#e0eff8}
+.vial-scene{height:450px;border-radius:24px;border-color:#4acaff55;box-shadow:0 0 55px #08baff25;background-position:center}
+.scene-image{filter:drop-shadow(0 20px 24px #000b)}
+.scene-arrow{border-radius:50%;border-color:#65c8ed}
+.vial-choice.active{color:#84e5ff}
+.scene-caption{border-color:#4e97b766}
+.reference-photo{background:linear-gradient(180deg,#0c2a43,#030f1f);border:1px solid #2e6b8a;border-radius:20px;box-shadow:0 15px 35px #0006;overflow:hidden}
+.reference-photo img{transition:transform .35s}
+.reference:hover .reference-photo img{transform:scale(1.06)}
+.reference-name h3{font-weight:700}
+.catalogue-page .page-hero{padding:44px 0 24px;background:radial-gradient(ellipse at 50% 0%,#0e3755,#04111e 70%)}
+.catalogue-page .display-title{font-weight:800}
+.catalogue-search{border-radius:999px!important;background:#0a2136!important;border:1px solid #315b76!important}
+.category-browser{border-radius:16px!important}
+.product-grid{gap:18px!important}
+.product-card{overflow:hidden;border:1px solid #285979!important;border-radius:18px!important;background:linear-gradient(160deg,#0b2439,#041321)!important;box-shadow:0 12px 30px #0005;transition:transform .25s,border-color .25s,box-shadow .25s}
+.product-card:hover{transform:translateY(-5px);border-color:#63d9ff!important;box-shadow:0 14px 36px #008fff30}
+.product-image{background-image:linear-gradient(180deg,#06152422,#02101d88),var(--vial-backdrop)!important;background-position:center!important;background-size:cover!important}
+.product-image img{filter:drop-shadow(0 10px 15px #0009);transition:transform .3s}
+.product-card:hover .product-image img{transform:scale(1.05)}
+.product-content{background:linear-gradient(180deg,#071a2b,#04111f)}
+.product-name{color:#fff}
+.price{color:#f8fcff;font-weight:800}
+.mascot-guide,.mascot-pose,.mascot-speech{position:relative;z-index:3}
+@media(max-width:760px){.container{width:calc(100% - 32px)}.header-in{width:calc(100% - 28px)}.collection-layout{min-height:0;padding-block:26px;gap:16px}.hero-copy h1{font-size:clamp(48px,12vw,68px)}.vial-scene{height:340px;border-radius:20px}.hero-copy{padding-block:14px}.product-grid{gap:12px!important}.product-card{border-radius:14px!important}}
+@media(prefers-reduced-motion:reduce){.product-card,.reference-photo img{transition:none!important}}
