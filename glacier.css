@@ -71,7 +71,7 @@ footer { background:#080d11; }
 .product-card.is-consumable .product-image,
 #previewBody.is-consumable .consumable-photo {
  display:grid; place-items:center;
- background:radial-gradient(ellipse at center,#aebdbf 0%,#576d77 46%,#142430 78%,#0b1722 100%);
+ background:#07131d url('backdrops/consumables-glacier.webp') center 58% / cover no-repeat;
 }
 .product-card.is-consumable .product-preview-trigger {
  display:grid; place-items:center;
