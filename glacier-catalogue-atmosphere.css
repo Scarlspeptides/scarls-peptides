@@ -1,0 +1,17 @@
+/* Glacier Night: softer backdrop and clearer separation from catalogue cards. */
+body.catalogue-page{background:#071521!important;background-image:radial-gradient(ellipse 85% 45% at 50% 0%,#1746638a,transparent 80%),radial-gradient(ellipse 70% 40% at 95% 55%,#123f5755,transparent 85%),linear-gradient(180deg,#091c2c 0%,#06131f 45%,#0a1b29 100%)!important;background-attachment:fixed!important}
+.catalogue-page .page-hero{background:transparent!important}
+.catalogue-page .catalogue-section{background:transparent!important}
+.catalogue-page .catalogue-section .container{position:relative}
+.catalogue-page .product-group{padding:22px 20px 26px;border:1px solid #7ebbd019;border-radius:24px;background:linear-gradient(155deg,#14344a3b,#06152224);box-shadow:0 14px 42px #0002}
+.catalogue-page .group-heading{padding-bottom:14px;border-bottom:1px solid #9dc9d122}
+.catalogue-page .product-card{overflow:hidden;border:1px solid #9ccfdd2d!important;border-radius:19px!important;background:linear-gradient(155deg,#132c3b,#0b1b29)!important;box-shadow:0 8px 28px #0003!important;transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease}
+.catalogue-page .product-card:hover{transform:translateY(-3px);border-color:#8bd6e577!important;box-shadow:0 15px 35px #0005!important}
+.catalogue-page .product-image{background-color:#102b3c!important;background-blend-mode:normal}
+.catalogue-page .product-content{background:linear-gradient(180deg,#102535,#0b1b29)!important}
+.catalogue-page .product-use{color:#b5cbd7!important}
+.catalogue-page .category-browser{border-color:#79b9cd39!important;background:#0b2334db!important;box-shadow:0 10px 32px #0003}
+.catalogue-page .catalogue-search{background:#0a2432aa!important;border:1px solid #8bc2d044!important;border-radius:14px!important;padding:0 14px!important}
+.catalogue-page .catalogue-search input{min-height:48px!important}
+@media(max-width:760px){.catalogue-page .product-group{padding:16px 10px 18px;border-radius:19px;margin-inline:-4px}.catalogue-page .product-grid{gap:10px}.catalogue-page .product-card{border-radius:15px!important}.catalogue-page .product-image{border-radius:12px 12px 0 0}.catalogue-page .group-heading{padding-inline:4px}}
+@media(prefers-reduced-motion:reduce){.catalogue-page .product-card{transition:none}}
