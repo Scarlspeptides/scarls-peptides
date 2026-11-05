@@ -1,3 +1,8 @@
+function formatPricePlusFifty(price){
+ const numeric=Number(String(price).replace(/[^0-9,.-]/g,'').replace(',','.'));
+ if(!Number.isFinite(numeric))return price;
+ return (numeric+50).toLocaleString('fr-FR',{maximumFractionDigits:2})+' €';
+}
 const escapeCatalogue = window.ScarlsProducts.escapeHTML;
 const CATALOGUE = Object.fromEntries(["fr","en","pt","es"].map(lang => [lang, window.ScarlsProducts.catalogue(lang)]));
 const IMAGE_MAP = Object.fromEntries(window.ScarlsProducts.items.filter(item => item.image).map(item => [item.name,item.image]));
@@ -230,7 +235,8 @@ function renderProduct(product, lang) {
     ? `<img src="${escapeCatalogue(IMAGE_MAP[name])}" alt="${safeName} — ${safeDose}" width="800" height="915" loading="lazy" decoding="async">`
     : `<div class="product-image-pending"><strong>${safeName}</strong><span>${safeDose}</span><small>${{fr:'Visuel à venir',en:'Image coming soon',pt:'Imagem em breve',es:'Imagen próximamente'}[lang]}</small></div>`;
   const formatCopy={fr:['Présentation','Fiole lyophilisée','Stylo classique'],en:['Presentation','Lyophilized vial','Standard pen'],pt:['Apresentação','Frasco liofilizado','Caneta padrão'],es:['Presentación','Vial liofilizado','Pluma estándar']}[lang];
-  const formatMarkup = /glutathion/i.test(name) ? '' : `<label class="product-format-label">${formatCopy[0]}<select class="product-format-select" aria-label="${formatCopy[0]} — ${safeName}"><option value="vial">${formatCopy[1]}</option><option value="pen">${formatCopy[2]}</option></select></label>`;
+  const formatMarkup = /glutathion/i.test(name) ? '' : `<label class="product-format-label">${formatCopy[0]}<select class="product-format-select" aria-label="${formatCopy[0]} — ${safeName}"><option value="vial">${formatCopy[1]} · ${price}</option><option value="pen">${formatCopy[2]} · ${formatPricePlusFifty(price)}</option></select></label>`;
+
   const selected = selection.some(item => item.name === name);
   const remaining = remainingQuantity(name);
   const disabled = remaining < 1;
