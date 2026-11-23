@@ -34,6 +34,39 @@
     .vinted-profile-link span{font-size:19px}
     @media(max-width:600px){.vinted-profile-section{padding:8px 0 46px}.vinted-profile-card{grid-template-columns:92px minmax(0,1fr);gap:14px;padding:18px 15px;border-radius:13px;min-height:0}.vinted-mascot{height:118px;width:92px;background-size:400% 300%}.vinted-profile-copy .eyebrow{font-size:8px;margin-bottom:8px}.vinted-profile-copy h2{font-size:23px}.vinted-profile-copy>p:not(.eyebrow){font-size:12px;margin:10px 0 14px}.vinted-profile-link{min-height:43px;padding:0 11px;gap:8px;font-size:11px}}
     @media(prefers-reduced-motion:reduce){.vinted-profile-link{transition:none}}
+
+    /* Vinted profile feature — stronger mascot-led glacier card */
+    .home-page .vinted-profile-section{padding:34px 0 76px}
+    .home-page .vinted-profile-card{
+      grid-template-columns:minmax(190px,290px) minmax(0,1fr);
+      gap:clamp(26px,5vw,64px);min-height:300px;padding:clamp(28px,5vw,54px);
+      border:1px solid rgba(132,218,246,.38);border-radius:24px;
+      background:radial-gradient(ellipse at 18% 50%,rgba(72,183,222,.25),transparent 48%),linear-gradient(120deg,#102b3c 0%,#0b1b2a 58%,#08131f 100%);
+      box-shadow:0 26px 76px rgba(0,0,0,.32),inset 0 1px 0 rgba(220,246,255,.08)
+    }
+    .home-page .vinted-mascot{
+      width:100%;height:240px;background-image:url('assets/mascot/scarls-poses.png?v=20261123vinted');
+      background-size:400% 300%;background-position:0 0;filter:drop-shadow(0 16px 24px rgba(0,0,0,.42))
+    }
+    .home-page .vinted-profile-copy .eyebrow{color:#78d8f5;font-size:11px;letter-spacing:.2em}
+    .home-page .vinted-profile-copy h2{font-size:clamp(30px,4vw,46px);color:#f0f8fc}
+    .home-page .vinted-profile-copy>p:not(.eyebrow){max-width:48ch;color:#bfd2dc;font-size:15px}
+    .home-page .vinted-profile-link{
+      min-height:52px;padding:0 21px;border-radius:999px;border-color:#8ee4fb;
+      background:linear-gradient(135deg,#b9efff,#67d5f2);color:#071a27;
+      font-size:14px;font-weight:700;box-shadow:0 8px 28px rgba(52,183,225,.2)
+    }
+    .home-page .vinted-profile-link:hover{background:#e0f8ff;transform:translateY(-2px)}
+    @media(max-width:600px){
+      .home-page .vinted-profile-section{padding:18px 0 48px}
+      .home-page .vinted-profile-card{grid-template-columns:100px minmax(0,1fr);gap:14px;padding:20px 15px;min-height:0;border-radius:17px}
+      .home-page .vinted-mascot{width:100px;height:132px;background-size:400% 300%}
+      .home-page .vinted-profile-copy .eyebrow{font-size:8px;letter-spacing:.13em;margin-bottom:8px}
+      .home-page .vinted-profile-copy h2{font-size:clamp(22px,6vw,28px);line-height:1.12}
+      .home-page .vinted-profile-copy>p:not(.eyebrow){font-size:12px;line-height:1.5;margin:9px 0 13px}
+      .home-page .vinted-profile-link{min-height:43px;padding:0 12px;gap:8px;font-size:11px}
+    }
+
   </style>
 
 </head>
