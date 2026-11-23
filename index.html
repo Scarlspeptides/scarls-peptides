@@ -67,6 +67,11 @@
       .home-page .vinted-profile-link{min-height:43px;padding:0 12px;gap:8px;font-size:11px}
     }
 
+  
+    /* Keep the external profile visible immediately below the header */
+    .home-page .vinted-profile-section{padding:22px 0 30px}
+    .home-page .vinted-profile-card{min-height:260px}
+    @media(max-width:600px){.home-page .vinted-profile-section{padding:12px 0 20px}.home-page .vinted-profile-card{min-height:0}}
   </style>
 
 </head>
@@ -79,6 +84,18 @@
  </div></header>
   <main id="main">
     <aside class="catalogue-announcement" aria-labelledby="announcementTitle"><div class="container announcement-inner"><strong id="announcementTitle" data-copy="announcementTitle">Nouveau prix, grand stock !</strong></div></aside>
+<section class="vinted-profile-section" aria-labelledby="vintedProfileTitle">
+      <div class="container vinted-profile-card">
+        <div class="vinted-mascot" role="img" aria-label="Mascotte pingouin Scarl’s"></div>
+        <div class="vinted-profile-copy">
+          <p class="eyebrow" data-vinted="eyebrow">SCARL’S / PROFIL EXTERNE</p>
+          <h2 id="vintedProfileTitle" data-vinted="title">Retrouvez notre profil Vinted.</h2>
+          <p data-vinted="description">Consultez directement le profil et les informations qui y sont publiées.</p>
+          <a class="vinted-profile-link" href="https://www.vinted.fr/member/3198669914-scarlpep" target="_blank" rel="noopener noreferrer"><span data-vinted="button">Voir le profil Vinted</span><span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+
     <section class="collection-hero">
       <div class="container collection-layout">
         <div class="hero-copy">
@@ -108,17 +125,6 @@
         <div class="glacier-trust-item"><span class="glacier-trust-icon" aria-hidden="true">♢</span><span>Qualité contrôlée</span></div>
         <div class="glacier-trust-item"><span class="glacier-trust-icon" aria-hidden="true">❄</span><span>Conservation sécurisée</span></div>
         <div class="glacier-trust-item"><span class="glacier-trust-icon" aria-hidden="true">➜</span><span>Expédition rapide et discrète</span></div>
-      </div>
-    </section>
-    <section class="vinted-profile-section" aria-labelledby="vintedProfileTitle">
-      <div class="container vinted-profile-card">
-        <div class="vinted-mascot" role="img" aria-label="Mascotte pingouin Scarl’s"></div>
-        <div class="vinted-profile-copy">
-          <p class="eyebrow">SCARL’S / PROFIL EXTERNE</p>
-          <h2 id="vintedProfileTitle">Retrouvez notre profil Vinted.</h2>
-          <p>Consultez directement le profil et les informations qui y sont publiées.</p>
-          <a class="vinted-profile-link" href="https://www.vinted.fr/member/3198669914-scarlpep" target="_blank" rel="noopener noreferrer">Consulter le profil Vinted <span aria-hidden="true">↗</span></a>
-        </div>
       </div>
     </section>
     <section class="reference-section" id="references"><div class="container">
