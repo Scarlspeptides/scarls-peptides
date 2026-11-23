@@ -68,6 +68,25 @@
     }
 
   
+    /* Vinted card sizing inside the hero copy column */
+    .home-page .hero-copy > .vinted-profile-section{width:100%;max-width:100%;margin:24px 0 0;padding:0}
+    .home-page .hero-copy > .vinted-profile-section > .vinted-profile-card{
+      width:100%;max-width:100%;margin:0;box-sizing:border-box;
+      grid-template-columns:minmax(96px,130px) minmax(0,1fr);
+      gap:20px;min-height:0;padding:20px 22px;border-radius:16px
+    }
+    .home-page .hero-copy > .vinted-profile-section .vinted-mascot{width:100%;height:128px}
+    .home-page .hero-copy > .vinted-profile-section .vinted-profile-copy h2{font-size:clamp(21px,2.2vw,29px);line-height:1.16}
+    .home-page .hero-copy > .vinted-profile-section .vinted-profile-copy>p:not(.eyebrow){font-size:12px;line-height:1.5;margin:8px 0 12px}
+    .home-page .hero-copy > .vinted-profile-section .vinted-profile-link{min-height:40px;padding:0 14px;font-size:12px}
+    @media(max-width:600px){
+      .home-page .hero-copy > .vinted-profile-section{margin-top:18px}
+      .home-page .hero-copy > .vinted-profile-section > .vinted-profile-card{grid-template-columns:76px minmax(0,1fr);gap:12px;padding:15px 13px}
+      .home-page .hero-copy > .vinted-profile-section .vinted-mascot{width:76px;height:104px}
+      .home-page .hero-copy > .vinted-profile-section .vinted-profile-copy h2{font-size:20px}
+      .home-page .hero-copy > .vinted-profile-section .vinted-profile-copy>p:not(.eyebrow){font-size:11px}
+    }
+
     /* Keep the external profile visible immediately below the header */
     .home-page .vinted-profile-section{padding:22px 0 30px}
     .home-page .vinted-profile-card{min-height:260px}
@@ -94,7 +113,7 @@
           <p class="hero-description" data-copy="lead">Explorez les références. Trouvez votre format. Composez votre sélection.</p>
           <a class="button" href="produits.html" aria-label="Explorer les références du catalogue"><span data-copy="catalogue">Explorer le catalogue</span></a>
 <section class="vinted-profile-section" aria-labelledby="vintedProfileTitle">
-      <div class="container vinted-profile-card">
+      <div class="vinted-profile-card">
         <div class="vinted-mascot" role="img" aria-label="Mascotte pingouin Scarl’s"></div>
         <div class="vinted-profile-copy">
           <p class="eyebrow" data-vinted="eyebrow">SCARL’S / PROFIL EXTERNE</p>
