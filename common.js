@@ -23,6 +23,21 @@ const FOOT = {
   es: 'Vitrina informativa · Solo investigación · No destinado a uso humano ni animal'
 };
 
+
+const VINTED_COPY = {
+  fr: {eyebrow:"SCARL’S / PROFIL EXTERNE", title:"Retrouvez notre profil Vinted.", description:"Consultez notre profil et les informations qui y sont publiées.", button:"Voir le profil Vinted"},
+  en: {eyebrow:"SCARL’S / EXTERNAL PROFILE", title:"Find us on Vinted.", description:"Visit our profile and view the information published there.", button:"View Vinted profile"},
+  pt: {eyebrow:"SCARL’S / PERFIL EXTERNO", title:"Encontre-nos no Vinted.", description:"Consulte o nosso perfil e as informações publicadas.", button:"Ver perfil Vinted"},
+  es: {eyebrow:"SCARL’S / PERFIL EXTERNO", title:"Encuéntranos en Vinted.", description:"Consulta nuestro perfil y la información publicada allí.", button:"Ver perfil de Vinted"}
+};
+function applyVintedCopy(lang) {
+  const copy = VINTED_COPY[lang] || VINTED_COPY.fr;
+  document.querySelectorAll("[data-vinted]").forEach(node => {
+    const key = node.dataset.vinted;
+    if (copy[key]) node.textContent = copy[key];
+  });
+}
+
 function currentLang() { try { const lang = localStorage.getItem('scarlLang'); return NAV[lang] ? lang : 'fr'; } catch { return document.documentElement.lang || 'fr'; } }
 
 function updateMenu(open) {
@@ -45,6 +60,7 @@ function applyNav(lang) {
   document.querySelectorAll('.main-nav a').forEach((link, index) => { link.textContent = NAV[language][index]; if (link.classList.contains('current')) link.setAttribute('aria-current', 'page'); });
   document.querySelectorAll('.footer-in .legal-links a').forEach((link,index)=>{link.textContent=FOOTER_LINKS[language][index];link.lang=language;});
   document.querySelectorAll('.footer-contact').forEach(link=>link.textContent={fr:'Contact',en:'Contact',pt:'Contacto',es:'Contacto'}[language]);
+  applyVintedCopy(language);
   const footer = document.getElementById('footerText');
   if (footer) footer.textContent = FOOT[language];
   document.querySelectorAll('.lang').forEach((button) => {
